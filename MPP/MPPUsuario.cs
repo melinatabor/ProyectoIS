@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace MPP
 {
-    public class MPPClass
+    public class MPPUsuario
     {
+
     }
 }

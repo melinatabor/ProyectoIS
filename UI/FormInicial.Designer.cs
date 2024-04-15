@@ -28,20 +28,34 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.btnAlta = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // Form1
+            // btnAlta
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
+            this.btnAlta.Location = new System.Drawing.Point(248, 54);
+            this.btnAlta.Name = "btnAlta";
+            this.btnAlta.Size = new System.Drawing.Size(87, 33);
+            this.btnAlta.TabIndex = 0;
+            this.btnAlta.Text = "Agregar";
+            this.btnAlta.UseVisualStyleBackColor = true;
+            // 
+            // FormInicial
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Name = "Form1";
+            this.ClientSize = new System.Drawing.Size(400, 234);
+            this.Controls.Add(this.btnAlta);
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Name = "FormInicial";
             this.Text = "FormInicial";
             this.ResumeLayout(false);
 
         }
 
         #endregion
+
+        private System.Windows.Forms.Button btnAlta;
     }
 }
 
