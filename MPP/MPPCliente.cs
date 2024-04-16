@@ -1,6 +1,7 @@
 ﻿using BE;
 using DAL;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,8 +15,15 @@ namespace MPP
         {
             try
             {
-                string query = $"INSERT INTO Cliente (Id, Nombre, Apellido, Email) VALUES ({cliente.Id}, '{cliente.Nombre}', '{cliente.Apellido}', '{cliente.Email}'";
-                return Acceso.ExecuteNonQuery(query);
+                Hashtable parametros = new Hashtable();
+               
+                string query = "INSERT INTO Cliente (Nombre, Apellido, Email) VALUES (@Nombre, @Apellido, @Email)";
+
+                parametros.Add("@Nombre", cliente.Nombre);
+                parametros.Add("@Apellido", cliente.Apellido);
+                parametros.Add("@Email", cliente.Email);
+
+                return Acceso.ExecuteNonQuery(query, parametros);
             }
             catch (Exception ex)
             {

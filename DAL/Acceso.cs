@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
@@ -10,7 +12,7 @@ namespace DAL
 {
     public class Acceso
     {
-        private static SqlConnection _connection = new SqlConnection("Data Source=DESKTOP-BEA1EQV\\SQLEXPRESS;Initial Catalog=ProyectoIS;Integrated Security=True");
+        private static SqlConnection _connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ProyectoIS"].ConnectionString);
         private static SqlCommand _command;
         private static SqlTransaction _transaction;
 
@@ -35,16 +37,26 @@ namespace DAL
             return table;
         }
 
-        public static bool ExecuteNonQuery(string query)
+        public static bool ExecuteNonQuery(string query, Hashtable parametros)
         {
             try
             {
                 _connection.Open();
-                _transaction = _connection.BeginTransaction();
-                _command = new SqlCommand(query, _connection);
 
+                _transaction = _connection.BeginTransaction();
+                
+                _command = new SqlCommand(query, _connection);
                 _command.CommandType = CommandType.Text;
                 _command.Transaction = _transaction;
+
+                if (parametros != null)
+                {
+                    foreach (string param in parametros.Keys)
+                    {
+                        _command.Parameters.AddWithValue(param, parametros[param]);
+                    }
+                }
+
                 _command.ExecuteNonQuery();
 
                 _transaction.Commit();
@@ -58,7 +70,7 @@ namespace DAL
             }
             finally
             {
-                if(_connection.State != ConnectionState.Closed) _connection.Close();
+                if (_connection.State != ConnectionState.Closed) _connection.Close();
             }
         }
 
