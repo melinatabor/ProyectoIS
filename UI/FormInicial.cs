@@ -1,4 +1,6 @@
-﻿using System;
+﻿using BE;
+using BLL;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -15,6 +17,22 @@ namespace UI
         public FormInicial()
         {
             InitializeComponent();
+        }
+
+        private void btnAlta_Click(object sender, EventArgs e)
+        {
+            Prueba();
+        }
+
+        private void Prueba()
+        {
+            BECliente c = new BECliente()
+            {
+                Nombre      = "Nombre Test",
+                Apellido    = "Apellido Test",
+                Email       = "Email Test",
+            };
+            BLLCliente.Agregar(c);
         }
     }
 }
