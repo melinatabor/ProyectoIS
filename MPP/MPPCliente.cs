@@ -2,10 +2,6 @@
 using DAL;
 using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MPP
 {
@@ -17,7 +13,7 @@ namespace MPP
             {
                 Hashtable parametros = new Hashtable();
                
-                string query = "INSERT INTO Cliente (Nombre, Apellido, Email) VALUES (@Nombre, @Apellido, @Email)";
+                string query = "INSERT INTO Usuario (Nombre, Apellido, Email) VALUES (@Nombre, @Apellido, @Email)";
 
                 parametros.Add("@Nombre", cliente.Nombre);
                 parametros.Add("@Apellido", cliente.Apellido);
