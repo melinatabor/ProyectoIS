@@ -12,11 +12,6 @@ namespace UI
             InitializeComponent();
         }
 
-        private void btnAlta_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void btnTestAgregar_Click(object sender, EventArgs e)
         {
             Prueba();
@@ -26,16 +21,16 @@ namespace UI
         {
             try
             {
-                BECliente c = new BECliente()
+                BEUsuario usuario = new BEUsuario()
                 {
                     Nombre   = "Nombre Test",
                     Apellido = "Apellido Test",
                     Email    = "Email Test",
                 };
 
-                BLLCliente.Agregar(c);
+                BLLUsuario.Agregar(usuario);
 
-                MessageBox.Show($"Nuevo usuario creado: {c.Nombre} {c.Apellido}", "Usuario Creado", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show($"Nuevo usuario creado: {usuario.Nombre} {usuario.Apellido}", "Usuario Creado", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception)
             {
