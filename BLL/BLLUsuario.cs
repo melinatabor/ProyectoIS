@@ -1,5 +1,6 @@
 ﻿using BE;
 using MPP;
+using System.Collections.Generic;
 
 namespace BLL
 {
@@ -8,6 +9,11 @@ namespace BLL
         static public bool Agregar(BEUsuario usuario)
         {
             return MPPUsuario.Alta(usuario);
+        }
+
+        static public List<BEUsuario> Listar()
+        {
+            return MPPUsuario.Listar();
         }
     }
 }
