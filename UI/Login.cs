@@ -7,6 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Abstraccion;
+using BE;
+using Servicios.SesionManager;
 
 namespace UI
 {
@@ -16,5 +19,48 @@ namespace UI
         {
             InitializeComponent();
         }
+
+        private void btnIngresar_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                // Validar usuario
+                
+
+
+                IUsuario usuario = new BEUsuario
+                {
+                    Username = inputUsuario.Text,
+                    Password = inputPsw.Text
+                };
+
+                SesionManager.Login(usuario);
+
+                MessageBox.Show(
+                    $"Usuario logeado papa: {SesionManager.ObtenerDatosUsuario()}",
+                    "Logeado",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information
+                );
+
+
+                Sistema sistema = new Sistema();
+                sistema.Show();
+                Hide();    
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        private void btnRegistrar_Click(object sender, EventArgs e)
+        {
+            Registro formRegistro = new Registro();
+            formRegistro.Show();
+
+        }
     }
+  
 }

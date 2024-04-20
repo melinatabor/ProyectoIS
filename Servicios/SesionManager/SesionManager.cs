@@ -22,7 +22,7 @@ namespace Servicios.SesionManager
                 }
                 else
                     throw new Exception("Sesion no iniciada");
-
+                
             }
             catch (Exception)
             {
@@ -38,5 +38,17 @@ namespace Servicios.SesionManager
 
         public IUsuario GetUsuario() { return  _usuario; }
 
+        public static string ObtenerDatosUsuario()
+        {
+            try
+            {
+                return _session._usuario.Username; 
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
     }
 }
