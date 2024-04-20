@@ -8,6 +8,8 @@ namespace BLL
     {
         static public bool Agregar(BEUsuario usuario)
         {
+            // Encriptar psw. Desde donde?
+
             return MPPUsuario.Alta(usuario);
         }
 

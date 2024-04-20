@@ -41,9 +41,10 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft YaHei UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(82, 72);
+            this.label1.Location = new System.Drawing.Point(164, 138);
+            this.label1.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(72, 21);
+            this.label1.Size = new System.Drawing.Size(144, 41);
             this.label1.TabIndex = 0;
             this.label1.Text = "Usuario:";
             // 
@@ -51,62 +52,70 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft YaHei UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(53, 124);
+            this.label2.Location = new System.Drawing.Point(106, 238);
+            this.label2.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(101, 21);
+            this.label2.Size = new System.Drawing.Size(200, 41);
             this.label2.TabIndex = 1;
             this.label2.Text = "Contraseña:";
             // 
             // inputUsuario
             // 
-            this.inputUsuario.Location = new System.Drawing.Point(153, 75);
+            this.inputUsuario.Location = new System.Drawing.Point(306, 144);
+            this.inputUsuario.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.inputUsuario.Name = "inputUsuario";
-            this.inputUsuario.Size = new System.Drawing.Size(199, 20);
+            this.inputUsuario.Size = new System.Drawing.Size(394, 31);
             this.inputUsuario.TabIndex = 2;
             // 
             // inputPsw
             // 
-            this.inputPsw.Location = new System.Drawing.Point(153, 125);
+            this.inputPsw.Location = new System.Drawing.Point(306, 240);
+            this.inputPsw.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.inputPsw.Name = "inputPsw";
-            this.inputPsw.Size = new System.Drawing.Size(199, 20);
+            this.inputPsw.Size = new System.Drawing.Size(394, 31);
             this.inputPsw.TabIndex = 3;
             // 
             // btnIngresar
             // 
             this.btnIngresar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.btnIngresar.Font = new System.Drawing.Font("Microsoft YaHei UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnIngresar.Location = new System.Drawing.Point(153, 171);
+            this.btnIngresar.Location = new System.Drawing.Point(306, 329);
+            this.btnIngresar.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.btnIngresar.Name = "btnIngresar";
-            this.btnIngresar.Size = new System.Drawing.Size(199, 56);
+            this.btnIngresar.Size = new System.Drawing.Size(398, 108);
             this.btnIngresar.TabIndex = 4;
             this.btnIngresar.Text = "Ingresar";
             this.btnIngresar.UseVisualStyleBackColor = false;
+            this.btnIngresar.Click += new System.EventHandler(this.btnIngresar_Click);
             // 
             // label3
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft YaHei UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(148, 19);
+            this.label3.Location = new System.Drawing.Point(296, 37);
+            this.label3.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(187, 26);
+            this.label3.Size = new System.Drawing.Size(372, 50);
             this.label3.TabIndex = 5;
             this.label3.Text = "Ingreso al Sistema";
             // 
             // btnRegistrar
             // 
             this.btnRegistrar.Font = new System.Drawing.Font("Microsoft YaHei UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnRegistrar.Location = new System.Drawing.Point(153, 233);
+            this.btnRegistrar.Location = new System.Drawing.Point(306, 448);
+            this.btnRegistrar.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.btnRegistrar.Name = "btnRegistrar";
-            this.btnRegistrar.Size = new System.Drawing.Size(199, 36);
+            this.btnRegistrar.Size = new System.Drawing.Size(398, 69);
             this.btnRegistrar.TabIndex = 6;
             this.btnRegistrar.Text = "Registrarse";
             this.btnRegistrar.UseVisualStyleBackColor = true;
+            this.btnRegistrar.Click += new System.EventHandler(this.btnRegistrar_Click);
             // 
             // Login
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(479, 322);
+            this.ClientSize = new System.Drawing.Size(958, 619);
             this.Controls.Add(this.btnRegistrar);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.btnIngresar);
@@ -114,6 +123,7 @@
             this.Controls.Add(this.inputUsuario);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
+            this.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.Name = "Login";
             this.Text = "Login";
             this.ResumeLayout(false);
