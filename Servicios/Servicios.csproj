@@ -44,6 +44,13 @@
   <ItemGroup>
     <Compile Include="ServiceClass.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SesionManager\SesionManager.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Abstraccion\Abstraccion.csproj">
+      <Project>{5c482bd9-8982-4882-b670-baf2adde4ba8}</Project>
+      <Name>Abstraccion</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
