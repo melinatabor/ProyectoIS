@@ -15,11 +15,14 @@ namespace MPP
             {
                 Hashtable parametros = new Hashtable();
                
-                string query = "INSERT INTO Usuario (Nombre, Apellido, Email) VALUES (@Nombre, @Apellido, @Email)";
+                string query = "INSERT INTO Usuario (Nombre, Apellido, Email, Username, Password, Activo) VALUES (@Nombre, @Apellido, @Email, @Username, @Password, @Activo)";
 
                 parametros.Add("@Nombre", usuario.Nombre);
                 parametros.Add("@Apellido", usuario.Apellido);
                 parametros.Add("@Email", usuario.Email);
+                parametros.Add("@Username", usuario.Username);
+                parametros.Add("@Password", usuario.Password);
+                parametros.Add("@Activo", usuario.Activo);
 
                 return Acceso.ExecuteNonQuery(query, parametros);
             }
@@ -35,7 +38,7 @@ namespace MPP
             {
                 List<BEUsuario> lista = new List<BEUsuario>();
 
-                string query = "SELECT Id, Nombre, Apellido, Email FROM Usuario";
+                string query = "SELECT Id, Nombre, Apellido, Email, Username, Password, Activo FROM Usuario";
 
                 DataTable table = Acceso.ExecuteDataTable(query);
 

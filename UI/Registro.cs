@@ -23,7 +23,6 @@ namespace UI
         {
             try
             {
-
                 /// agregar borrado logico, una columna activo.
 
                 BEUsuario nuevoUsuario = ObtenerDatos();
