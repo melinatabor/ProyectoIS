@@ -23,8 +23,6 @@ namespace UI
         {
             try
             {
-                /// agregar borrado logico, una columna activo.
-
                 BEUsuario nuevoUsuario = ObtenerDatos();
 
                 if (nuevoUsuario is null) throw new Exception("Debe completar todos los campos, por favor.");

@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Abstraccion;
 using BE;
+using BLL;
 using Servicios.SesionManager;
 
 namespace UI
@@ -24,25 +25,37 @@ namespace UI
         {
             try
             {
-                // Validar usuario
-                
-
-
-                IUsuario usuario = new BEUsuario
+                BEUsuario u = new BEUsuario()
                 {
                     Username = inputUsuario.Text,
                     Password = inputPsw.Text
                 };
 
-                SesionManager.Login(usuario);
+                bool valido = BLLUsuario.Buscar(u);
+                if (!valido)
+                {
+                    MessageBox.Show(
+                        $"Credenciales incorrectas. Por favor vuelva a ingresar los datos.",
+                        "Error",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Warning
+                    );
+                    return;
+                }
 
+                IUsuario usuario = new BEUsuario
+                {
+                    Username = u.Username,
+                    Password = u.Password
+                };
+
+                SesionManager.Login(usuario);
                 MessageBox.Show(
-                    $"Usuario logeado papa: {SesionManager.ObtenerDatosUsuario()}",
+                    $"Usuario logeado: {SesionManager.ObtenerDatosUsuario()}",
                     "Logeado",
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Information
                 );
-
 
                 Sistema sistema = new Sistema();
                 sistema.Show();

@@ -32,6 +32,26 @@ namespace MPP
             }
         }
 
+        public static bool Buscar(BEUsuario usuario)
+        {
+            try
+            {
+                Hashtable parametros = new Hashtable();
+
+                string query = "SELECT COUNT(*) FROM Usuario WHERE Password = @Password AND Username = @Username";
+                
+                parametros.Add("@Password", usuario.Password);
+                parametros.Add("@Username", usuario.Username);
+
+                return Convert.ToBoolean(Acceso.ExecuteScalar(query, parametros));
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
         public static List<BEUsuario> Listar()
         {
             try
