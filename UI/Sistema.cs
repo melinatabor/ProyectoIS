@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Servicios.SesionManager;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -19,7 +20,13 @@ namespace UI
 
         private void salirToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Close();
+            DialogResult opcion = MessageBox.Show("Desea salir de la aplicacion?", "Aviso", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+            if (opcion == DialogResult.Yes)
+            {
+                SesionManager.Logout();
+                Application.Exit();
+            }
         }
 
         private void usuariosToolStripMenuItem_Click(object sender, EventArgs e)

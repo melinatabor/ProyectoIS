@@ -29,6 +29,20 @@ namespace Servicios.SesionManager
                 throw;
             }
         }
+
+        public static void Logout()
+        {
+            try
+            {
+                if (_session != null) _session = null;
+                else throw new Exception("La sesion no esta iniciada");
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
         public static SesionManager GetInstance()
         {
             if (_session == null)
