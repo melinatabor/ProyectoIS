@@ -15,11 +15,14 @@ namespace MPP
             {
                 Hashtable parametros = new Hashtable();
                
-                string query = "INSERT INTO Usuario (Nombre, Apellido, Email) VALUES (@Nombre, @Apellido, @Email)";
+                string query = "INSERT INTO Usuario (Nombre, Apellido, Email, Username, Password, Activo) VALUES (@Nombre, @Apellido, @Email, @Username, @Password, @Activo)";
 
                 parametros.Add("@Nombre", usuario.Nombre);
                 parametros.Add("@Apellido", usuario.Apellido);
                 parametros.Add("@Email", usuario.Email);
+                parametros.Add("@Username", usuario.Username);
+                parametros.Add("@Password", usuario.Password);
+                parametros.Add("@Activo", usuario.Activo);
 
                 return Acceso.ExecuteNonQuery(query, parametros);
             }
@@ -29,13 +32,33 @@ namespace MPP
             }
         }
 
+        public static bool Buscar(BEUsuario usuario)
+        {
+            try
+            {
+                Hashtable parametros = new Hashtable();
+
+                string query = "SELECT COUNT(*) FROM Usuario WHERE Password = @Password AND Username = @Username";
+                
+                parametros.Add("@Password", usuario.Password);
+                parametros.Add("@Username", usuario.Username);
+
+                return Convert.ToBoolean(Acceso.ExecuteScalar(query, parametros));
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
         public static List<BEUsuario> Listar()
         {
             try
             {
                 List<BEUsuario> lista = new List<BEUsuario>();
 
-                string query = "SELECT Id, Nombre, Apellido, Email FROM Usuario";
+                string query = "SELECT Id, Nombre, Apellido, Email, Username, Password, Activo FROM Usuario";
 
                 DataTable table = Acceso.ExecuteDataTable(query);
 

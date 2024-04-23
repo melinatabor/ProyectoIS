@@ -62,7 +62,7 @@
             // inputUsuario
             // 
             this.inputUsuario.Location = new System.Drawing.Point(306, 144);
-            this.inputUsuario.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.inputUsuario.Margin = new System.Windows.Forms.Padding(6);
             this.inputUsuario.Name = "inputUsuario";
             this.inputUsuario.Size = new System.Drawing.Size(394, 31);
             this.inputUsuario.TabIndex = 2;
@@ -70,8 +70,9 @@
             // inputPsw
             // 
             this.inputPsw.Location = new System.Drawing.Point(306, 240);
-            this.inputPsw.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.inputPsw.Margin = new System.Windows.Forms.Padding(6);
             this.inputPsw.Name = "inputPsw";
+            this.inputPsw.PasswordChar = '*';
             this.inputPsw.Size = new System.Drawing.Size(394, 31);
             this.inputPsw.TabIndex = 3;
             // 
@@ -80,7 +81,7 @@
             this.btnIngresar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.btnIngresar.Font = new System.Drawing.Font("Microsoft YaHei UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnIngresar.Location = new System.Drawing.Point(306, 329);
-            this.btnIngresar.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.btnIngresar.Margin = new System.Windows.Forms.Padding(6);
             this.btnIngresar.Name = "btnIngresar";
             this.btnIngresar.Size = new System.Drawing.Size(398, 108);
             this.btnIngresar.TabIndex = 4;
@@ -103,7 +104,7 @@
             // 
             this.btnRegistrar.Font = new System.Drawing.Font("Microsoft YaHei UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnRegistrar.Location = new System.Drawing.Point(306, 448);
-            this.btnRegistrar.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.btnRegistrar.Margin = new System.Windows.Forms.Padding(6);
             this.btnRegistrar.Name = "btnRegistrar";
             this.btnRegistrar.Size = new System.Drawing.Size(398, 69);
             this.btnRegistrar.TabIndex = 6;
@@ -123,7 +124,7 @@
             this.Controls.Add(this.inputUsuario);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.Margin = new System.Windows.Forms.Padding(6);
             this.Name = "Login";
             this.Text = "Login";
             this.ResumeLayout(false);

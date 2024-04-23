@@ -30,6 +30,7 @@
         {
             this.btnRegistrar = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.btnVerPsw = new System.Windows.Forms.Button();
             this.inputPsw = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.inputUsername = new System.Windows.Forms.TextBox();
@@ -58,6 +59,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.btnVerPsw);
             this.groupBox1.Controls.Add(this.inputPsw);
             this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.inputUsername);
@@ -78,11 +80,24 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Usuarios:";
             // 
+            // btnVerPsw
+            // 
+            this.btnVerPsw.Font = new System.Drawing.Font("Microsoft Sans Serif", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnVerPsw.Location = new System.Drawing.Point(399, 234);
+            this.btnVerPsw.Name = "btnVerPsw";
+            this.btnVerPsw.Size = new System.Drawing.Size(68, 31);
+            this.btnVerPsw.TabIndex = 13;
+            this.btnVerPsw.Text = "Ver";
+            this.btnVerPsw.UseVisualStyleBackColor = true;
+            this.btnVerPsw.MouseDown += new System.Windows.Forms.MouseEventHandler(this.btnVerPsw_MouseDown);
+            this.btnVerPsw.MouseUp += new System.Windows.Forms.MouseEventHandler(this.btnVerPsw_MouseUp);
+            // 
             // inputPsw
             // 
             this.inputPsw.Location = new System.Drawing.Point(194, 234);
             this.inputPsw.Margin = new System.Windows.Forms.Padding(6);
             this.inputPsw.Name = "inputPsw";
+            this.inputPsw.PasswordChar = '*';
             this.inputPsw.Size = new System.Drawing.Size(196, 31);
             this.inputPsw.TabIndex = 12;
             // 
@@ -210,5 +225,6 @@
         private System.Windows.Forms.Label Username;
         private System.Windows.Forms.TextBox inputPsw;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Button btnVerPsw;
     }
 }

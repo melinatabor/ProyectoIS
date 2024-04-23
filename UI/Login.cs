@@ -1,14 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using Abstraccion;
 using BE;
+using BLL;
 using Servicios.SesionManager;
 
 namespace UI
@@ -18,48 +12,62 @@ namespace UI
         public Login()
         {
             InitializeComponent();
+            
+            // Ocultar la password
+            inputPsw.PasswordChar = '*';
         }
 
         private void btnIngresar_Click(object sender, EventArgs e)
         {
             try
             {
-                // Validar usuario
-                
+                if (CamposInvalidos()) throw new Exception("Los campos ingresados son incorrectos. Por favor vuelva a ingresarlos.");
 
-
-                IUsuario usuario = new BEUsuario
+                BEUsuario u = new BEUsuario()
                 {
                     Username = inputUsuario.Text,
                     Password = inputPsw.Text
                 };
 
-                SesionManager.Login(usuario);
+                bool valido = BLLUsuario.Buscar(u);
 
+                if (!valido) throw new Exception("Credenciales incorrectas.Por favor vuelva a ingresar los datos.");
+
+                IUsuario usuario = new BEUsuario
+                {
+                    Username = u.Username,
+                    Password = u.Password
+                };
+
+                SesionManager.Login(usuario);
                 MessageBox.Show(
-                    $"Usuario logeado papa: {SesionManager.ObtenerDatosUsuario()}",
+                    $"Usuario logeado: {SesionManager.GetUsername()}",
                     "Logeado",
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Information
                 );
 
-
                 Sistema sistema = new Sistema();
                 sistema.Show();
                 Hide();    
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
-                throw;
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
             }
+        }
+
+        private bool CamposInvalidos()
+        {
+            return String.IsNullOrEmpty(inputUsuario.Text.Trim()) ||
+                String.IsNullOrEmpty(inputPsw.Text.Trim());
         }
 
         private void btnRegistrar_Click(object sender, EventArgs e)
         {
             Registro formRegistro = new Registro();
             formRegistro.Show();
-
         }
     }
   

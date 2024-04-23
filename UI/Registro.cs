@@ -17,15 +17,13 @@ namespace UI
         public Registro()
         {
             InitializeComponent();
+            inputPsw.PasswordChar = '*';
         }
 
         private void btnRegistrar_Click(object sender, EventArgs e)
         {
             try
             {
-
-                /// agregar borrado logico, una columna activo.
-
                 BEUsuario nuevoUsuario = ObtenerDatos();
 
                 if (nuevoUsuario is null) throw new Exception("Debe completar todos los campos, por favor.");
@@ -82,5 +80,18 @@ namespace UI
         {
             ActualizarDgv();
         }
+
+        private void btnVerPsw_MouseDown(object sender, MouseEventArgs e)
+        {
+            // Mostrar la password al mantener presionado el boton
+            inputPsw.PasswordChar = '\0';
+        }
+
+        private void btnVerPsw_MouseUp(object sender, MouseEventArgs e)
+        {
+            // Ocultar la password al soltar el boton
+            inputPsw.PasswordChar = '*';  
+        }
+
     }
 }

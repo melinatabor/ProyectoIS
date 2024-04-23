@@ -1,6 +1,10 @@
 ﻿using BE;
 using MPP;
 using System.Collections.Generic;
+using Servicios;
+using Servicios.Encriptador;
+using Abstraccion;
+using System;
 
 namespace BLL
 {
@@ -8,9 +12,15 @@ namespace BLL
     {
         static public bool Agregar(BEUsuario usuario)
         {
-            // Encriptar psw. Desde donde?
-
+            usuario.Activo = true;
+            usuario.Password = Encriptador.Run(usuario.Password);
             return MPPUsuario.Alta(usuario);
+        }
+
+        public static bool Buscar(BEUsuario usuario)
+        {
+            usuario.Password = Encriptador.Run(usuario.Password);
+            return MPPUsuario.Buscar(usuario);
         }
 
         static public List<BEUsuario> Listar()

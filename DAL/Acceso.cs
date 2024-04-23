@@ -70,13 +70,21 @@ namespace DAL
             }
         }
 
-        public static int ExecuteScalar(string query)
+        public static int ExecuteScalar(string query, Hashtable parametros)
         {
             try
             {
                 _connection.Open();
                 _command = new SqlCommand(query, _connection);
                 _command.CommandType = CommandType.Text;
+
+                if (parametros != null)
+                {
+                    foreach (string param in parametros.Keys)
+                    {
+                        _command.Parameters.AddWithValue(param, parametros[param]);
+                    }
+                }
 
                 int result = Convert.ToInt32(_command.ExecuteScalar());
                 return result;
