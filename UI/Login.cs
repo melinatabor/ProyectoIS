@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using Abstraccion;
 using BE;
@@ -37,16 +30,8 @@ namespace UI
                 };
 
                 bool valido = BLLUsuario.Buscar(u);
-                if (!valido)
-                {
-                    MessageBox.Show(
-                        $"Credenciales incorrectas. Por favor vuelva a ingresar los datos.",
-                        "Error",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Warning
-                    );
-                    return;
-                }
+
+                if (!valido) throw new Exception("Credenciales incorrectas.Por favor vuelva a ingresar los datos.");
 
                 IUsuario usuario = new BEUsuario
                 {
@@ -56,7 +41,7 @@ namespace UI
 
                 SesionManager.Login(usuario);
                 MessageBox.Show(
-                    $"Usuario logeado: {SesionManager.ObtenerDatosUsuario()}",
+                    $"Usuario logeado: {SesionManager.GetUsername()}",
                     "Logeado",
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Information
@@ -83,7 +68,6 @@ namespace UI
         {
             Registro formRegistro = new Registro();
             formRegistro.Show();
-
         }
     }
   

@@ -52,7 +52,7 @@ namespace Servicios.SesionManager
 
         public IUsuario GetUsuario() { return  _usuario; }
 
-        public static string ObtenerDatosUsuario()
+        public static string GetUsername()
         {
             try
             {
@@ -60,7 +60,6 @@ namespace Servicios.SesionManager
             }
             catch (Exception)
             {
-
                 throw;
             }
         }
