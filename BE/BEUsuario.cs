@@ -5,7 +5,7 @@ namespace BE
     public class BEUsuario : IUsuario
     {
         #region Propiedades
-        public string Id { get; set; }
+        public int Id { get; set; }
         public string Nombre { get; set; } 
         public string Apellido { get; set; }
         public string Email { get; set; }
@@ -14,8 +14,11 @@ namespace BE
         public bool Activo { get; set; }
         #endregion
 
-        #region Constructor
+        #region Constructores
         public BEUsuario() { }
-    #endregion
+        public BEUsuario(int id) {
+            Id = id;
+        }
+        #endregion
     }
 }

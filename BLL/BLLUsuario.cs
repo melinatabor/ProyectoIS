@@ -10,7 +10,7 @@ namespace BLL
 {
     public class BLLUsuario
     {
-        static public bool Agregar(BEUsuario usuario)
+        public static bool Agregar(BEUsuario usuario)
         {
             usuario.Activo = true;
             usuario.Password = Encriptador.Run(usuario.Password);
@@ -23,9 +23,14 @@ namespace BLL
             return MPPUsuario.Buscar(usuario);
         }
 
-        static public List<BEUsuario> Listar()
+        public static List<BEUsuario> Listar()
         {
             return MPPUsuario.Listar();
+        }
+
+        public static BEUsuario ObtenerUsuario(int idUsuario)
+        {
+            return MPPUsuario.Obtener(idUsuario);
         }
     }
 }

@@ -31,7 +31,6 @@ namespace UI
                 bool alta = BLLUsuario.Agregar(nuevoUsuario);
 
                 if (alta) MessageBox.Show("Usuario agregado correctamente.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                ActualizarDgv();
                 Close();
 
             }
@@ -41,11 +40,6 @@ namespace UI
             }
         }
 
-        private void ActualizarDgv()
-        {
-            //dgvUsuarios.DataSource = null;
-            //dgvUsuarios.DataSource = BLLUsuario.Listar();
-        }
 
         private BEUsuario ObtenerDatos()
         {
@@ -76,11 +70,6 @@ namespace UI
                 String.IsNullOrEmpty(inputPsw.Text.Trim());
         }
 
-        private void Registro_Load(object sender, EventArgs e)
-        {
-            ActualizarDgv();
-        }
-
         private void btnVerPsw_MouseDown(object sender, MouseEventArgs e)
         {
             // Mostrar la password al mantener presionado el boton
@@ -92,6 +81,5 @@ namespace UI
             // Ocultar la password al soltar el boton
             inputPsw.PasswordChar = '*';  
         }
-
     }
 }

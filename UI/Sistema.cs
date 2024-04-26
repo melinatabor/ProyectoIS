@@ -14,7 +14,7 @@ namespace UI
 
         private void usuariosToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Registro usuarios = new Registro();
+            Gestion usuarios = new Gestion();
             usuarios.MdiParent = this;
             usuarios.Show();
         }

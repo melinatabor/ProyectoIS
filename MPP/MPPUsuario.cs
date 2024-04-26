@@ -4,6 +4,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Data;
+using System.Security.Cryptography;
 
 namespace MPP
 {
@@ -66,8 +67,9 @@ namespace MPP
                 {
                     foreach (DataRow fila in table.Rows)
                     {
-                        BEUsuario cliente = Llenar(fila);
-                        lista.Add(cliente);
+                        BEUsuario usuario = new BEUsuario();
+                        Llenar(fila, usuario);
+                        lista.Add(usuario);
                     }
                 }
 
@@ -80,13 +82,30 @@ namespace MPP
 
         }
 
-        private static BEUsuario Llenar(DataRow row)
+        public static BEUsuario Obtener(int idUsuario)
         {
-            BEUsuario usuario = new BEUsuario();
-            usuario.Id = row["Id"].ToString();
+ 
+            string query = $"SELECT Id, Nombre, Apellido, Email, Username, Password FROM Usuario WHERE Id = {idUsuario}";
+
+            DataTable tabla = Acceso.ExecuteDataTable(query);
+
+            if (tabla.Rows.Count > 0)
+            {
+                BEUsuario usuario = new BEUsuario(idUsuario);
+                Llenar(tabla.Rows[0],usuario);
+                return usuario;
+            }
+            return null;
+        }
+
+        private static BEUsuario Llenar(DataRow row, BEUsuario usuario)
+        {
+            usuario.Id = Convert.ToInt32(row["Id"].ToString());
             usuario.Nombre = row["Nombre"].ToString();
             usuario.Apellido = row["Apellido"].ToString();
             usuario.Email = row["Email"].ToString();
+            usuario.Username = row["Username"].ToString();
+            usuario.Password = row["Password"].ToString();
             return usuario;
         }
     }
