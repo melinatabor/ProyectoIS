@@ -91,7 +91,7 @@ namespace MPP
 
                 string query = "SELECT Id, Nombre, Apellido, Email, Username, Password, Activo FROM Usuario";
 
-                DataTable table = Acceso.ExecuteDataTable(query);
+                DataTable table = Acceso.ExecuteDataTable(query, null);
 
                 if (table.Rows.Count > 0)
                 {
@@ -114,10 +114,13 @@ namespace MPP
 
         public static BEUsuario Obtener(int idUsuario)
         {
- 
-            string query = $"SELECT Id, Nombre, Apellido, Email, Username, Password FROM Usuario WHERE Id = {idUsuario}";
+            Hashtable parametros = new Hashtable();
 
-            DataTable tabla = Acceso.ExecuteDataTable(query);
+            string query = $"SELECT Id, Nombre, Apellido, Email, Username, Password FROM Usuario WHERE Id = @Id";
+
+            parametros.Add("@Id", idUsuario);
+
+            DataTable tabla = Acceso.ExecuteDataTable(query, parametros);
 
             if (tabla.Rows.Count > 0)
             {

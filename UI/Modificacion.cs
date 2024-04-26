@@ -45,13 +45,7 @@ namespace UI
 
                 bool guardado = BLLUsuario.Guardar(usuario);
 
-                if (guardado)
-                {
-                    this.Close();
-
-                    Gestion gestion = new Gestion();
-                    gestion.ShowDialog();
-                }
+                if (guardado) this.Close();
             }
             catch (Exception)
             {

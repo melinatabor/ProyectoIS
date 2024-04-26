@@ -12,13 +12,23 @@ namespace DAL
         private static SqlCommand _command;
         private static SqlTransaction _transaction;
 
-        public static DataTable ExecuteDataTable(string query)
+        public static DataTable ExecuteDataTable(string query, Hashtable parametros)
         {
             DataTable table = new DataTable();
 
             try
             {
-                SqlDataAdapter adapter = new SqlDataAdapter(query, _connection);
+                _command = new SqlCommand(query, _connection);
+
+                if (parametros != null)
+                {
+                    foreach (string param in parametros.Keys)
+                    {
+                        _command.Parameters.AddWithValue(param, parametros[param]);
+                    }
+                }
+
+                SqlDataAdapter adapter = new SqlDataAdapter(_command);
                 adapter.Fill(table);
             }
             catch (Exception ex)
