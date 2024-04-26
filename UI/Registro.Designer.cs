@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.btnRegistrar = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.btnVerPsw = new System.Windows.Forms.Button();
@@ -41,6 +42,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -70,7 +72,7 @@
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Location = new System.Drawing.Point(21, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(310, 288);
+            this.groupBox1.Size = new System.Drawing.Size(488, 288);
             this.groupBox1.TabIndex = 6;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Nuevo Usuario:";
@@ -127,6 +129,7 @@
             this.inputEmail.Name = "inputEmail";
             this.inputEmail.Size = new System.Drawing.Size(168, 20);
             this.inputEmail.TabIndex = 8;
+            this.inputEmail.TextChanged += new System.EventHandler(this.inputEmail_TextChanged);
             // 
             // inputApellido
             // 
@@ -169,11 +172,15 @@
             this.label1.TabIndex = 3;
             this.label1.Text = "Nombre:";
             // 
+            // toolTip1
+            // 
+            this.toolTip1.ToolTipTitle = "dfgfgddfgfdg";
+            // 
             // Registro
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(352, 314);
+            this.ClientSize = new System.Drawing.Size(521, 296);
             this.Controls.Add(this.groupBox1);
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "Registro";
@@ -199,5 +206,6 @@
         private System.Windows.Forms.TextBox inputPsw;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button btnVerPsw;
+        private System.Windows.Forms.ToolTip toolTip1;
     }
 }

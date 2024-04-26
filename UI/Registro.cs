@@ -9,11 +9,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Text.RegularExpressions;
 
 namespace UI
 {
     public partial class Registro : Form
     {
+        private bool emailValido = false;
         public Registro()
         {
             InitializeComponent();
@@ -27,7 +29,7 @@ namespace UI
                 BEUsuario nuevoUsuario = ObtenerDatos();
 
                 if (nuevoUsuario is null) throw new Exception("Debe completar todos los campos, por favor.");
-
+                if (!emailValido) throw new Exception("El email no es válido. Falta agregar el @ o el formato del email es incorrecto."); 
                 bool alta = BLLUsuario.Agregar(nuevoUsuario);
 
                 if (alta) MessageBox.Show("Usuario agregado correctamente.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -81,5 +83,23 @@ namespace UI
             // Ocultar la password al soltar el boton
             inputPsw.PasswordChar = '*';  
         }
+
+        private void inputEmail_TextChanged(object sender, EventArgs e)
+        {
+            string email = inputEmail.Text.Trim();
+
+
+            if (!Regex.IsMatch(email, @"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"))
+            {
+                toolTip1.SetToolTip(inputEmail, "Falta agregar el @ o el formato del email es incorrecto.");
+                emailValido = false;
+            }
+            else
+            {
+                toolTip1.SetToolTip(inputEmail, "");
+                emailValido = true;
+            }
+        }
+
     }
 }
