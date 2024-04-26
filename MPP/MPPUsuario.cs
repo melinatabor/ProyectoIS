@@ -4,27 +4,47 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Data;
+using System.Runtime.Remoting;
 using System.Security.Cryptography;
 
 namespace MPP
 {
     public class MPPUsuario
     {
-        public static bool Alta(BEUsuario usuario)
+        public static bool Guardar(BEUsuario usuario)
         {
             try
             {
                 Hashtable parametros = new Hashtable();
-               
-                string query = "INSERT INTO Usuario (Nombre, Apellido, Email, Username, Password, Activo) VALUES (@Nombre, @Apellido, @Email, @Username, @Password, @Activo)";
+                string query = (usuario.Id == 0) ? QueryAgregar() : QueryEditar();
 
                 parametros.Add("@Nombre", usuario.Nombre);
                 parametros.Add("@Apellido", usuario.Apellido);
                 parametros.Add("@Email", usuario.Email);
                 parametros.Add("@Username", usuario.Username);
-                parametros.Add("@Password", usuario.Password);
-                parametros.Add("@Activo", usuario.Activo);
 
+                if (usuario.Id == 0)
+                {
+                    parametros.Add("@Password", usuario.Password);
+                    parametros.Add("@Activo", usuario.Activo);
+                }
+                else parametros.Add("@Id", usuario.Id);
+
+                return Acceso.ExecuteNonQuery(query, parametros);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public static bool Baja(BEUsuario usuario)
+        {
+            try
+            {
+                Hashtable parametros = new Hashtable();
+                string query = $"DELETE FROM Usuario WHERE Id = @Id";
+                parametros.Add("@Id", usuario.Id);
                 return Acceso.ExecuteNonQuery(query, parametros);
             }
             catch (Exception ex)
@@ -51,6 +71,16 @@ namespace MPP
 
                 throw;
             }
+        }
+
+        private static string QueryEditar()
+        {
+            return $"UPDATE Usuario SET Nombre = @Nombre, Apellido = @Apellido, Email = @Email, Username = @Username WHERE Id = @Id";
+        }
+
+        private static string QueryAgregar()
+        {
+            return "INSERT INTO Usuario (Nombre, Apellido, Email, Username, Password, Activo) VALUES (@Nombre, @Apellido, @Email, @Username, @Password, @Activo)";
         }
 
         public static List<BEUsuario> Listar()
