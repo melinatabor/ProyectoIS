@@ -73,6 +73,36 @@ namespace MPP
             }
         }
 
+        public static BEUsuario BuscarUsuario(BEUsuario usuario)
+        {
+            try
+            {
+                Hashtable parametros = new Hashtable();
+
+                string query = "SELECT Id, Nombre, Apellido, Email, Username, Password, Activo FROM Usuario WHERE Password = @Password AND Username = @Username";
+
+                parametros.Add("@Password", usuario.Password);
+                parametros.Add("@Username", usuario.Username);
+
+                DataTable table = Acceso.ExecuteDataTable(query, parametros);
+
+                if (table.Rows.Count > 0)
+                {
+                    foreach (DataRow fila in table.Rows)
+                    {
+                        BEUsuario u = new BEUsuario();
+                        return Llenar(fila, u);
+                    }
+                }
+
+                return null;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
         private static string QueryEditar()
         {
             return $"UPDATE Usuario SET Nombre = @Nombre, Apellido = @Apellido, Email = @Email, Username = @Username WHERE Id = @Id";

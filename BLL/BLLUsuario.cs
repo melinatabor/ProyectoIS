@@ -42,5 +42,11 @@ namespace BLL
         {
             return MPPUsuario.Baja(usuario);
         }
+
+        public static BEUsuario BuscarUsuario(BEUsuario usuario)
+        {
+            usuario.Password = Encriptador.Run(usuario.Password);
+            return MPPUsuario.BuscarUsuario(usuario);
+        }
     }
 }
