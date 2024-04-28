@@ -171,5 +171,34 @@ namespace MPP
             usuario.Password = row["Password"].ToString();
             return usuario;
         }
+
+        public static BEUsuario BuscarUsuarioPorUsername(string username)
+        {
+            try
+            {
+                Hashtable parametros = new Hashtable();
+
+                string query = "SELECT Id, Nombre, Apellido, Email, Username, Password, Activo FROM Usuario WHERE Username = @Username";
+
+                parametros.Add("@Username", username);
+
+                DataTable table = Acceso.ExecuteDataTable(query, parametros);
+
+                if (table.Rows.Count > 0)
+                {
+                    foreach (DataRow fila in table.Rows)
+                    {
+                        BEUsuario u = new BEUsuario();
+                        return Llenar(fila, u);
+                    }
+                }
+
+                return null;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
     }
 }

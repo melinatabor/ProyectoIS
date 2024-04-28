@@ -1,4 +1,6 @@
-﻿using Servicios.SesionManager;
+﻿using BE;
+using BLL;
+using Servicios.SesionManager;
 using System;
 using System.Windows.Forms;
 
@@ -27,6 +29,7 @@ namespace UI
 
                 if (opcion == DialogResult.Yes)
                 {
+                    RegistrarBitacora();
                     SesionManager.Logout();
                     Application.Exit();
                 }
@@ -46,6 +49,7 @@ namespace UI
 
                 if (opcion == DialogResult.Yes)
                 {
+                    RegistrarBitacora();
                     SesionManager.Logout();
                     Login login = new Login();
                     login.Show();
@@ -57,6 +61,22 @@ namespace UI
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
+        }
+
+        private void RegistrarBitacora()
+        {
+            string username = SesionManager.GetUsername();
+
+            BEUsuario usuarioActual = BLLUsuario.BuscarUsuarioPorUsername(username) ?? throw new Exception($"No existe el username: {username}");
+
+            BEBitacora bitacora = new BEBitacora()
+            {
+                Usuario = usuarioActual.Id,
+                Tipo = BEBitacora.BitacoraTipo.INFO,
+                Mensaje = "El usuario finalizó la sesión"
+            };
+
+            BLLBitacora.Agregar(bitacora);
         }
     }
 }
