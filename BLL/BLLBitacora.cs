@@ -15,5 +15,15 @@ namespace BLL
         {
             return MPPBitacora.Agregar(bitacora);
         }
+
+        public static List<BEBitacoraFiltrada> Filtrar(BEBitacoraCriteria criteria)
+        {
+            return MPPBitacora.Filtrar(criteria);
+        }
+
+        public static List<BEBitacoraFiltrada> Listar()
+        {
+            return MPPBitacora.Listar();
+        }
     }
 }

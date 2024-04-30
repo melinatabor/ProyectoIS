@@ -43,7 +43,8 @@ namespace MPP
             try
             {
                 Hashtable parametros = new Hashtable();
-                string query = $"DELETE FROM Usuario WHERE Id = @Id";
+                string query = $"UPDATE Usuario SET Activo = @Activo WHERE Id = @Id";
+                parametros.Add("@Activo", false);
                 parametros.Add("@Id", usuario.Id);
                 return Acceso.ExecuteNonQuery(query, parametros);
             }

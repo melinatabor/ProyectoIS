@@ -78,5 +78,12 @@ namespace UI
 
             BLLBitacora.Agregar(bitacora);
         }
+
+        private void bitácoraToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Bitacora bitacora = new Bitacora();
+            bitacora.MdiParent = this;
+            bitacora.Show();
+        }
     }
 }
