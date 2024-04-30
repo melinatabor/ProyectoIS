@@ -72,7 +72,7 @@ namespace UI
                 if (dgvUsuarios.Rows.Count <= 0) throw new Exception("No hay usuarios para eliminar.");
                 if (dgvUsuarios.SelectedRows.Count <= 0) throw new Exception("Selecciona una fila para eliminar.");
                 BEUsuario usuario = (BEUsuario)dgvUsuarios.CurrentRow.DataBoundItem;
-                DialogResult respuesta = MessageBox.Show($"¿Esta seguro que desea eliminar el usuario de {usuario.Nombre} {usuario.Apellido}?", "Aviso", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                DialogResult respuesta = MessageBox.Show($"¿Esta seguro que desea eliminar el usuario {usuario.Nombre} {usuario.Apellido}?", "Aviso", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
             
                 if(respuesta == DialogResult.Yes)
                 {
@@ -80,6 +80,7 @@ namespace UI
                     if (eliminado)
                     {
                         RegistrarBitacora($"El usuario ha eliminado el usuario con ID: {usuario.Id}", BEBitacora.BitacoraTipo.INFO);
+                        MessageBox.Show("Usuario eliminado con exito", "Eliminado", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         ActualizarDgv();
                     }
 
@@ -130,6 +131,26 @@ namespace UI
                 return;
             }
 
+        }
+
+        private void dgvUsuarios_SelectionChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                if (dgvUsuarios.Rows.Count > 0 && dgvUsuarios.SelectedRows.Count > 0)
+                {
+                    BEUsuario usuario = (BEUsuario)dgvUsuarios.CurrentRow.DataBoundItem;
+                    if (usuario.Activo == false)
+                        btnEliminar.Enabled = false;
+                    else
+                        btnEliminar.Enabled = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
         }
     }
 }

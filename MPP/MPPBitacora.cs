@@ -61,12 +61,19 @@ namespace MPP
 
         private static BEBitacoraFiltrada Llenar(DataRow fila, BEBitacoraFiltrada bitacora)
         {
-            bitacora.Id = Convert.ToInt32(fila["Id"]);
-            bitacora.Usuario = fila["Usuario"].ToString();
-            bitacora.Tipo = fila["Tipo"].ToString();
-            bitacora.Mensaje = fila["Mensaje"].ToString();
-            bitacora.Fecha = Convert.ToDateTime(fila["Fecha"]);
-            return bitacora;
+            try
+            {
+                bitacora.Id = Convert.ToInt32(fila["Id"]);
+                bitacora.Usuario = fila["Usuario"].ToString();
+                bitacora.Tipo = fila["Tipo"].ToString();
+                bitacora.Mensaje = fila["Mensaje"].ToString();
+                bitacora.Fecha = Convert.ToDateTime(fila["Fecha"]);
+                return bitacora;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         public static List<BEBitacoraFiltrada> Filtrar(BEBitacoraCriteria criteria)
@@ -108,13 +115,19 @@ namespace MPP
 
         private static Hashtable ExtraerParametros(BEBitacoraCriteria criteria)
         {
-            Hashtable parametros = new Hashtable();
-            parametros.Add("@Tipo", criteria.Tipo ?? (object)DBNull.Value);
-            parametros.Add("@Usuario", criteria.Usuario ?? (object)DBNull.Value);
-            parametros.Add("@Desde", criteria.Desde);
-            parametros.Add("@Hasta", criteria.Hasta);
-            return parametros;
-
+            try
+            {
+                Hashtable parametros = new Hashtable();
+                parametros.Add("@Tipo", criteria.Tipo ?? (object)DBNull.Value);
+                parametros.Add("@Usuario", criteria.Usuario ?? (object)DBNull.Value);
+                parametros.Add("@Desde", criteria.Desde);
+                parametros.Add("@Hasta", criteria.Hasta);
+                return parametros;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
     }
 }

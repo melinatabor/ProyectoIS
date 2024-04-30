@@ -65,18 +65,26 @@ namespace UI
 
         private void RegistrarBitacora()
         {
-            string username = SesionManager.GetUsername();
-
-            BEUsuario usuarioActual = BLLUsuario.BuscarUsuarioPorUsername(username) ?? throw new Exception($"No existe el username: {username}");
-
-            BEBitacora bitacora = new BEBitacora()
+            try
             {
-                Usuario = usuarioActual.Id,
-                Tipo = BEBitacora.BitacoraTipo.INFO,
-                Mensaje = "El usuario finalizó la sesión"
-            };
+                string username = SesionManager.GetUsername();
 
-            BLLBitacora.Agregar(bitacora);
+                BEUsuario usuarioActual = BLLUsuario.BuscarUsuarioPorUsername(username) ?? throw new Exception($"No existe el username: {username}");
+
+                BEBitacora bitacora = new BEBitacora()
+                {
+                    Usuario = usuarioActual.Id,
+                    Tipo = BEBitacora.BitacoraTipo.INFO,
+                    Mensaje = "El usuario finalizó la sesión"
+                };
+
+                BLLBitacora.Agregar(bitacora);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
         }
 
         private void bitácoraToolStripMenuItem_Click(object sender, EventArgs e)

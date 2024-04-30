@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Text.RegularExpressions;
 using Servicios.SesionManager;
+using Servicios.ValidadorEmail;
 
 namespace UI
 {
@@ -37,7 +38,8 @@ namespace UI
                 if (alta)
                 {
                     MessageBox.Show("Usuario agregado correctamente.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    RegistrarBitacora("Ha registrado un nuevo usuario");
+                    nuevoUsuario = BLLUsuario.BuscarUsuarioPorUsername(nuevoUsuario.Username);
+                    RegistrarBitacora(nuevoUsuario, $"Se ha registrado un nuevo usuario con Id: {nuevoUsuario.Id}");
                 }
                 Close();
 
@@ -45,7 +47,6 @@ namespace UI
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                RegistrarBitacora($"Ha ocurrido un error: {ex.Message}", BEBitacora.BitacoraTipo.ERROR);
                 return;
             }
         }
@@ -65,9 +66,8 @@ namespace UI
                     Password = inputPsw.Text,
                 };
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                RegistrarBitacora($"Ha ocurrido un error: {ex.Message}", BEBitacora.BitacoraTipo.ERROR);
                 return null;
             }
         }
@@ -97,18 +97,15 @@ namespace UI
         {
             try
             {
-                string email = inputEmail.Text.Trim();
-
-
-                if (!Regex.IsMatch(email, @"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"))
-                {
-                    toolTip1.SetToolTip(inputEmail, "Falta agregar el @ o el formato del email es incorrecto.");
-                    emailValido = false;
-                }
-                else
+                if (ValidadorEmail.Validar(inputEmail.Text.Trim()))
                 {
                     toolTip1.SetToolTip(inputEmail, "");
                     emailValido = true;
+                } 
+                else
+                {
+                    toolTip1.SetToolTip(inputEmail, "Falta agregar el @ o el formato del email es incorrecto.");
+                    emailValido = false;
                 }
             }
             catch (Exception ex)
@@ -118,17 +115,13 @@ namespace UI
             }
         }
 
-        private void RegistrarBitacora(string mensaje, BEBitacora.BitacoraTipo tipo = BEBitacora.BitacoraTipo.INFO)
+        private void RegistrarBitacora(BEUsuario usuario, string mensaje, BEBitacora.BitacoraTipo tipo = BEBitacora.BitacoraTipo.INFO)
         {
             try
             {
-                string username = SesionManager.GetUsername();
-
-                BEUsuario usuarioActual = BLLUsuario.BuscarUsuarioPorUsername(username) ?? throw new Exception($"No existe el username: {username}");
-
                 BEBitacora bitacora = new BEBitacora()
                 {
-                    Usuario = usuarioActual.Id,
+                    Usuario = usuario.Id,
                     Tipo = tipo,
                     Mensaje = mensaje
                 };
@@ -140,7 +133,7 @@ namespace UI
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            
+
         }
 
     }

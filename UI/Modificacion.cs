@@ -57,10 +57,11 @@ namespace UI
 
                 if (respuesta == DialogResult.Yes)
                 {
-                    bool guardado = BLLUsuario.Guardar(usuario);
+                    bool guardado = BLLUsuario.Editar(usuario);
                     if (guardado)
                     {
                         RegistrarBitacora($"El usuario ha modificado un usuario", BEBitacora.BitacoraTipo.INFO);
+                        MessageBox.Show("Usuario modificado con exito", "Modificado", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         this.Close();
                     }
                 }

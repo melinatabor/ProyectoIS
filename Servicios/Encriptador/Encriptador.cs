@@ -13,15 +13,23 @@ namespace Servicios.Encriptador
 
         static public string Run(string str)
         {
-            _ue = new UnicodeEncoding();
+            try
+            {
+                _ue = new UnicodeEncoding();
 
-            _bytes = _ue.GetBytes(str);
-            
-            _md5 = new MD5CryptoServiceProvider();
-            
-            _hash = _md5.ComputeHash(_bytes);
+                _bytes = _ue.GetBytes(str);
 
-            return Convert.ToBase64String(_hash);
+                _md5 = new MD5CryptoServiceProvider();
+
+                _hash = _md5.ComputeHash(_bytes);
+
+                return Convert.ToBase64String(_hash);
+            }
+            catch (Exception)
+            {
+                throw new Exception("Ha ocurrido un error al encrirptar la password.");
+            }
+            
         }
     }
 }

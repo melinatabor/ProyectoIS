@@ -14,7 +14,12 @@ namespace BLL
         {
             usuario.Activo = true;
             usuario.Password = Encriptador.Run(usuario.Password);
-            return MPPUsuario.Guardar(usuario);
+            return MPPUsuario.Agregar(usuario);
+        }
+
+        public static bool Editar(BEUsuario usuario)
+        {
+            return MPPUsuario.Editar(usuario);
         }
 
         public static bool Buscar(BEUsuario usuario)
@@ -26,11 +31,6 @@ namespace BLL
         public static List<BEUsuario> Listar()
         {
             return MPPUsuario.Listar();
-        }
-
-        public static bool Guardar(BEUsuario usuario)
-        {
-            return MPPUsuario.Guardar(usuario);
         }
 
         public static BEUsuario ObtenerUsuario(int idUsuario)
