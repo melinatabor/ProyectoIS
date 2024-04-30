@@ -1,5 +1,6 @@
 ﻿using BE;
 using BLL;
+using Servicios.SesionManager;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -24,13 +25,22 @@ namespace UI
 
         private void Modificacion_Load(object sender, EventArgs e)
         {
-            BEUsuario usuario = BLLUsuario.ObtenerUsuario(idUsuario);
-            labelId.Text = Convert.ToString(idUsuario);
-            inputNombre.Text = usuario.Nombre;
-            inputApellido.Text = usuario.Apellido;
-            inputEmail.Text = usuario.Email;
-            inputUsername.Text = usuario.Username;
-            inputPsw.Text = usuario.Password;
+            try
+            {
+                BEUsuario usuario = BLLUsuario.ObtenerUsuario(idUsuario);
+                labelId.Text = Convert.ToString(idUsuario);
+                inputNombre.Text = usuario.Nombre;
+                inputApellido.Text = usuario.Apellido;
+                inputEmail.Text = usuario.Email;
+                inputUsername.Text = usuario.Username;
+                inputPsw.Text = usuario.Password;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                RegistrarBitacora($"Ha ocurrido un error: {ex.Message}", BEBitacora.BitacoraTipo.ERROR);
+                return;
+            }
         }
 
         private void btnModificar_Click(object sender, EventArgs e)
@@ -43,14 +53,51 @@ namespace UI
                 usuario.Email = inputEmail.Text;
                 usuario.Username = inputUsername.Text;
 
-                bool guardado = BLLUsuario.Guardar(usuario);
+                DialogResult respuesta = MessageBox.Show($"¿Esta seguro que desea modificar el usuario?", "Aviso", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
 
-                if (guardado) this.Close();
+                if (respuesta == DialogResult.Yes)
+                {
+                    bool guardado = BLLUsuario.Editar(usuario);
+                    if (guardado)
+                    {
+                        RegistrarBitacora($"El usuario ha modificado un usuario", BEBitacora.BitacoraTipo.INFO);
+                        MessageBox.Show("Usuario modificado con exito", "Modificado", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        this.Close();
+                    }
+                }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw;
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                RegistrarBitacora($"Ha ocurrido un error: {ex.Message}", BEBitacora.BitacoraTipo.ERROR);
+                return;
             }
         }
+
+        private void RegistrarBitacora(string mensaje, BEBitacora.BitacoraTipo tipo = BEBitacora.BitacoraTipo.INFO)
+        {
+            try
+            {
+                string username = SesionManager.GetUsername();
+
+                BEUsuario usuarioActual = BLLUsuario.BuscarUsuarioPorUsername(username) ?? throw new Exception($"No existe el username: {username}");
+
+                BEBitacora bitacora = new BEBitacora()
+                {
+                    Usuario = usuarioActual.Id,
+                    Tipo = tipo,
+                    Mensaje = mensaje
+                };
+
+                BLLBitacora.Agregar(bitacora);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+        }
+        
     }
 }

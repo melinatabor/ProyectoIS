@@ -10,12 +10,15 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Text.RegularExpressions;
+using Servicios.SesionManager;
+using Servicios.ValidadorEmail;
 
 namespace UI
 {
     public partial class Registro : Form
     {
         private bool emailValido = false;
+
         public Registro()
         {
             InitializeComponent();
@@ -32,13 +35,19 @@ namespace UI
                 if (!emailValido) throw new Exception("El email no es válido. Falta agregar el @ o el formato del email es incorrecto."); 
                 bool alta = BLLUsuario.Agregar(nuevoUsuario);
 
-                if (alta) MessageBox.Show("Usuario agregado correctamente.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                if (alta)
+                {
+                    MessageBox.Show("Usuario agregado correctamente.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    nuevoUsuario = BLLUsuario.BuscarUsuarioPorUsername(nuevoUsuario.Username);
+                    RegistrarBitacora(nuevoUsuario, $"Se ha registrado un nuevo usuario con Id: {nuevoUsuario.Id}");
+                }
                 Close();
 
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
             }
         }
 
@@ -47,7 +56,7 @@ namespace UI
         {
             try
             {
-                if (CamposInvalidos()) throw new Exception();
+                if (CamposInvalidos()) throw new Exception("Los datos ingresados son incorrectos");
                 return new BEUsuario()
                 {
                     Nombre = inputNombre.Text,
@@ -86,19 +95,45 @@ namespace UI
 
         private void inputEmail_TextChanged(object sender, EventArgs e)
         {
-            string email = inputEmail.Text.Trim();
-
-
-            if (!Regex.IsMatch(email, @"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"))
+            try
             {
-                toolTip1.SetToolTip(inputEmail, "Falta agregar el @ o el formato del email es incorrecto.");
-                emailValido = false;
+                if (ValidadorEmail.Validar(inputEmail.Text.Trim()))
+                {
+                    toolTip1.SetToolTip(inputEmail, "");
+                    emailValido = true;
+                } 
+                else
+                {
+                    toolTip1.SetToolTip(inputEmail, "Falta agregar el @ o el formato del email es incorrecto.");
+                    emailValido = false;
+                }
             }
-            else
+            catch (Exception ex)
             {
-                toolTip1.SetToolTip(inputEmail, "");
-                emailValido = true;
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
             }
+        }
+
+        private void RegistrarBitacora(BEUsuario usuario, string mensaje, BEBitacora.BitacoraTipo tipo = BEBitacora.BitacoraTipo.INFO)
+        {
+            try
+            {
+                BEBitacora bitacora = new BEBitacora()
+                {
+                    Usuario = usuario.Id,
+                    Tipo = tipo,
+                    Mensaje = mensaje
+                };
+
+                BLLBitacora.Agregar(bitacora);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
         }
 
     }

@@ -14,7 +14,12 @@ namespace BLL
         {
             usuario.Activo = true;
             usuario.Password = Encriptador.Run(usuario.Password);
-            return MPPUsuario.Guardar(usuario);
+            return MPPUsuario.Agregar(usuario);
+        }
+
+        public static bool Editar(BEUsuario usuario)
+        {
+            return MPPUsuario.Editar(usuario);
         }
 
         public static bool Buscar(BEUsuario usuario)
@@ -28,11 +33,6 @@ namespace BLL
             return MPPUsuario.Listar();
         }
 
-        public static bool Guardar(BEUsuario usuario)
-        {
-            return MPPUsuario.Guardar(usuario);
-        }
-
         public static BEUsuario ObtenerUsuario(int idUsuario)
         {
             return MPPUsuario.Obtener(idUsuario);
@@ -41,6 +41,17 @@ namespace BLL
         public static bool Eliminar(BEUsuario usuario)
         {
             return MPPUsuario.Baja(usuario);
+        }
+
+        public static BEUsuario BuscarUsuario(BEUsuario usuario)
+        {
+            usuario.Password = Encriptador.Run(usuario.Password);
+            return MPPUsuario.BuscarUsuario(usuario);
+        }
+
+        public static BEUsuario BuscarUsuarioPorUsername(string username)
+        {
+            return MPPUsuario.BuscarUsuarioPorUsername(username);
         }
     }
 }

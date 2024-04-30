@@ -4,6 +4,7 @@ using Abstraccion;
 using BE;
 using BLL;
 using Servicios.SesionManager;
+using static BE.BEBitacora;
 
 namespace UI
 {
@@ -29,9 +30,9 @@ namespace UI
                     Password = inputPsw.Text
                 };
 
-                bool valido = BLLUsuario.Buscar(u);
+                BEUsuario usuarioExistente = BLLUsuario.BuscarUsuario(u);
 
-                if (!valido) throw new Exception("Credenciales incorrectas.Por favor vuelva a ingresar los datos.");
+                if (usuarioExistente == null) throw new Exception("Credenciales incorrectas. Por favor vuelva a ingresar los datos.");
 
                 IUsuario usuario = new BEUsuario
                 {
@@ -40,6 +41,16 @@ namespace UI
                 };
 
                 SesionManager.Login(usuario);
+
+                BEBitacora bitacora = new BEBitacora()
+                {
+                    Usuario = usuarioExistente.Id,
+                    Tipo = BitacoraTipo.INFO,
+                    Mensaje = "El usuario inició sesión"
+                };
+
+                BLLBitacora.Agregar(bitacora);
+
                 MessageBox.Show(
                     $"Usuario logeado: {SesionManager.GetUsername()}",
                     "Logeado",
