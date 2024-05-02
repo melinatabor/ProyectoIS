@@ -11,6 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using MetroFramework;
 
 namespace UI
 {
@@ -31,7 +32,7 @@ namespace UI
             catch (Exception ex)
             {
                 RegistrarBitacora(ex.Message, BEBitacora.BitacoraTipo.ERROR);
-                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MetroMessageBox.Show(this, ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
             
@@ -62,7 +63,7 @@ namespace UI
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MetroMessageBox.Show(this, ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
@@ -83,7 +84,7 @@ namespace UI
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MetroMessageBox.Show(this, ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
         }
@@ -100,7 +101,7 @@ namespace UI
             catch (Exception ex)
             {
                 RegistrarBitacora(ex.Message, BEBitacora.BitacoraTipo.ERROR);
-                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MetroMessageBox.Show(this, ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -123,7 +124,7 @@ namespace UI
             catch (Exception ex)
             {
                 RegistrarBitacora(ex.Message, BEBitacora.BitacoraTipo.ERROR);
-                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MetroMessageBox.Show(this, ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -134,7 +135,7 @@ namespace UI
                 if (gridUsuarios.Rows.Count <= 0) throw new Exception("No hay usuarios para eliminar.");
                 if (gridUsuarios.SelectedRows.Count <= 0) throw new Exception("Selecciona una fila para eliminar.");
                 BEUsuario usuario = (BEUsuario)gridUsuarios.CurrentRow.DataBoundItem;
-                DialogResult respuesta = MessageBox.Show($"¿Esta seguro que desea eliminar el usuario {usuario.Nombre} {usuario.Apellido}?", "Aviso", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                DialogResult respuesta = MetroMessageBox.Show(this, $"¿Esta seguro que desea eliminar el usuario {usuario.Nombre} {usuario.Apellido}?", "Aviso", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
 
                 if (respuesta == DialogResult.Yes)
                 {
@@ -142,7 +143,7 @@ namespace UI
                     if (eliminado)
                     {
                         RegistrarBitacora($"El usuario ha eliminado el usuario con ID: {usuario.Id}", BEBitacora.BitacoraTipo.INFO);
-                        MessageBox.Show("Usuario eliminado con exito", "Eliminado", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        MetroMessageBox.Show(this, "Usuario eliminado con exito", "Eliminado", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         ActualizarDgv();
                     }
 
@@ -151,7 +152,7 @@ namespace UI
             catch (Exception ex)
             {
                 RegistrarBitacora(ex.Message, BEBitacora.BitacoraTipo.ERROR);
-                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MetroMessageBox.Show(this, ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }

@@ -31,7 +31,7 @@
             this.components = new System.ComponentModel.Container();
             this.txtApellido = new MaterialSkin.Controls.MaterialTextBox();
             this.txtNombre = new MaterialSkin.Controls.MaterialTextBox();
-            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.tooltip = new System.Windows.Forms.ToolTip(this.components);
             this.txtPsw = new MaterialSkin.Controls.MaterialTextBox();
             this.txtUsername = new MaterialSkin.Controls.MaterialTextBox();
             this.txtEmail = new MaterialSkin.Controls.MaterialTextBox();
@@ -57,7 +57,7 @@
             this.txtApellido.TabIndex = 13;
             this.txtApellido.Tag = "";
             this.txtApellido.Text = "";
-            this.toolTip1.SetToolTip(this.txtApellido, "Aquí debes escribir tu apellido.");
+            this.tooltip.SetToolTip(this.txtApellido, "Aquí debes escribir tu apellido.");
             this.txtApellido.TrailingIcon = null;
             // 
             // txtNombre
@@ -78,12 +78,13 @@
             this.txtNombre.TabIndex = 12;
             this.txtNombre.Tag = "";
             this.txtNombre.Text = "";
-            this.toolTip1.SetToolTip(this.txtNombre, "Aquí debes escribir tu nombre.");
+            this.tooltip.SetToolTip(this.txtNombre, "Aquí debes escribir tu nombre.");
             this.txtNombre.TrailingIcon = null;
             // 
-            // toolTip1
+            // tooltip
             // 
-            this.toolTip1.ToolTipTitle = "Ayuda:";
+            this.tooltip.ToolTipIcon = System.Windows.Forms.ToolTipIcon.Info;
+            this.tooltip.ToolTipTitle = "Ayuda:";
             // 
             // txtPsw
             // 
@@ -104,8 +105,9 @@
             this.txtPsw.TabIndex = 16;
             this.txtPsw.Tag = "";
             this.txtPsw.Text = "";
-            this.toolTip1.SetToolTip(this.txtPsw, "Aquí debes escribir una contraseña.");
+            this.tooltip.SetToolTip(this.txtPsw, "Aquí debes escribir una contraseña.");
             this.txtPsw.TrailingIcon = null;
+            this.txtPsw.TextChanged += new System.EventHandler(this.txtPsw_TextChanged);
             // 
             // txtUsername
             // 
@@ -125,7 +127,7 @@
             this.txtUsername.TabIndex = 15;
             this.txtUsername.Tag = "";
             this.txtUsername.Text = "";
-            this.toolTip1.SetToolTip(this.txtUsername, "Aquí debes escribir un nombre de usuario válido.");
+            this.tooltip.SetToolTip(this.txtUsername, "Aquí debes escribir un nombre de usuario válido.");
             this.txtUsername.TrailingIcon = null;
             // 
             // txtEmail
@@ -146,7 +148,7 @@
             this.txtEmail.TabIndex = 14;
             this.txtEmail.Tag = "";
             this.txtEmail.Text = "";
-            this.toolTip1.SetToolTip(this.txtEmail, "Aquí debes escribir tu email.");
+            this.tooltip.SetToolTip(this.txtEmail, "Aquí debes escribir tu email.");
             this.txtEmail.TrailingIcon = null;
             this.txtEmail.TextChanged += new System.EventHandler(this.txtEmail_TextChanged);
             // 
@@ -211,7 +213,7 @@
         }
 
         #endregion
-        private System.Windows.Forms.ToolTip toolTip1;
+        private System.Windows.Forms.ToolTip tooltip;
         private MaterialSkin.Controls.MaterialTextBox txtNombre;
         private MaterialSkin.Controls.MaterialTextBox txtUsername;
         private MaterialSkin.Controls.MaterialTextBox txtApellido;

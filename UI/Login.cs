@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
+using MetroFramework;
 using Abstraccion;
 using BE;
 using BLL;
@@ -26,7 +27,7 @@ namespace UI
         {
             try
             {
-                if (CamposInvalidos()) throw new Exception("Los campos ingresados son incorrectos. Por favor vuelva a ingresarlos.");
+                if (CamposInvalidos()) throw new Exception("Los campos ingresados están vacíos. Por favor completalos.");
 
                 BEUsuario u = new BEUsuario()
                 {
@@ -36,7 +37,7 @@ namespace UI
 
                 BEUsuario usuarioExistente = BLLUsuario.BuscarUsuario(u);
 
-                if (usuarioExistente == null) throw new Exception("Credenciales incorrectas. Por favor vuelva a ingresar los datos.");
+                if (usuarioExistente == null) throw new Exception("Credenciales incorrectas. Por favor vuelva a ingresar los datos correctamente.");
 
                 IUsuario usuario = new BEUsuario
                 {
@@ -55,7 +56,8 @@ namespace UI
 
                 BLLBitacora.Agregar(bitacora);
 
-                MessageBox.Show(
+                MetroMessageBox.Show(
+                    this,
                     $"Usuario logeado: {SesionManager.GetUsername()}",
                     "Logeado",
                     MessageBoxButtons.OK,
@@ -68,7 +70,8 @@ namespace UI
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                MetroMessageBox.Show(this, ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
         }
@@ -77,8 +80,6 @@ namespace UI
         {
             Registro formRegistro = new Registro();
             formRegistro.Show();
-            Hide();
         }
     }
-  
 }

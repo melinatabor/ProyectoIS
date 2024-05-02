@@ -10,6 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using MetroFramework;
 
 namespace UI
 {
@@ -36,7 +37,7 @@ namespace UI
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MetroMessageBox.Show(this, ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 RegistrarBitacora($"Ha ocurrido un error: {ex.Message}", BEBitacora.BitacoraTipo.ERROR);
                 return;
             }
@@ -61,7 +62,7 @@ namespace UI
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MetroMessageBox.Show(this, ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
@@ -77,7 +78,7 @@ namespace UI
                 usuario.Email = txtEmail.Text;
                 usuario.Username = txtUsername.Text;
 
-                DialogResult respuesta = MessageBox.Show($"¿Esta seguro que desea modificar el usuario?", "Aviso", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                DialogResult respuesta = MetroMessageBox.Show(this, $"¿Esta seguro que desea modificar el usuario?", "Aviso", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
 
                 if (respuesta == DialogResult.Yes)
                 {
@@ -85,14 +86,14 @@ namespace UI
                     if (guardado)
                     {
                         RegistrarBitacora($"El usuario ha modificado un usuario", BEBitacora.BitacoraTipo.INFO);
-                        MessageBox.Show("Usuario modificado con exito", "Modificado", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        MetroMessageBox.Show(this, "Usuario modificado con exito", "Modificado", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         this.Close();
                     }
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MetroMessageBox.Show(this, ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 RegistrarBitacora($"Ha ocurrido un error: {ex.Message}", BEBitacora.BitacoraTipo.ERROR);
                 return;
             }
