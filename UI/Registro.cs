@@ -15,24 +15,23 @@ using Servicios.ValidadorEmail;
 
 namespace UI
 {
-    public partial class Registro : Form
+    public partial class Registro : MetroFramework.Forms.MetroForm
     {
         private bool emailValido = false;
 
         public Registro()
         {
             InitializeComponent();
-            inputPsw.PasswordChar = '*';
         }
 
-        private void btnRegistrar_Click(object sender, EventArgs e)
+        private void btnRegistrarme_Click(object sender, EventArgs e)
         {
             try
             {
                 BEUsuario nuevoUsuario = ObtenerDatos();
 
                 if (nuevoUsuario is null) throw new Exception("Debe completar todos los campos, por favor.");
-                if (!emailValido) throw new Exception("El email no es válido. Falta agregar el @ o el formato del email es incorrecto."); 
+                if (!emailValido) throw new Exception("El email no es válido. Falta agregar el @ o el formato del email es incorrecto.");
                 bool alta = BLLUsuario.Agregar(nuevoUsuario);
 
                 if (alta)
@@ -59,11 +58,11 @@ namespace UI
                 if (CamposInvalidos()) throw new Exception("Los datos ingresados son incorrectos");
                 return new BEUsuario()
                 {
-                    Nombre = inputNombre.Text,
-                    Apellido = inputApellido.Text,
-                    Email = inputEmail.Text,
-                    Username = inputUsername.Text,
-                    Password = inputPsw.Text,
+                    Nombre = txtNombre.Text,
+                    Apellido = txtApellido.Text,
+                    Email = txtEmail.Text,
+                    Username = txtUsername.Text,
+                    Password = txtPsw.Text,
                 };
             }
             catch (Exception)
@@ -74,46 +73,13 @@ namespace UI
 
         private bool CamposInvalidos()
         {
-            return String.IsNullOrEmpty(inputNombre.Text.Trim()) || 
-                String.IsNullOrEmpty(inputApellido.Text.Trim()) || 
-                String.IsNullOrEmpty(inputEmail.Text.Trim()) ||
-                String.IsNullOrEmpty(inputUsername.Text.Trim()) ||
-                String.IsNullOrEmpty(inputPsw.Text.Trim());
+            return String.IsNullOrEmpty(txtNombre.Text.Trim()) || 
+                String.IsNullOrEmpty(txtApellido.Text.Trim()) || 
+                String.IsNullOrEmpty(txtEmail.Text.Trim()) ||
+                String.IsNullOrEmpty(txtUsername.Text.Trim()) ||
+                String.IsNullOrEmpty(txtPsw.Text.Trim());
         }
 
-        private void btnVerPsw_MouseDown(object sender, MouseEventArgs e)
-        {
-            // Mostrar la password al mantener presionado el boton
-            inputPsw.PasswordChar = '\0';
-        }
-
-        private void btnVerPsw_MouseUp(object sender, MouseEventArgs e)
-        {
-            // Ocultar la password al soltar el boton
-            inputPsw.PasswordChar = '*';  
-        }
-
-        private void inputEmail_TextChanged(object sender, EventArgs e)
-        {
-            try
-            {
-                if (ValidadorEmail.Validar(inputEmail.Text.Trim()))
-                {
-                    toolTip1.SetToolTip(inputEmail, "");
-                    emailValido = true;
-                } 
-                else
-                {
-                    toolTip1.SetToolTip(inputEmail, "Falta agregar el @ o el formato del email es incorrecto.");
-                    emailValido = false;
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-        }
 
         private void RegistrarBitacora(BEUsuario usuario, string mensaje, BEBitacora.BitacoraTipo tipo = BEBitacora.BitacoraTipo.INFO)
         {
@@ -136,5 +102,38 @@ namespace UI
 
         }
 
+        private void btnShowPsw_MouseUp(object sender, MouseEventArgs e)
+        {
+            // Ocultar la password al soltar el boton
+            txtPsw.Password = true;
+        }
+
+        private void btnShowPsw_MouseDown(object sender, MouseEventArgs e)
+        {
+            // Mostrar la password al mantener presionado el boton
+            txtPsw.Password = false;
+        }
+
+        private void txtEmail_TextChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                if (ValidadorEmail.Validar(txtEmail.Text.Trim()))
+                {
+                    toolTip1.SetToolTip(txtEmail, "");
+                    emailValido = true;
+                }
+                else
+                {
+                    toolTip1.SetToolTip(txtEmail, "Falta agregar el @ o el formato del email es incorrecto.");
+                    emailValido = false;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+        }
     }
 }

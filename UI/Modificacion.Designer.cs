@@ -28,201 +28,163 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.labelId = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.btnModificar = new System.Windows.Forms.Button();
-            this.inputPsw = new System.Windows.Forms.TextBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.inputUsername = new System.Windows.Forms.TextBox();
-            this.Username = new System.Windows.Forms.Label();
-            this.inputEmail = new System.Windows.Forms.TextBox();
-            this.inputApellido = new System.Windows.Forms.TextBox();
-            this.inputNombre = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.groupBox1.SuspendLayout();
+            this.txtPsw = new MaterialSkin.Controls.MaterialTextBox();
+            this.txtUsername = new MaterialSkin.Controls.MaterialTextBox();
+            this.txtEmail = new MaterialSkin.Controls.MaterialTextBox();
+            this.txtNombre = new MaterialSkin.Controls.MaterialTextBox();
+            this.txtApellido = new MaterialSkin.Controls.MaterialTextBox();
+            this.btnModificar = new MaterialSkin.Controls.MaterialButton();
             this.SuspendLayout();
             // 
-            // groupBox1
+            // txtPsw
             // 
-            this.groupBox1.Controls.Add(this.labelId);
-            this.groupBox1.Controls.Add(this.label5);
-            this.groupBox1.Controls.Add(this.btnModificar);
-            this.groupBox1.Controls.Add(this.inputPsw);
-            this.groupBox1.Controls.Add(this.label4);
-            this.groupBox1.Controls.Add(this.inputUsername);
-            this.groupBox1.Controls.Add(this.Username);
-            this.groupBox1.Controls.Add(this.inputEmail);
-            this.groupBox1.Controls.Add(this.inputApellido);
-            this.groupBox1.Controls.Add(this.inputNombre);
-            this.groupBox1.Controls.Add(this.label3);
-            this.groupBox1.Controls.Add(this.label2);
-            this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Location = new System.Drawing.Point(46, 48);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(6);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(6);
-            this.groupBox1.Size = new System.Drawing.Size(620, 554);
-            this.groupBox1.TabIndex = 7;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Modificar Usuario:";
+            this.txtPsw.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
+            this.txtPsw.AnimateReadOnly = false;
+            this.txtPsw.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtPsw.Depth = 0;
+            this.txtPsw.Enabled = false;
+            this.txtPsw.Font = new System.Drawing.Font("Roboto", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.txtPsw.Hint = "Contraseña";
+            this.txtPsw.LeadingIcon = global::UI.Properties.Resources.Password;
+            this.txtPsw.Location = new System.Drawing.Point(31, 350);
+            this.txtPsw.MaxLength = 50;
+            this.txtPsw.MouseState = MaterialSkin.MouseState.OUT;
+            this.txtPsw.Multiline = false;
+            this.txtPsw.Name = "txtPsw";
+            this.txtPsw.Size = new System.Drawing.Size(340, 50);
+            this.txtPsw.TabIndex = 21;
+            this.txtPsw.Tag = "";
+            this.txtPsw.Text = "";
+            this.txtPsw.TrailingIcon = null;
             // 
-            // labelId
+            // txtUsername
             // 
-            this.labelId.AutoSize = true;
-            this.labelId.Location = new System.Drawing.Point(192, 48);
-            this.labelId.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
-            this.labelId.Name = "labelId";
-            this.labelId.Size = new System.Drawing.Size(0, 25);
-            this.labelId.TabIndex = 14;
+            this.txtUsername.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
+            this.txtUsername.AnimateReadOnly = false;
+            this.txtUsername.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtUsername.Depth = 0;
+            this.txtUsername.Font = new System.Drawing.Font("Roboto", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.txtUsername.Hint = "Usuario";
+            this.txtUsername.LeadingIcon = global::UI.Properties.Resources.Username;
+            this.txtUsername.Location = new System.Drawing.Point(31, 281);
+            this.txtUsername.MaxLength = 50;
+            this.txtUsername.MouseState = MaterialSkin.MouseState.OUT;
+            this.txtUsername.Multiline = false;
+            this.txtUsername.Name = "txtUsername";
+            this.txtUsername.Size = new System.Drawing.Size(340, 50);
+            this.txtUsername.TabIndex = 20;
+            this.txtUsername.Tag = "";
+            this.txtUsername.Text = "";
+            this.txtUsername.TrailingIcon = null;
             // 
-            // label5
+            // txtEmail
             // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(142, 48);
-            this.label5.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(35, 25);
-            this.label5.TabIndex = 13;
-            this.label5.Text = "Id:";
+            this.txtEmail.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
+            this.txtEmail.AnimateReadOnly = false;
+            this.txtEmail.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtEmail.Depth = 0;
+            this.txtEmail.Font = new System.Drawing.Font("Roboto", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.txtEmail.Hint = "Email";
+            this.txtEmail.LeadingIcon = global::UI.Properties.Resources.Correo;
+            this.txtEmail.Location = new System.Drawing.Point(31, 214);
+            this.txtEmail.MaxLength = 50;
+            this.txtEmail.MouseState = MaterialSkin.MouseState.OUT;
+            this.txtEmail.Multiline = false;
+            this.txtEmail.Name = "txtEmail";
+            this.txtEmail.Size = new System.Drawing.Size(340, 50);
+            this.txtEmail.TabIndex = 19;
+            this.txtEmail.Tag = "";
+            this.txtEmail.Text = "";
+            this.txtEmail.TrailingIcon = null;
+            // 
+            // txtNombre
+            // 
+            this.txtNombre.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
+            this.txtNombre.AnimateReadOnly = false;
+            this.txtNombre.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtNombre.Depth = 0;
+            this.txtNombre.Font = new System.Drawing.Font("Roboto", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.txtNombre.Hint = "Nombre";
+            this.txtNombre.LeadingIcon = null;
+            this.txtNombre.Location = new System.Drawing.Point(31, 74);
+            this.txtNombre.MaxLength = 50;
+            this.txtNombre.MouseState = MaterialSkin.MouseState.OUT;
+            this.txtNombre.Multiline = false;
+            this.txtNombre.Name = "txtNombre";
+            this.txtNombre.Size = new System.Drawing.Size(340, 50);
+            this.txtNombre.TabIndex = 17;
+            this.txtNombre.Tag = "";
+            this.txtNombre.Text = "";
+            this.txtNombre.TrailingIcon = null;
+            // 
+            // txtApellido
+            // 
+            this.txtApellido.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
+            this.txtApellido.AnimateReadOnly = false;
+            this.txtApellido.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtApellido.Depth = 0;
+            this.txtApellido.Font = new System.Drawing.Font("Roboto", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.txtApellido.Hint = "Apellido";
+            this.txtApellido.LeadingIcon = null;
+            this.txtApellido.Location = new System.Drawing.Point(31, 144);
+            this.txtApellido.MaxLength = 50;
+            this.txtApellido.MouseState = MaterialSkin.MouseState.OUT;
+            this.txtApellido.Multiline = false;
+            this.txtApellido.Name = "txtApellido";
+            this.txtApellido.Size = new System.Drawing.Size(340, 50);
+            this.txtApellido.TabIndex = 18;
+            this.txtApellido.Tag = "";
+            this.txtApellido.Text = "";
+            this.txtApellido.TrailingIcon = null;
             // 
             // btnModificar
             // 
-            this.btnModificar.Location = new System.Drawing.Point(92, 438);
-            this.btnModificar.Margin = new System.Windows.Forms.Padding(6);
+            this.btnModificar.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.btnModificar.AutoSize = false;
+            this.btnModificar.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btnModificar.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
+            this.btnModificar.Depth = 0;
+            this.btnModificar.HighEmphasis = true;
+            this.btnModificar.Icon = global::UI.Properties.Resources.Edit;
+            this.btnModificar.Location = new System.Drawing.Point(128, 409);
+            this.btnModificar.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.btnModificar.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnModificar.Name = "btnModificar";
-            this.btnModificar.Size = new System.Drawing.Size(436, 87);
-            this.btnModificar.TabIndex = 4;
-            this.btnModificar.Text = "&Modificar";
+            this.btnModificar.NoAccentTextColor = System.Drawing.Color.Empty;
+            this.btnModificar.Size = new System.Drawing.Size(140, 62);
+            this.btnModificar.TabIndex = 22;
+            this.btnModificar.Text = "Modificar";
+            this.btnModificar.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Outlined;
+            this.btnModificar.UseAccentColor = true;
             this.btnModificar.UseVisualStyleBackColor = true;
             this.btnModificar.Click += new System.EventHandler(this.btnModificar_Click);
             // 
-            // inputPsw
-            // 
-            this.inputPsw.Location = new System.Drawing.Point(196, 365);
-            this.inputPsw.Margin = new System.Windows.Forms.Padding(6);
-            this.inputPsw.Name = "inputPsw";
-            this.inputPsw.PasswordChar = '*';
-            this.inputPsw.ReadOnly = true;
-            this.inputPsw.Size = new System.Drawing.Size(328, 31);
-            this.inputPsw.TabIndex = 12;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(90, 371);
-            this.label4.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(112, 25);
-            this.label4.TabIndex = 11;
-            this.label4.Text = "Password:";
-            // 
-            // inputUsername
-            // 
-            this.inputUsername.Location = new System.Drawing.Point(194, 304);
-            this.inputUsername.Margin = new System.Windows.Forms.Padding(6);
-            this.inputUsername.Name = "inputUsername";
-            this.inputUsername.Size = new System.Drawing.Size(330, 31);
-            this.inputUsername.TabIndex = 3;
-            // 
-            // Username
-            // 
-            this.Username.AutoSize = true;
-            this.Username.Location = new System.Drawing.Point(88, 310);
-            this.Username.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
-            this.Username.Name = "Username";
-            this.Username.Size = new System.Drawing.Size(116, 25);
-            this.Username.TabIndex = 9;
-            this.Username.Text = "Username:";
-            // 
-            // inputEmail
-            // 
-            this.inputEmail.Location = new System.Drawing.Point(192, 231);
-            this.inputEmail.Margin = new System.Windows.Forms.Padding(6);
-            this.inputEmail.Name = "inputEmail";
-            this.inputEmail.Size = new System.Drawing.Size(332, 31);
-            this.inputEmail.TabIndex = 2;
-            // 
-            // inputApellido
-            // 
-            this.inputApellido.Location = new System.Drawing.Point(192, 160);
-            this.inputApellido.Margin = new System.Windows.Forms.Padding(6);
-            this.inputApellido.Name = "inputApellido";
-            this.inputApellido.Size = new System.Drawing.Size(332, 31);
-            this.inputApellido.TabIndex = 1;
-            // 
-            // inputNombre
-            // 
-            this.inputNombre.Location = new System.Drawing.Point(194, 102);
-            this.inputNombre.Margin = new System.Windows.Forms.Padding(6);
-            this.inputNombre.Name = "inputNombre";
-            this.inputNombre.Size = new System.Drawing.Size(330, 31);
-            this.inputNombre.TabIndex = 0;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(114, 237);
-            this.label3.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(71, 25);
-            this.label3.TabIndex = 5;
-            this.label3.Text = "Email:";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(86, 165);
-            this.label2.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(95, 25);
-            this.label2.TabIndex = 4;
-            this.label2.Text = "Apellido:";
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(90, 108);
-            this.label1.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(93, 25);
-            this.label1.TabIndex = 3;
-            this.label1.Text = "Nombre:";
-            // 
             // Modificacion
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(716, 673);
-            this.Controls.Add(this.groupBox1);
-            this.Margin = new System.Windows.Forms.Padding(6);
+            this.ClientSize = new System.Drawing.Size(401, 501);
+            this.Controls.Add(this.btnModificar);
+            this.Controls.Add(this.txtPsw);
+            this.Controls.Add(this.txtUsername);
+            this.Controls.Add(this.txtEmail);
+            this.Controls.Add(this.txtNombre);
+            this.Controls.Add(this.txtApellido);
             this.Name = "Modificacion";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Modificacion";
+            this.Padding = new System.Windows.Forms.Padding(10, 60, 10, 10);
+            this.Style = MetroFramework.MetroColorStyle.Pink;
+            this.Text = "Modificar Usuario";
             this.Load += new System.EventHandler(this.Modificacion_Load);
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
 
         }
 
         #endregion
-
-        private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.Button btnModificar;
-        private System.Windows.Forms.TextBox inputPsw;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TextBox inputUsername;
-        private System.Windows.Forms.Label Username;
-        private System.Windows.Forms.TextBox inputEmail;
-        private System.Windows.Forms.TextBox inputApellido;
-        private System.Windows.Forms.TextBox inputNombre;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label labelId;
-        private System.Windows.Forms.Label label5;
+        private MaterialSkin.Controls.MaterialTextBox txtPsw;
+        private MaterialSkin.Controls.MaterialTextBox txtUsername;
+        private MaterialSkin.Controls.MaterialTextBox txtEmail;
+        private MaterialSkin.Controls.MaterialTextBox txtNombre;
+        private MaterialSkin.Controls.MaterialTextBox txtApellido;
+        private MaterialSkin.Controls.MaterialButton btnModificar;
     }
 }

@@ -12,7 +12,7 @@ using System.Windows.Forms;
 
 namespace UI
 {
-    public partial class Bitacora : Form
+    public partial class Bitacora : MetroFramework.Forms.MetroForm
     {
         private int _pagina = 1;
         private int _rowsPerPage = 5;
@@ -28,29 +28,101 @@ namespace UI
             {
                 labelPagina.Text = "Pagina: " + _pagina.ToString();
 
-                dtDesde.Value = new DateTime(DateTime.Now.Year, 1, 1);
-                dtHasta.Value = DateTime.Now;
+                dtFrom.Value = new DateTime(DateTime.Now.Year, 1, 1);
+                dtTo.Value = DateTime.Now;
 
-                dropdownTipo.Items.Clear();
-                dropdownTipo.Items.Add(BEBitacora.BitacoraTipo.INFO);
-                dropdownTipo.Items.Add(BEBitacora.BitacoraTipo.ERROR);
-                dropdownTipo.Items.Add(BEBitacora.BitacoraTipo.ALL);
+                comboBoxTipo.Items.Clear();
+                comboBoxTipo.Items.Add(BEBitacora.BitacoraTipo.INFO);
+                comboBoxTipo.Items.Add(BEBitacora.BitacoraTipo.ERROR);
+                comboBoxTipo.Items.Add(BEBitacora.BitacoraTipo.ALL);
 
-                dropdownUsuario.Items.Clear();
+                comboBoxUsuario.Items.Clear();
                 foreach (BEUsuario usuario in BLLUsuario.Listar())
-                    dropdownUsuario.Items.Add(usuario.Username);
+                    comboBoxUsuario.Items.Add(usuario.Username);
 
                 BEBitacoraCriteria criteria = new BEBitacoraCriteria()
                 {
-                    Desde = dtDesde.Value,
-                    Hasta = dtHasta.Value,
+                    Desde = dtFrom.Value,
+                    Hasta = dtTo.Value,
                     Tipo = null,
                     Usuario = null,
                     Page = _pagina,
                     RowPerPage = _rowsPerPage
                 };
-                dgvBitacora.DataSource = null;
-                dgvBitacora.DataSource = BLLBitacora.Filtrar(criteria);
+                gridBitacora.DataSource = null;
+                gridBitacora.DataSource = BLLBitacora.Filtrar(criteria);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+        }
+
+        private void btnLeft_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                _pagina -= 1;
+
+                if (_pagina <= 1)
+                {
+                    btnLeft.Enabled = false;
+                }
+
+                BEBitacoraCriteria criteria = new BEBitacoraCriteria()
+                {
+                    Desde = dtFrom.Value,
+                    Hasta = dtTo.Value,
+                    Tipo = comboBoxTipo.SelectedIndex + 1,
+                    Usuario = comboBoxUsuario.Text,
+                    Page = _pagina,
+                    RowPerPage = _rowsPerPage
+                };
+                gridBitacora.DataSource = null;
+                gridBitacora.DataSource = BLLBitacora.Filtrar(criteria);
+
+                btnRight.Enabled = true;
+
+                labelPagina.Text = "Pagina: " + _pagina.ToString();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+        }
+
+        private void btnRight_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                _pagina += 1;
+
+                BEBitacoraCriteria criteria = new BEBitacoraCriteria()
+                {
+                    Desde = dtFrom.Value,
+                    Hasta = dtTo.Value,
+                    Tipo = comboBoxTipo.SelectedIndex + 1,
+                    Usuario = comboBoxUsuario.Text,
+                    Page = _pagina,
+                    RowPerPage = _rowsPerPage
+                };
+
+                var results = BLLBitacora.Filtrar(criteria);
+
+                if (results.Count < _rowsPerPage)
+                    btnRight.Enabled = false;
+
+                else
+                    btnRight.Enabled = true;
+
+                gridBitacora.DataSource = null;
+                gridBitacora.DataSource = results;
+
+                btnLeft.Enabled = true;
+
+                labelPagina.Text = "Pagina: " + _pagina.ToString();
             }
             catch (Exception ex)
             {
@@ -67,87 +139,15 @@ namespace UI
 
                 BEBitacoraCriteria criteria = new BEBitacoraCriteria()
                 {
-                    Desde   = dtDesde.Value,
-                    Hasta   = dtHasta.Value,
-                    Tipo    = dropdownTipo.SelectedIndex + 1,
-                    Usuario = dropdownUsuario.Text,
-                    Page    = _pagina,
-                    RowPerPage = _rowsPerPage
-                };
-                dgvBitacora.DataSource = null;
-                dgvBitacora.DataSource = BLLBitacora.Filtrar(criteria);
-
-                labelPagina.Text = "Pagina: " + _pagina.ToString();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                _pagina -= 1;
-
-                if (_pagina <= 1)
-                {
-                    button1.Enabled = false;
-                }
-
-                BEBitacoraCriteria criteria = new BEBitacoraCriteria()
-                {
-                    Desde = dtDesde.Value,
-                    Hasta = dtHasta.Value,
-                    Tipo = dropdownTipo.SelectedIndex + 1,
-                    Usuario = dropdownUsuario.Text,
+                    Desde = dtFrom.Value,
+                    Hasta = dtTo.Value,
+                    Tipo = comboBoxTipo.SelectedIndex + 1,
+                    Usuario = comboBoxUsuario.Text,
                     Page = _pagina,
                     RowPerPage = _rowsPerPage
                 };
-                dgvBitacora.DataSource = null;
-                dgvBitacora.DataSource = BLLBitacora.Filtrar(criteria);
-
-                button2.Enabled = true;
-
-                labelPagina.Text = "Pagina: " + _pagina.ToString();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-        }
-
-        private void button2_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                _pagina += 1;
-
-                BEBitacoraCriteria criteria = new BEBitacoraCriteria()
-                {
-                    Desde = dtDesde.Value,
-                    Hasta = dtHasta.Value,
-                    Tipo = dropdownTipo.SelectedIndex + 1,
-                    Usuario = dropdownUsuario.Text,
-                    Page = _pagina,
-                    RowPerPage = _rowsPerPage
-                };
-
-                var results = BLLBitacora.Filtrar(criteria);
-
-                if (results.Count < _rowsPerPage) 
-                    button2.Enabled = false; 
-                
-                else
-                    button2.Enabled = true;
-
-                dgvBitacora.DataSource = null;
-                dgvBitacora.DataSource = results;
-
-                button1.Enabled = true;
+                gridBitacora.DataSource = null;
+                gridBitacora.DataSource = BLLBitacora.Filtrar(criteria);
 
                 labelPagina.Text = "Pagina: " + _pagina.ToString();
             }

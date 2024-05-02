@@ -6,7 +6,7 @@ using System.Windows.Forms;
 
 namespace UI
 {
-    public partial class Sistema : Form
+    public partial class Sistema : MetroFramework.Forms.MetroForm
     {
         public Sistema()
         {

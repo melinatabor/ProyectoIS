@@ -8,15 +8,19 @@ using static BE.BEBitacora;
 
 namespace UI
 {
-    public partial class Login : Form
+    public partial class Login : MetroFramework.Forms.MetroForm
     {
         public Login()
         {
             InitializeComponent();
-            
-            // Ocultar la password
-            inputPsw.PasswordChar = '*';
         }
+
+        private bool CamposInvalidos()
+        {
+            return String.IsNullOrEmpty(inputUsuario.Text.Trim()) ||
+                String.IsNullOrEmpty(inputPsw.Text.Trim());
+        }
+
 
         private void btnIngresar_Click(object sender, EventArgs e)
         {
@@ -60,7 +64,7 @@ namespace UI
 
                 Sistema sistema = new Sistema();
                 sistema.Show();
-                Hide();    
+                Hide();
             }
             catch (Exception ex)
             {
@@ -69,16 +73,11 @@ namespace UI
             }
         }
 
-        private bool CamposInvalidos()
-        {
-            return String.IsNullOrEmpty(inputUsuario.Text.Trim()) ||
-                String.IsNullOrEmpty(inputPsw.Text.Trim());
-        }
-
         private void btnRegistrar_Click(object sender, EventArgs e)
         {
             Registro formRegistro = new Registro();
             formRegistro.Show();
+            Hide();
         }
     }
   

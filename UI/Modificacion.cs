@@ -13,7 +13,7 @@ using System.Windows.Forms;
 
 namespace UI
 {
-    public partial class Modificacion : Form
+    public partial class Modificacion : MetroFramework.Forms.MetroForm
     {
         private int idUsuario;
 
@@ -28,43 +28,11 @@ namespace UI
             try
             {
                 BEUsuario usuario = BLLUsuario.ObtenerUsuario(idUsuario);
-                labelId.Text = Convert.ToString(idUsuario);
-                inputNombre.Text = usuario.Nombre;
-                inputApellido.Text = usuario.Apellido;
-                inputEmail.Text = usuario.Email;
-                inputUsername.Text = usuario.Username;
-                inputPsw.Text = usuario.Password;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                RegistrarBitacora($"Ha ocurrido un error: {ex.Message}", BEBitacora.BitacoraTipo.ERROR);
-                return;
-            }
-        }
-
-        private void btnModificar_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                BEUsuario usuario = new BEUsuario(idUsuario);
-                usuario.Nombre = inputNombre.Text;
-                usuario.Apellido = inputApellido.Text;
-                usuario.Email = inputEmail.Text;
-                usuario.Username = inputUsername.Text;
-
-                DialogResult respuesta = MessageBox.Show($"¿Esta seguro que desea modificar el usuario?", "Aviso", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-
-                if (respuesta == DialogResult.Yes)
-                {
-                    bool guardado = BLLUsuario.Editar(usuario);
-                    if (guardado)
-                    {
-                        RegistrarBitacora($"El usuario ha modificado un usuario", BEBitacora.BitacoraTipo.INFO);
-                        MessageBox.Show("Usuario modificado con exito", "Modificado", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        this.Close();
-                    }
-                }
+                txtNombre.Text = usuario.Nombre;
+                txtApellido.Text = usuario.Apellido;
+                txtEmail.Text = usuario.Email;
+                txtUsername.Text = usuario.Username;
+                txtPsw.Text = usuario.Password;
             }
             catch (Exception ex)
             {
@@ -98,6 +66,36 @@ namespace UI
             }
 
         }
-        
+
+        private void btnModificar_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                BEUsuario usuario = new BEUsuario(idUsuario);
+                usuario.Nombre = txtNombre.Text;
+                usuario.Apellido = txtApellido.Text;
+                usuario.Email = txtEmail.Text;
+                usuario.Username = txtUsername.Text;
+
+                DialogResult respuesta = MessageBox.Show($"¿Esta seguro que desea modificar el usuario?", "Aviso", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+
+                if (respuesta == DialogResult.Yes)
+                {
+                    bool guardado = BLLUsuario.Editar(usuario);
+                    if (guardado)
+                    {
+                        RegistrarBitacora($"El usuario ha modificado un usuario", BEBitacora.BitacoraTipo.INFO);
+                        MessageBox.Show("Usuario modificado con exito", "Modificado", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        this.Close();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                RegistrarBitacora($"Ha ocurrido un error: {ex.Message}", BEBitacora.BitacoraTipo.ERROR);
+                return;
+            }
+        }
     }
 }
