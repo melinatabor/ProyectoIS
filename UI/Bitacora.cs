@@ -69,6 +69,7 @@ namespace UI
                 if (_pagina <= 1)
                 {
                     btnLeft.Enabled = false;
+                    return;
                 }
 
                 BEBitacoraCriteria criteria = new BEBitacoraCriteria()

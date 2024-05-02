@@ -201,6 +201,7 @@
             this.btnLeft.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btnLeft.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
             this.btnLeft.Depth = 0;
+            this.btnLeft.Enabled = false;
             this.btnLeft.HighEmphasis = true;
             this.btnLeft.Icon = global::UI.Properties.Resources.Left;
             this.btnLeft.Location = new System.Drawing.Point(357, 319);
