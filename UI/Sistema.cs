@@ -11,15 +11,31 @@ namespace UI
     {
         public Sistema()
         {
-            InitializeComponent();
-            usuarioLogeadoTxt.Text = $"Usuario: {SesionManager.GetUsername()}";
+            try
+            {
+                InitializeComponent();
+                usuarioLogeadoTxt.Text = $"Usuario: {SesionManager.GetUsername()}";
+            }
+            catch (Exception ex)
+            {
+                MetroMessageBox.Show(this, ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
         }
 
         private void usuariosToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Gestion usuarios = new Gestion();
-            usuarios.MdiParent = this;
-            usuarios.Show();
+            try
+            {
+                Gestion usuarios = new Gestion();
+                usuarios.MdiParent = this;
+                usuarios.Show();
+            }
+            catch (Exception ex)
+            {
+                MetroMessageBox.Show(this, ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
         }
 
         private void salirToolStripMenuItem1_Click(object sender, EventArgs e)
@@ -90,9 +106,17 @@ namespace UI
 
         private void bitácoraToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Bitacora bitacora = new Bitacora();
-            bitacora.MdiParent = this;
-            bitacora.Show();
+            try
+            {
+                Bitacora bitacora = new Bitacora();
+                bitacora.MdiParent = this;
+                bitacora.Show();
+            }
+            catch (Exception ex)
+            {
+                MetroMessageBox.Show(this, ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
         }
     }
 }
