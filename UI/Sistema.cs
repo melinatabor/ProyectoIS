@@ -3,10 +3,11 @@ using BLL;
 using Servicios.SesionManager;
 using System;
 using System.Windows.Forms;
+using MetroFramework;
 
 namespace UI
 {
-    public partial class Sistema : Form
+    public partial class Sistema : MetroFramework.Forms.MetroForm
     {
         public Sistema()
         {
@@ -25,7 +26,7 @@ namespace UI
         {
             try
             {
-                DialogResult opcion = MessageBox.Show("Desea salir de la aplicacion?", "Aviso", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                DialogResult opcion = MetroMessageBox.Show(this, "Desea salir de la aplicacion?", "Aviso", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
                 if (opcion == DialogResult.Yes)
                 {
@@ -36,7 +37,7 @@ namespace UI
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MetroMessageBox.Show(this, ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
         }
@@ -45,7 +46,7 @@ namespace UI
         {
             try
             {
-                DialogResult opcion = MessageBox.Show("Desea cerrar la sesion?", "Aviso", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                DialogResult opcion = MetroMessageBox.Show(this, "Desea cerrar la sesion?", "Aviso", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
                 if (opcion == DialogResult.Yes)
                 {
@@ -58,7 +59,7 @@ namespace UI
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MetroMessageBox.Show(this, ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
         }
@@ -82,7 +83,7 @@ namespace UI
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MetroMessageBox.Show(this, ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
         }

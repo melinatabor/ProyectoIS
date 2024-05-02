@@ -29,197 +29,165 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.btnRegistrar = new System.Windows.Forms.Button();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.btnVerPsw = new System.Windows.Forms.Button();
-            this.inputPsw = new System.Windows.Forms.TextBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.inputUsername = new System.Windows.Forms.TextBox();
-            this.Username = new System.Windows.Forms.Label();
-            this.inputEmail = new System.Windows.Forms.TextBox();
-            this.inputApellido = new System.Windows.Forms.TextBox();
-            this.inputNombre = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.groupBox1.SuspendLayout();
+            this.btnRegistro = new MaterialSkin.Controls.MaterialButton();
+            this.txtNombre = new MaterialSkin.Controls.MaterialTextBox();
+            this.txtApellido = new MaterialSkin.Controls.MaterialTextBox();
+            this.txtEmail = new MaterialSkin.Controls.MaterialTextBox();
+            this.txtUsername = new MaterialSkin.Controls.MaterialTextBox();
+            this.txtPsw = new MaterialSkin.Controls.MaterialTextBox();
             this.SuspendLayout();
-            // 
-            // btnRegistrar
-            // 
-            this.btnRegistrar.Location = new System.Drawing.Point(92, 406);
-            this.btnRegistrar.Margin = new System.Windows.Forms.Padding(6);
-            this.btnRegistrar.Name = "btnRegistrar";
-            this.btnRegistrar.Size = new System.Drawing.Size(436, 87);
-            this.btnRegistrar.TabIndex = 6;
-            this.btnRegistrar.Text = "Registrarme";
-            this.btnRegistrar.UseVisualStyleBackColor = true;
-            this.btnRegistrar.Click += new System.EventHandler(this.btnRegistrar_Click);
-            // 
-            // groupBox1
-            // 
-            this.groupBox1.Controls.Add(this.btnRegistrar);
-            this.groupBox1.Controls.Add(this.btnVerPsw);
-            this.groupBox1.Controls.Add(this.inputPsw);
-            this.groupBox1.Controls.Add(this.label4);
-            this.groupBox1.Controls.Add(this.inputUsername);
-            this.groupBox1.Controls.Add(this.Username);
-            this.groupBox1.Controls.Add(this.inputEmail);
-            this.groupBox1.Controls.Add(this.inputApellido);
-            this.groupBox1.Controls.Add(this.inputNombre);
-            this.groupBox1.Controls.Add(this.label3);
-            this.groupBox1.Controls.Add(this.label2);
-            this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Location = new System.Drawing.Point(42, 23);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(6);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(6);
-            this.groupBox1.Size = new System.Drawing.Size(976, 554);
-            this.groupBox1.TabIndex = 6;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Nuevo Usuario:";
-            // 
-            // btnVerPsw
-            // 
-            this.btnVerPsw.Font = new System.Drawing.Font("Microsoft YaHei UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnVerPsw.Location = new System.Drawing.Point(406, 308);
-            this.btnVerPsw.Margin = new System.Windows.Forms.Padding(4);
-            this.btnVerPsw.Name = "btnVerPsw";
-            this.btnVerPsw.Size = new System.Drawing.Size(122, 52);
-            this.btnVerPsw.TabIndex = 5;
-            this.btnVerPsw.Text = "Mostrar";
-            this.btnVerPsw.UseVisualStyleBackColor = true;
-            this.btnVerPsw.MouseDown += new System.Windows.Forms.MouseEventHandler(this.btnVerPsw_MouseDown);
-            this.btnVerPsw.MouseUp += new System.Windows.Forms.MouseEventHandler(this.btnVerPsw_MouseUp);
-            // 
-            // inputPsw
-            // 
-            this.inputPsw.Location = new System.Drawing.Point(196, 313);
-            this.inputPsw.Margin = new System.Windows.Forms.Padding(6);
-            this.inputPsw.Name = "inputPsw";
-            this.inputPsw.PasswordChar = '*';
-            this.inputPsw.Size = new System.Drawing.Size(196, 31);
-            this.inputPsw.TabIndex = 4;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(90, 319);
-            this.label4.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(112, 25);
-            this.label4.TabIndex = 11;
-            this.label4.Text = "Password:";
-            // 
-            // inputUsername
-            // 
-            this.inputUsername.Location = new System.Drawing.Point(194, 252);
-            this.inputUsername.Margin = new System.Windows.Forms.Padding(6);
-            this.inputUsername.Name = "inputUsername";
-            this.inputUsername.Size = new System.Drawing.Size(330, 31);
-            this.inputUsername.TabIndex = 3;
-            // 
-            // Username
-            // 
-            this.Username.AutoSize = true;
-            this.Username.Location = new System.Drawing.Point(88, 258);
-            this.Username.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
-            this.Username.Name = "Username";
-            this.Username.Size = new System.Drawing.Size(116, 25);
-            this.Username.TabIndex = 9;
-            this.Username.Text = "Username:";
-            // 
-            // inputEmail
-            // 
-            this.inputEmail.Location = new System.Drawing.Point(192, 179);
-            this.inputEmail.Margin = new System.Windows.Forms.Padding(6);
-            this.inputEmail.Name = "inputEmail";
-            this.inputEmail.Size = new System.Drawing.Size(332, 31);
-            this.inputEmail.TabIndex = 2;
-            this.inputEmail.TextChanged += new System.EventHandler(this.inputEmail_TextChanged);
-            // 
-            // inputApellido
-            // 
-            this.inputApellido.Location = new System.Drawing.Point(192, 108);
-            this.inputApellido.Margin = new System.Windows.Forms.Padding(6);
-            this.inputApellido.Name = "inputApellido";
-            this.inputApellido.Size = new System.Drawing.Size(332, 31);
-            this.inputApellido.TabIndex = 1;
-            // 
-            // inputNombre
-            // 
-            this.inputNombre.Location = new System.Drawing.Point(194, 50);
-            this.inputNombre.Margin = new System.Windows.Forms.Padding(6);
-            this.inputNombre.Name = "inputNombre";
-            this.inputNombre.Size = new System.Drawing.Size(330, 31);
-            this.inputNombre.TabIndex = 0;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(110, 179);
-            this.label3.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(71, 25);
-            this.label3.TabIndex = 5;
-            this.label3.Text = "Email:";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(86, 113);
-            this.label2.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(95, 25);
-            this.label2.TabIndex = 4;
-            this.label2.Text = "Apellido:";
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(86, 50);
-            this.label1.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(93, 25);
-            this.label1.TabIndex = 3;
-            this.label1.Text = "Nombre:";
             // 
             // toolTip1
             // 
-            this.toolTip1.ToolTipTitle = "dfgfgddfgfdg";
+            this.toolTip1.ToolTipTitle = "Ayuda:";
+            // 
+            // btnRegistro
+            // 
+            this.btnRegistro.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.btnRegistro.AutoSize = false;
+            this.btnRegistro.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btnRegistro.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
+            this.btnRegistro.Depth = 0;
+            this.btnRegistro.HighEmphasis = true;
+            this.btnRegistro.Icon = global::UI.Properties.Resources.Registro;
+            this.btnRegistro.Location = new System.Drawing.Point(76, 412);
+            this.btnRegistro.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.btnRegistro.MouseState = MaterialSkin.MouseState.HOVER;
+            this.btnRegistro.Name = "btnRegistro";
+            this.btnRegistro.NoAccentTextColor = System.Drawing.Color.Empty;
+            this.btnRegistro.Size = new System.Drawing.Size(262, 67);
+            this.btnRegistro.TabIndex = 7;
+            this.btnRegistro.Text = "Registrar";
+            this.btnRegistro.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
+            this.btnRegistro.UseAccentColor = true;
+            this.btnRegistro.UseVisualStyleBackColor = true;
+            this.btnRegistro.Click += new System.EventHandler(this.btnRegistro_Click);
+            // 
+            // txtNombre
+            // 
+            this.txtNombre.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.txtNombre.AnimateReadOnly = false;
+            this.txtNombre.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtNombre.Depth = 0;
+            this.txtNombre.Font = new System.Drawing.Font("Roboto", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.txtNombre.Hint = "Nombre";
+            this.txtNombre.LeadingIcon = null;
+            this.txtNombre.Location = new System.Drawing.Point(37, 73);
+            this.txtNombre.MaxLength = 50;
+            this.txtNombre.MouseState = MaterialSkin.MouseState.OUT;
+            this.txtNombre.Multiline = false;
+            this.txtNombre.Name = "txtNombre";
+            this.txtNombre.Size = new System.Drawing.Size(342, 50);
+            this.txtNombre.TabIndex = 8;
+            this.txtNombre.Text = "";
+            this.txtNombre.TrailingIcon = null;
+            // 
+            // txtApellido
+            // 
+            this.txtApellido.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.txtApellido.AnimateReadOnly = false;
+            this.txtApellido.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtApellido.Depth = 0;
+            this.txtApellido.Font = new System.Drawing.Font("Roboto", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.txtApellido.Hint = "Apellido";
+            this.txtApellido.LeadingIcon = null;
+            this.txtApellido.Location = new System.Drawing.Point(37, 140);
+            this.txtApellido.MaxLength = 50;
+            this.txtApellido.MouseState = MaterialSkin.MouseState.OUT;
+            this.txtApellido.Multiline = false;
+            this.txtApellido.Name = "txtApellido";
+            this.txtApellido.Size = new System.Drawing.Size(342, 50);
+            this.txtApellido.TabIndex = 9;
+            this.txtApellido.Text = "";
+            this.txtApellido.TrailingIcon = null;
+            // 
+            // txtEmail
+            // 
+            this.txtEmail.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.txtEmail.AnimateReadOnly = false;
+            this.txtEmail.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtEmail.Depth = 0;
+            this.txtEmail.Font = new System.Drawing.Font("Roboto", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.txtEmail.Hint = "Email";
+            this.txtEmail.LeadingIcon = global::UI.Properties.Resources.Correo;
+            this.txtEmail.Location = new System.Drawing.Point(37, 208);
+            this.txtEmail.MaxLength = 50;
+            this.txtEmail.MouseState = MaterialSkin.MouseState.OUT;
+            this.txtEmail.Multiline = false;
+            this.txtEmail.Name = "txtEmail";
+            this.txtEmail.Size = new System.Drawing.Size(342, 50);
+            this.txtEmail.TabIndex = 10;
+            this.txtEmail.Text = "";
+            this.txtEmail.TrailingIcon = null;
+            this.txtEmail.TextChanged += new System.EventHandler(this.txtEmail_TextChanged_1);
+            // 
+            // txtUsername
+            // 
+            this.txtUsername.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.txtUsername.AnimateReadOnly = false;
+            this.txtUsername.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtUsername.Depth = 0;
+            this.txtUsername.Font = new System.Drawing.Font("Roboto", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.txtUsername.Hint = "Usuario";
+            this.txtUsername.LeadingIcon = global::UI.Properties.Resources.Username;
+            this.txtUsername.Location = new System.Drawing.Point(37, 277);
+            this.txtUsername.MaxLength = 50;
+            this.txtUsername.MouseState = MaterialSkin.MouseState.OUT;
+            this.txtUsername.Multiline = false;
+            this.txtUsername.Name = "txtUsername";
+            this.txtUsername.Size = new System.Drawing.Size(342, 50);
+            this.txtUsername.TabIndex = 11;
+            this.txtUsername.Text = "";
+            this.txtUsername.TrailingIcon = null;
+            // 
+            // txtPsw
+            // 
+            this.txtPsw.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.txtPsw.AnimateReadOnly = false;
+            this.txtPsw.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtPsw.Depth = 0;
+            this.txtPsw.Font = new System.Drawing.Font("Roboto", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.txtPsw.Hint = "Contraseña";
+            this.txtPsw.LeadingIcon = global::UI.Properties.Resources.Password;
+            this.txtPsw.Location = new System.Drawing.Point(37, 342);
+            this.txtPsw.MaxLength = 50;
+            this.txtPsw.MouseState = MaterialSkin.MouseState.OUT;
+            this.txtPsw.Multiline = false;
+            this.txtPsw.Name = "txtPsw";
+            this.txtPsw.Size = new System.Drawing.Size(342, 50);
+            this.txtPsw.TabIndex = 14;
+            this.txtPsw.Text = "";
+            this.txtPsw.TrailingIcon = null;
+            this.txtPsw.TextChanged += new System.EventHandler(this.txtPsw_TextChanged);
             // 
             // Registro
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1042, 569);
-            this.Controls.Add(this.groupBox1);
-            this.Margin = new System.Windows.Forms.Padding(4);
+            this.ClientSize = new System.Drawing.Size(417, 513);
+            this.Controls.Add(this.txtPsw);
+            this.Controls.Add(this.txtUsername);
+            this.Controls.Add(this.txtEmail);
+            this.Controls.Add(this.txtApellido);
+            this.Controls.Add(this.txtNombre);
+            this.Controls.Add(this.btnRegistro);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "Registro";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Padding = new System.Windows.Forms.Padding(10, 60, 10, 10);
+            this.Style = MetroFramework.MetroColorStyle.Pink;
             this.Text = "Registro";
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
 
         }
 
         #endregion
-
-        private System.Windows.Forms.Button btnRegistrar;
-        private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.TextBox inputEmail;
-        private System.Windows.Forms.TextBox inputApellido;
-        private System.Windows.Forms.TextBox inputNombre;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox inputUsername;
-        private System.Windows.Forms.Label Username;
-        private System.Windows.Forms.TextBox inputPsw;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Button btnVerPsw;
         private System.Windows.Forms.ToolTip toolTip1;
+        private MaterialSkin.Controls.MaterialButton btnRegistro;
+        private MaterialSkin.Controls.MaterialTextBox txtNombre;
+        private MaterialSkin.Controls.MaterialTextBox txtApellido;
+        private MaterialSkin.Controls.MaterialTextBox txtEmail;
+        private MaterialSkin.Controls.MaterialTextBox txtUsername;
+        private MaterialSkin.Controls.MaterialTextBox txtPsw;
     }
 }

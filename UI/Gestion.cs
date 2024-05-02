@@ -11,10 +11,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using MetroFramework;
 
 namespace UI
 {
-    public partial class Gestion : Form
+    public partial class Gestion : MetroFramework.Forms.MetroForm
     {
         public Gestion()
         {
@@ -25,13 +26,13 @@ namespace UI
         {
             try
             {
-                dgvUsuarios.DataSource = null;
-                dgvUsuarios.DataSource = BLLUsuario.Listar();
+                gridUsuarios.DataSource = null;
+                gridUsuarios.DataSource = BLLUsuario.Listar();
             }
             catch (Exception ex)
             {
                 RegistrarBitacora(ex.Message, BEBitacora.BitacoraTipo.ERROR);
-                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MetroMessageBox.Show(this, ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
             
@@ -42,71 +43,6 @@ namespace UI
             ActualizarDgv();
         }
 
-        private void btnModificar_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                if (dgvUsuarios.Rows.Count <= 0) throw new Exception("No hay usuarios para modificar.");
-                if (dgvUsuarios.SelectedRows.Count <= 0) throw new Exception("Selecciona una fila para modificar.");
-
-                DataGridViewRow filaSeleccionada = dgvUsuarios.SelectedRows[0];
-
-                int idUsuario = Convert.ToInt32(filaSeleccionada.Cells[0].Value);
-
-                Modificacion modificacion = new Modificacion(idUsuario);
-                modificacion.Show();
-                modificacion.FormClosed += (s, args) => ActualizarDgv();
-
-            }
-            catch (Exception ex)
-            {
-                RegistrarBitacora(ex.Message, BEBitacora.BitacoraTipo.ERROR);
-                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
-        private void btnEliminar_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                if (dgvUsuarios.Rows.Count <= 0) throw new Exception("No hay usuarios para eliminar.");
-                if (dgvUsuarios.SelectedRows.Count <= 0) throw new Exception("Selecciona una fila para eliminar.");
-                BEUsuario usuario = (BEUsuario)dgvUsuarios.CurrentRow.DataBoundItem;
-                DialogResult respuesta = MessageBox.Show($"¿Esta seguro que desea eliminar el usuario {usuario.Nombre} {usuario.Apellido}?", "Aviso", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-            
-                if(respuesta == DialogResult.Yes)
-                {
-                    bool eliminado = BLLUsuario.Eliminar(usuario);
-                    if (eliminado)
-                    {
-                        RegistrarBitacora($"El usuario ha eliminado el usuario con ID: {usuario.Id}", BEBitacora.BitacoraTipo.INFO);
-                        MessageBox.Show("Usuario eliminado con exito", "Eliminado", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        ActualizarDgv();
-                    }
-
-                }
-            }
-            catch (Exception ex)
-            {
-                RegistrarBitacora(ex.Message, BEBitacora.BitacoraTipo.ERROR );
-                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
-        private void btnAgregar_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                Registro registro = new Registro();
-                registro.Show();
-                registro.FormClosed += (s, args) => ActualizarDgv();
-            }
-            catch (Exception ex)
-            {
-                RegistrarBitacora(ex.Message, BEBitacora.BitacoraTipo.ERROR);
-                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
 
         private void RegistrarBitacora(string mensaje, BEBitacora.BitacoraTipo tipo = BEBitacora.BitacoraTipo.INFO)
         {
@@ -127,19 +63,19 @@ namespace UI
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MetroMessageBox.Show(this, ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
         }
 
-        private void dgvUsuarios_SelectionChanged(object sender, EventArgs e)
+        private void gridUsuarios_SelectionChanged(object sender, EventArgs e)
         {
             try
             {
-                if (dgvUsuarios.Rows.Count > 0 && dgvUsuarios.SelectedRows.Count > 0)
+                if (gridUsuarios.Rows.Count > 0 && gridUsuarios.SelectedRows.Count > 0)
                 {
-                    BEUsuario usuario = (BEUsuario)dgvUsuarios.CurrentRow.DataBoundItem;
+                    BEUsuario usuario = (BEUsuario)gridUsuarios.CurrentRow.DataBoundItem;
                     if (usuario.Activo == false)
                         btnEliminar.Enabled = false;
                     else
@@ -148,8 +84,75 @@ namespace UI
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MetroMessageBox.Show(this, ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
+            }
+        }
+
+
+        private void btnAgregar_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Registro registro = new Registro();
+                registro.Show();
+                registro.FormClosed += (s, args) => ActualizarDgv();
+            }
+            catch (Exception ex)
+            {
+                RegistrarBitacora(ex.Message, BEBitacora.BitacoraTipo.ERROR);
+                MetroMessageBox.Show(this, ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void btnModificar_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (gridUsuarios.Rows.Count <= 0) throw new Exception("No hay usuarios para modificar.");
+                if (gridUsuarios.SelectedRows.Count <= 0) throw new Exception("Selecciona una fila para modificar.");
+
+                DataGridViewRow filaSeleccionada = gridUsuarios.SelectedRows[0];
+
+                int idUsuario = Convert.ToInt32(filaSeleccionada.Cells[0].Value);
+
+                Modificacion modificacion = new Modificacion(idUsuario);
+                modificacion.Show();
+                modificacion.FormClosed += (s, args) => ActualizarDgv();
+
+            }
+            catch (Exception ex)
+            {
+                RegistrarBitacora(ex.Message, BEBitacora.BitacoraTipo.ERROR);
+                MetroMessageBox.Show(this, ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void btnEliminar_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (gridUsuarios.Rows.Count <= 0) throw new Exception("No hay usuarios para eliminar.");
+                if (gridUsuarios.SelectedRows.Count <= 0) throw new Exception("Selecciona una fila para eliminar.");
+                BEUsuario usuario = (BEUsuario)gridUsuarios.CurrentRow.DataBoundItem;
+                DialogResult respuesta = MetroMessageBox.Show(this, $"¿Esta seguro que desea eliminar el usuario {usuario.Nombre} {usuario.Apellido}?", "Aviso", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+
+                if (respuesta == DialogResult.Yes)
+                {
+                    bool eliminado = BLLUsuario.Eliminar(usuario);
+                    if (eliminado)
+                    {
+                        RegistrarBitacora($"El usuario ha eliminado el usuario con ID: {usuario.Id}", BEBitacora.BitacoraTipo.INFO);
+                        MetroMessageBox.Show(this, "Usuario eliminado con exito", "Eliminado", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        ActualizarDgv();
+                    }
+
+                }
+            }
+            catch (Exception ex)
+            {
+                RegistrarBitacora(ex.Message, BEBitacora.BitacoraTipo.ERROR);
+                MetroMessageBox.Show(this, ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }
