@@ -36,7 +36,6 @@
             this.txtEmail = new MaterialSkin.Controls.MaterialTextBox();
             this.txtUsername = new MaterialSkin.Controls.MaterialTextBox();
             this.txtPsw = new MaterialSkin.Controls.MaterialTextBox();
-            this.btnShow = new MaterialSkin.Controls.MaterialFloatingActionButton();
             this.SuspendLayout();
             // 
             // toolTip1
@@ -149,29 +148,16 @@
             this.txtPsw.MouseState = MaterialSkin.MouseState.OUT;
             this.txtPsw.Multiline = false;
             this.txtPsw.Name = "txtPsw";
-            this.txtPsw.Size = new System.Drawing.Size(276, 50);
+            this.txtPsw.Size = new System.Drawing.Size(342, 50);
             this.txtPsw.TabIndex = 14;
             this.txtPsw.Text = "";
             this.txtPsw.TrailingIcon = null;
-            // 
-            // btnShow
-            // 
-            this.btnShow.Depth = 0;
-            this.btnShow.Icon = global::UI.Properties.Resources.Visible;
-            this.btnShow.Location = new System.Drawing.Point(323, 336);
-            this.btnShow.MouseState = MaterialSkin.MouseState.HOVER;
-            this.btnShow.Name = "btnShow";
-            this.btnShow.Size = new System.Drawing.Size(56, 56);
-            this.btnShow.TabIndex = 15;
-            this.btnShow.Text = "materialFloatingActionButton1";
-            this.btnShow.UseVisualStyleBackColor = true;
             // 
             // Registro
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(421, 516);
-            this.Controls.Add(this.btnShow);
             this.Controls.Add(this.txtPsw);
             this.Controls.Add(this.txtUsername);
             this.Controls.Add(this.txtEmail);
@@ -195,6 +181,5 @@
         private MaterialSkin.Controls.MaterialTextBox txtEmail;
         private MaterialSkin.Controls.MaterialTextBox txtUsername;
         private MaterialSkin.Controls.MaterialTextBox txtPsw;
-        private MaterialSkin.Controls.MaterialFloatingActionButton btnShow;
     }
 }
