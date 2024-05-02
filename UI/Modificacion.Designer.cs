@@ -146,7 +146,7 @@
             this.btnModificar.Depth = 0;
             this.btnModificar.HighEmphasis = true;
             this.btnModificar.Icon = global::UI.Properties.Resources.Edit;
-            this.btnModificar.Location = new System.Drawing.Point(128, 409);
+            this.btnModificar.Location = new System.Drawing.Point(127, 415);
             this.btnModificar.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.btnModificar.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnModificar.Name = "btnModificar";
@@ -163,7 +163,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(401, 501);
+            this.ClientSize = new System.Drawing.Size(401, 493);
             this.Controls.Add(this.btnModificar);
             this.Controls.Add(this.txtPsw);
             this.Controls.Add(this.txtUsername);

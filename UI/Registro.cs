@@ -12,12 +12,15 @@ using System.Windows.Forms;
 using System.Text.RegularExpressions;
 using Servicios.SesionManager;
 using Servicios.Validador;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using MetroFramework;
 
 namespace UI
 {
     public partial class Registro : MetroFramework.Forms.MetroForm
     {
         private bool emailValido = false;
+        private bool pswValida = false;
 
         public Registro()
         {
@@ -70,7 +73,7 @@ namespace UI
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MetroMessageBox.Show(this, ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
@@ -84,11 +87,13 @@ namespace UI
 
                 if (nuevoUsuario is null) throw new Exception("Debe completar todos los campos, por favor.");
                 if (!emailValido) throw new Exception("El email no es válido. Falta agregar el @ o el formato del email es incorrecto.");
+                if (!pswValida) throw new Exception("La contraseña es inválida. Por favor, ingresala con el formato correcto.");
+
                 bool alta = BLLUsuario.Agregar(nuevoUsuario);
 
                 if (alta)
                 {
-                    MessageBox.Show("Usuario agregado correctamente.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MetroMessageBox.Show(this, "Usuario agregado correctamente.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     nuevoUsuario = BLLUsuario.BuscarUsuarioPorUsername(nuevoUsuario.Username);
                     RegistrarBitacora(nuevoUsuario, $"Se ha registrado un nuevo usuario con Id: {nuevoUsuario.Id}");
                 }
@@ -97,7 +102,7 @@ namespace UI
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MetroMessageBox.Show(this, ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
         }
@@ -119,10 +124,35 @@ namespace UI
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MetroMessageBox.Show(this, ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
         }
 
+        private void txtPsw_TextChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                if (Validador.Validar(txtPsw.Text.Trim(), Validador.TipoValidacion.Password))
+                {
+                    toolTip1.SetToolTip(txtPsw, "");
+                    pswValida = true;
+                }
+                else
+                {
+                    toolTip1.SetToolTip(txtPsw, "Requiere al menos una letra minúscula.\r\n" +
+                    "Requiere al menos una letra mayúscula.\r\n" +
+                    "Requiere al menos un dígito.\r\n" +
+                    "Requiere al menos un carácter especial entre @, $, !, %, *, ? o &.\r\n" +
+                    "Debe tener al menos 8 caracteres de longitud.");
+                    pswValida = false;
+                }
+            }
+            catch (Exception ex)
+            {
+                MetroMessageBox.Show(this, ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+        }
     }
 }

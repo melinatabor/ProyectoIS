@@ -44,13 +44,14 @@
             // 
             // btnRegistro
             // 
+            this.btnRegistro.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.btnRegistro.AutoSize = false;
             this.btnRegistro.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btnRegistro.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
             this.btnRegistro.Depth = 0;
             this.btnRegistro.HighEmphasis = true;
             this.btnRegistro.Icon = global::UI.Properties.Resources.Registro;
-            this.btnRegistro.Location = new System.Drawing.Point(83, 421);
+            this.btnRegistro.Location = new System.Drawing.Point(76, 412);
             this.btnRegistro.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.btnRegistro.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnRegistro.Name = "btnRegistro";
@@ -65,6 +66,7 @@
             // 
             // txtNombre
             // 
+            this.txtNombre.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.txtNombre.AnimateReadOnly = false;
             this.txtNombre.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtNombre.Depth = 0;
@@ -83,6 +85,7 @@
             // 
             // txtApellido
             // 
+            this.txtApellido.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.txtApellido.AnimateReadOnly = false;
             this.txtApellido.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtApellido.Depth = 0;
@@ -101,6 +104,7 @@
             // 
             // txtEmail
             // 
+            this.txtEmail.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.txtEmail.AnimateReadOnly = false;
             this.txtEmail.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtEmail.Depth = 0;
@@ -120,11 +124,12 @@
             // 
             // txtUsername
             // 
+            this.txtUsername.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.txtUsername.AnimateReadOnly = false;
             this.txtUsername.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtUsername.Depth = 0;
             this.txtUsername.Font = new System.Drawing.Font("Roboto", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.txtUsername.Hint = "Username";
+            this.txtUsername.Hint = "Usuario";
             this.txtUsername.LeadingIcon = global::UI.Properties.Resources.Username;
             this.txtUsername.Location = new System.Drawing.Point(37, 277);
             this.txtUsername.MaxLength = 50;
@@ -138,10 +143,12 @@
             // 
             // txtPsw
             // 
+            this.txtPsw.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.txtPsw.AnimateReadOnly = false;
             this.txtPsw.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtPsw.Depth = 0;
             this.txtPsw.Font = new System.Drawing.Font("Roboto", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.txtPsw.Hint = "Contraseña";
             this.txtPsw.LeadingIcon = global::UI.Properties.Resources.Password;
             this.txtPsw.Location = new System.Drawing.Point(37, 342);
             this.txtPsw.MaxLength = 50;
@@ -152,12 +159,13 @@
             this.txtPsw.TabIndex = 14;
             this.txtPsw.Text = "";
             this.txtPsw.TrailingIcon = null;
+            this.txtPsw.TextChanged += new System.EventHandler(this.txtPsw_TextChanged);
             // 
             // Registro
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(421, 516);
+            this.ClientSize = new System.Drawing.Size(417, 513);
             this.Controls.Add(this.txtPsw);
             this.Controls.Add(this.txtUsername);
             this.Controls.Add(this.txtEmail);

@@ -41,6 +41,9 @@
             // gridUsuarios
             // 
             this.gridUsuarios.AllowUserToResizeRows = false;
+            this.gridUsuarios.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.gridUsuarios.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
+            this.gridUsuarios.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells;
             this.gridUsuarios.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.gridUsuarios.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.gridUsuarios.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
@@ -62,10 +65,12 @@
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(17)))), ((int)(((byte)(17)))));
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.gridUsuarios.DefaultCellStyle = dataGridViewCellStyle2;
+            this.gridUsuarios.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.gridUsuarios.EnableHeadersVisualStyles = false;
             this.gridUsuarios.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.gridUsuarios.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.gridUsuarios.Location = new System.Drawing.Point(29, 63);
+            this.gridUsuarios.Location = new System.Drawing.Point(34, 63);
+            this.gridUsuarios.MultiSelect = false;
             this.gridUsuarios.Name = "gridUsuarios";
             this.gridUsuarios.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
             dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
@@ -78,25 +83,26 @@
             this.gridUsuarios.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.gridUsuarios.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             this.gridUsuarios.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.gridUsuarios.Size = new System.Drawing.Size(791, 246);
+            this.gridUsuarios.Size = new System.Drawing.Size(791, 260);
             this.gridUsuarios.Style = MetroFramework.MetroColorStyle.Purple;
             this.gridUsuarios.TabIndex = 4;
             this.gridUsuarios.SelectionChanged += new System.EventHandler(this.gridUsuarios_SelectionChanged);
             // 
             // btnModificar
             // 
+            this.btnModificar.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.btnModificar.AutoSize = false;
             this.btnModificar.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btnModificar.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
             this.btnModificar.Depth = 0;
             this.btnModificar.HighEmphasis = true;
             this.btnModificar.Icon = global::UI.Properties.Resources.Edit;
-            this.btnModificar.Location = new System.Drawing.Point(283, 318);
+            this.btnModificar.Location = new System.Drawing.Point(292, 347);
             this.btnModificar.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.btnModificar.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnModificar.Name = "btnModificar";
             this.btnModificar.NoAccentTextColor = System.Drawing.Color.Empty;
-            this.btnModificar.Size = new System.Drawing.Size(259, 49);
+            this.btnModificar.Size = new System.Drawing.Size(223, 49);
             this.btnModificar.TabIndex = 9;
             this.btnModificar.Text = "Modificar usuario";
             this.btnModificar.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Outlined;
@@ -106,7 +112,7 @@
             // 
             // btnAgregar
             // 
-            this.btnAgregar.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.btnAgregar.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.btnAgregar.AutoSize = false;
             this.btnAgregar.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btnAgregar.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
@@ -115,12 +121,12 @@
             this.btnAgregar.ForeColor = System.Drawing.SystemColors.ActiveCaption;
             this.btnAgregar.HighEmphasis = true;
             this.btnAgregar.Icon = global::UI.Properties.Resources.Registro;
-            this.btnAgregar.Location = new System.Drawing.Point(29, 318);
+            this.btnAgregar.Location = new System.Drawing.Point(43, 347);
             this.btnAgregar.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.btnAgregar.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnAgregar.Name = "btnAgregar";
             this.btnAgregar.NoAccentTextColor = System.Drawing.Color.Empty;
-            this.btnAgregar.Size = new System.Drawing.Size(246, 49);
+            this.btnAgregar.Size = new System.Drawing.Size(213, 49);
             this.btnAgregar.TabIndex = 8;
             this.btnAgregar.Text = "Agregar Usuario";
             this.btnAgregar.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
@@ -130,7 +136,7 @@
             // 
             // btnEliminar
             // 
-            this.btnEliminar.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.btnEliminar.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.btnEliminar.AutoSize = false;
             this.btnEliminar.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btnEliminar.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
@@ -139,12 +145,12 @@
             this.btnEliminar.ForeColor = System.Drawing.SystemColors.ActiveCaption;
             this.btnEliminar.HighEmphasis = true;
             this.btnEliminar.Icon = global::UI.Properties.Resources.Borrar;
-            this.btnEliminar.Location = new System.Drawing.Point(550, 318);
+            this.btnEliminar.Location = new System.Drawing.Point(577, 347);
             this.btnEliminar.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.btnEliminar.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnEliminar.Name = "btnEliminar";
             this.btnEliminar.NoAccentTextColor = System.Drawing.Color.Empty;
-            this.btnEliminar.Size = new System.Drawing.Size(270, 49);
+            this.btnEliminar.Size = new System.Drawing.Size(218, 49);
             this.btnEliminar.TabIndex = 10;
             this.btnEliminar.Text = "Eliminar Usuario";
             this.btnEliminar.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
@@ -157,7 +163,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 21F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
-            this.ClientSize = new System.Drawing.Size(839, 384);
+            this.ClientSize = new System.Drawing.Size(849, 466);
             this.Controls.Add(this.btnEliminar);
             this.Controls.Add(this.gridUsuarios);
             this.Controls.Add(this.btnModificar);
