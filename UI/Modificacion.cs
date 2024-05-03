@@ -33,7 +33,6 @@ namespace UI
                 txtApellido.Text = usuario.Apellido;
                 txtEmail.Text = usuario.Email;
                 txtUsername.Text = usuario.Username;
-                txtPsw.Text = usuario.Password;
             }
             catch (Exception ex)
             {

@@ -27,7 +27,7 @@ namespace UI
         {
             try
             {
-                labelPagina.Text = "Pagina: " + _pagina.ToString();
+                labelPagina.Text = "Página: " + _pagina.ToString();
 
                 dtFrom.Value = new DateTime(DateTime.Now.Year, 1, 1);
                 dtTo.Value = DateTime.Now;
@@ -35,7 +35,6 @@ namespace UI
                 comboBoxTipo.Items.Clear();
                 comboBoxTipo.Items.Add(BEBitacora.BitacoraTipo.INFO);
                 comboBoxTipo.Items.Add(BEBitacora.BitacoraTipo.ERROR);
-                comboBoxTipo.Items.Add(BEBitacora.BitacoraTipo.ALL);
 
                 comboBoxUsuario.Items.Clear();
                 foreach (BEUsuario usuario in BLLUsuario.Listar())
@@ -69,6 +68,7 @@ namespace UI
                 if (_pagina <= 1)
                 {
                     btnLeft.Enabled = false;
+                    labelPagina.Text = "Página: " + _pagina.ToString();
                     return;
                 }
 
@@ -86,7 +86,7 @@ namespace UI
 
                 btnRight.Enabled = true;
 
-                labelPagina.Text = "Pagina: " + _pagina.ToString();
+                labelPagina.Text = "Página: " + _pagina.ToString();
             }
             catch (Exception ex)
             {
@@ -124,7 +124,7 @@ namespace UI
 
                 btnLeft.Enabled = true;
 
-                labelPagina.Text = "Pagina: " + _pagina.ToString();
+                labelPagina.Text = "Página: " + _pagina.ToString();
             }
             catch (Exception ex)
             {
@@ -138,6 +138,7 @@ namespace UI
             try
             {
                 _pagina = 1;
+                btnLeft.Enabled = false;
 
                 BEBitacoraCriteria criteria = new BEBitacoraCriteria()
                 {
@@ -148,10 +149,19 @@ namespace UI
                     Page = _pagina,
                     RowPerPage = _rowsPerPage
                 };
-                gridBitacora.DataSource = null;
-                gridBitacora.DataSource = BLLBitacora.Filtrar(criteria);
 
-                labelPagina.Text = "Pagina: " + _pagina.ToString();
+                var results = BLLBitacora.Filtrar(criteria);
+
+                if (results.Count < _rowsPerPage)
+                    btnRight.Enabled = false;
+
+                else
+                    btnRight.Enabled = true;
+
+                gridBitacora.DataSource = null;
+                gridBitacora.DataSource = results;
+
+                labelPagina.Text = "Página: " + _pagina.ToString();
             }
             catch (Exception ex)
             {

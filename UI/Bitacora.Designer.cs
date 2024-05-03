@@ -28,9 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
@@ -48,97 +48,95 @@
             // 
             // label2
             // 
-            this.label2.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(326, 111);
+            this.label2.Location = new System.Drawing.Point(362, 110);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(53, 21);
+            this.label2.Size = new System.Drawing.Size(104, 45);
             this.label2.TabIndex = 4;
             this.label2.Text = "Hasta:";
             // 
             // label1
             // 
-            this.label1.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(9, 111);
+            this.label1.Location = new System.Drawing.Point(18, 110);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(57, 21);
+            this.label1.Size = new System.Drawing.Size(112, 45);
             this.label1.TabIndex = 3;
             this.label1.Text = "Desde:";
             // 
             // gridBitacora
             // 
             this.gridBitacora.AllowUserToResizeRows = false;
-            this.gridBitacora.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
-            this.gridBitacora.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
+            this.gridBitacora.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.gridBitacora.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.gridBitacora.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells;
             this.gridBitacora.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.gridBitacora.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.gridBitacora.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
             this.gridBitacora.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(124)))), ((int)(((byte)(65)))), ((int)(((byte)(153)))));
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(73)))), ((int)(((byte)(173)))));
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(17)))), ((int)(((byte)(17)))));
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.gridBitacora.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(124)))), ((int)(((byte)(65)))), ((int)(((byte)(153)))));
+            dataGridViewCellStyle7.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            dataGridViewCellStyle7.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(73)))), ((int)(((byte)(173)))));
+            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(17)))), ((int)(((byte)(17)))));
+            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.gridBitacora.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
             this.gridBitacora.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(136)))), ((int)(((byte)(136)))), ((int)(((byte)(136)))));
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(73)))), ((int)(((byte)(173)))));
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(17)))), ((int)(((byte)(17)))));
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.gridBitacora.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle8.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            dataGridViewCellStyle8.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            dataGridViewCellStyle8.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(136)))), ((int)(((byte)(136)))), ((int)(((byte)(136)))));
+            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(73)))), ((int)(((byte)(173)))));
+            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(17)))), ((int)(((byte)(17)))));
+            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.gridBitacora.DefaultCellStyle = dataGridViewCellStyle8;
             this.gridBitacora.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.gridBitacora.EnableHeadersVisualStyles = false;
             this.gridBitacora.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.gridBitacora.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.gridBitacora.Location = new System.Drawing.Point(13, 186);
+            this.gridBitacora.Location = new System.Drawing.Point(5, 221);
             this.gridBitacora.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.gridBitacora.MultiSelect = false;
             this.gridBitacora.Name = "gridBitacora";
             this.gridBitacora.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(124)))), ((int)(((byte)(65)))), ((int)(((byte)(153)))));
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(73)))), ((int)(((byte)(173)))));
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(17)))), ((int)(((byte)(17)))));
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.gridBitacora.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle9.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(124)))), ((int)(((byte)(65)))), ((int)(((byte)(153)))));
+            dataGridViewCellStyle9.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            dataGridViewCellStyle9.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            dataGridViewCellStyle9.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(73)))), ((int)(((byte)(173)))));
+            dataGridViewCellStyle9.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(17)))), ((int)(((byte)(17)))));
+            dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.gridBitacora.RowHeadersDefaultCellStyle = dataGridViewCellStyle9;
+            this.gridBitacora.RowHeadersWidth = 82;
             this.gridBitacora.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             this.gridBitacora.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.gridBitacora.Size = new System.Drawing.Size(870, 122);
+            this.gridBitacora.Size = new System.Drawing.Size(1143, 185);
             this.gridBitacora.Style = MetroFramework.MetroColorStyle.Purple;
             this.gridBitacora.TabIndex = 1;
             // 
             // dtFrom
             // 
-            this.dtFrom.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.dtFrom.Location = new System.Drawing.Point(13, 137);
+            this.dtFrom.Location = new System.Drawing.Point(26, 161);
             this.dtFrom.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.dtFrom.MinimumSize = new System.Drawing.Size(0, 29);
             this.dtFrom.Name = "dtFrom";
-            this.dtFrom.Size = new System.Drawing.Size(309, 29);
+            this.dtFrom.Size = new System.Drawing.Size(309, 50);
             this.dtFrom.TabIndex = 11;
             // 
             // dtTo
             // 
-            this.dtTo.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.dtTo.Location = new System.Drawing.Point(330, 137);
+            this.dtTo.Location = new System.Drawing.Point(370, 160);
             this.dtTo.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.dtTo.MinimumSize = new System.Drawing.Size(0, 29);
             this.dtTo.Name = "dtTo";
-            this.dtTo.Size = new System.Drawing.Size(318, 29);
+            this.dtTo.Size = new System.Drawing.Size(318, 50);
             this.dtTo.TabIndex = 12;
             // 
             // comboBoxTipo
             // 
-            this.comboBoxTipo.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.comboBoxTipo.AutoResize = false;
             this.comboBoxTipo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.comboBoxTipo.Depth = 0;
@@ -152,7 +150,7 @@
             this.comboBoxTipo.Hint = "Seleccionar Tipo";
             this.comboBoxTipo.IntegralHeight = false;
             this.comboBoxTipo.ItemHeight = 29;
-            this.comboBoxTipo.Location = new System.Drawing.Point(13, 62);
+            this.comboBoxTipo.Location = new System.Drawing.Point(26, 62);
             this.comboBoxTipo.MaxDropDownItems = 4;
             this.comboBoxTipo.MouseState = MaterialSkin.MouseState.OUT;
             this.comboBoxTipo.Name = "comboBoxTipo";
@@ -164,7 +162,6 @@
             // 
             // comboBoxUsuario
             // 
-            this.comboBoxUsuario.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.comboBoxUsuario.AutoResize = false;
             this.comboBoxUsuario.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.comboBoxUsuario.Depth = 0;
@@ -178,7 +175,7 @@
             this.comboBoxUsuario.Hint = "Seleccionar Usuario";
             this.comboBoxUsuario.IntegralHeight = false;
             this.comboBoxUsuario.ItemHeight = 29;
-            this.comboBoxUsuario.Location = new System.Drawing.Point(242, 62);
+            this.comboBoxUsuario.Location = new System.Drawing.Point(282, 62);
             this.comboBoxUsuario.MaxDropDownItems = 4;
             this.comboBoxUsuario.MouseState = MaterialSkin.MouseState.OUT;
             this.comboBoxUsuario.Name = "comboBoxUsuario";
@@ -192,11 +189,12 @@
             // 
             this.labelPagina.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.labelPagina.AutoSize = true;
-            this.labelPagina.Location = new System.Drawing.Point(407, 329);
+            this.labelPagina.Font = new System.Drawing.Font("Segoe UI Semilight", 16.125F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelPagina.Location = new System.Drawing.Point(516, 430);
             this.labelPagina.Name = "labelPagina";
-            this.labelPagina.Size = new System.Drawing.Size(64, 21);
+            this.labelPagina.Size = new System.Drawing.Size(172, 59);
             this.labelPagina.TabIndex = 10;
-            this.labelPagina.Text = "Pagina: ";
+            this.labelPagina.Text = "Página: ";
             // 
             // btnLeft
             // 
@@ -208,7 +206,7 @@
             this.btnLeft.Enabled = false;
             this.btnLeft.HighEmphasis = true;
             this.btnLeft.Icon = global::UI.Properties.Resources.Left;
-            this.btnLeft.Location = new System.Drawing.Point(357, 319);
+            this.btnLeft.Location = new System.Drawing.Point(453, 430);
             this.btnLeft.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.btnLeft.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnLeft.Name = "btnLeft";
@@ -229,7 +227,7 @@
             this.btnRight.Depth = 0;
             this.btnRight.HighEmphasis = true;
             this.btnRight.Icon = global::UI.Properties.Resources.Right;
-            this.btnRight.Location = new System.Drawing.Point(478, 319);
+            this.btnRight.Location = new System.Drawing.Point(676, 430);
             this.btnRight.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.btnRight.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnRight.Name = "btnRight";
@@ -243,19 +241,20 @@
             // 
             // btnFiltrar
             // 
-            this.btnFiltrar.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.btnFiltrar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.btnFiltrar.AutoSize = false;
             this.btnFiltrar.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btnFiltrar.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
             this.btnFiltrar.Depth = 0;
             this.btnFiltrar.HighEmphasis = true;
             this.btnFiltrar.Icon = global::UI.Properties.Resources.Filtrar;
-            this.btnFiltrar.Location = new System.Drawing.Point(656, 62);
+            this.btnFiltrar.Location = new System.Drawing.Point(705, 62);
             this.btnFiltrar.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.btnFiltrar.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnFiltrar.Name = "btnFiltrar";
             this.btnFiltrar.NoAccentTextColor = System.Drawing.Color.Empty;
-            this.btnFiltrar.Size = new System.Drawing.Size(230, 104);
+            this.btnFiltrar.Size = new System.Drawing.Size(443, 148);
             this.btnFiltrar.TabIndex = 23;
             this.btnFiltrar.Text = "Filtrar Movimientos";
             this.btnFiltrar.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
@@ -265,9 +264,9 @@
             // 
             // Bitacora
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 21F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(17F, 45F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(898, 377);
+            this.ClientSize = new System.Drawing.Size(1154, 505);
             this.Controls.Add(this.btnFiltrar);
             this.Controls.Add(this.btnLeft);
             this.Controls.Add(this.btnRight);
@@ -283,7 +282,7 @@
             this.Name = "Bitacora";
             this.Padding = new System.Windows.Forms.Padding(30, 97, 30, 32);
             this.Style = MetroFramework.MetroColorStyle.Purple;
-            this.Text = "Bitacora";
+            this.Text = "Bitácora";
             this.Load += new System.EventHandler(this.Bitacora_Load);
             ((System.ComponentModel.ISupportInitialize)(this.gridBitacora)).EndInit();
             this.ResumeLayout(false);

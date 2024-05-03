@@ -18,8 +18,7 @@ namespace BE
         public enum BitacoraTipo
         {
             INFO    = 1,
-            ERROR   = 2,
-            ALL     = 3
+            ERROR   = 2
         }
     }
 }

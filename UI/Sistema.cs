@@ -46,6 +46,12 @@ namespace UI
 
                 if (opcion == DialogResult.Yes)
                 {
+                    // Es necesario cerrar los furmularios hijos para evitar un error al estar maximizados
+                    foreach (Form childForm in this.MdiChildren)
+                    {
+                        childForm.Close();
+                    }
+
                     RegistrarBitacora();
                     SesionManager.Logout();
                     Application.Exit();
