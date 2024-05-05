@@ -29,7 +29,6 @@ namespace Servicios.Encriptador
             {
                 throw new Exception("Ha ocurrido un error al encrirptar la password.");
             }
-            
         }
     }
 }

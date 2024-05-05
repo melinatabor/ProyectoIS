@@ -1,18 +1,8 @@
 ﻿using BE;
 using BLL;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Text.RegularExpressions;
-using Servicios.SesionManager;
 using Servicios.Validador;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using MetroFramework;
 
 namespace UI
@@ -26,7 +16,6 @@ namespace UI
         {
             InitializeComponent();
         }
-
 
         private BEUsuario ObtenerDatos()
         {
@@ -57,7 +46,6 @@ namespace UI
                 String.IsNullOrEmpty(txtPsw.Text.Trim());
         }
 
-
         private void RegistrarBitacora(BEUsuario usuario, string mensaje, BEBitacora.BitacoraTipo tipo = BEBitacora.BitacoraTipo.INFO)
         {
             try
@@ -76,7 +64,6 @@ namespace UI
                 MetroMessageBox.Show(this, ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-
         }
 
         private void btnRegistro_Click(object sender, EventArgs e)

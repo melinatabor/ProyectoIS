@@ -22,11 +22,10 @@ namespace Servicios.SesionManager
                 }
                 else
                     throw new Exception("Sesion no iniciada");
-                
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw;
+                throw ex;
             }
         }
 
@@ -37,20 +36,11 @@ namespace Servicios.SesionManager
                 if (_session != null) _session = null;
                 else throw new Exception("La sesion no esta iniciada");
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw;
+                throw ex;
             }
         }
-
-        public static SesionManager GetInstance()
-        {
-            if (_session == null)
-                throw new Exception("Sesion no iniciada");
-            return _session;
-        }
-
-        public IUsuario GetUsuario() { return  _usuario; }
 
         public static string GetUsername()
         {
@@ -58,9 +48,9 @@ namespace Servicios.SesionManager
             {
                 return _session._usuario.Username; 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw;
+                throw ex;
             }
         }
     }

@@ -4,9 +4,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MPP
 {
@@ -22,7 +19,6 @@ namespace MPP
                 parametros.Add("@Usuario", bitacora.Usuario);
                 parametros.Add("@Tipo", bitacora.Tipo);
                 parametros.Add("@Mensaje", bitacora.Mensaje);
-
 
                 return Acceso.ExecuteNonQuery(query, parametros);
             }
@@ -110,7 +106,6 @@ namespace MPP
             {
                 throw ex;
             }
-        
         }
 
         private static Hashtable ExtraerParametros(BEBitacoraCriteria criteria)
