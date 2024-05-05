@@ -12,6 +12,18 @@ namespace UI
         public Login()
         {
             InitializeComponent();
+            // Aplicar focus en el formulario
+            this.Shown += new EventHandler(this.LoginFocus);
+        }
+
+        private void LoginFocus(object sender, EventArgs e)
+        {
+            try
+            {
+                this.Activate();
+                inputUsuario.Focus();
+            }
+            catch (Exception ex) { throw ex; }
         }
 
         private bool CamposInvalidos()
