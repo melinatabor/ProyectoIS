@@ -14,16 +14,15 @@ namespace MPP
             try
             {
                 Hashtable parametros = new Hashtable();
-                string query = QueryAgregar();
 
-                parametros.Add("@Nombre", usuario.Nombre);
+                parametros.Add("@Nombre",   usuario.Nombre);
                 parametros.Add("@Apellido", usuario.Apellido);
-                parametros.Add("@Email", usuario.Email);
+                parametros.Add("@Email",    usuario.Email);
                 parametros.Add("@Username", usuario.Username);
                 parametros.Add("@Password", usuario.Password);
-                parametros.Add("@Activo", usuario.Activo);
+                parametros.Add("@Activo",   usuario.Activo);
 
-                return Acceso.ExecuteNonQuery(query, parametros);
+                return Acceso.ExecuteNonQuery(UsuarioStoredProcedures.SP_AgregarUsuario, parametros, true);
             }
             catch (Exception ex)
             {
@@ -36,15 +35,14 @@ namespace MPP
             try
             {
                 Hashtable parametros = new Hashtable();
-                string query = QueryEditar();
-
-                parametros.Add("@Nombre", usuario.Nombre);
+             
+                parametros.Add("@Nombre",   usuario.Nombre);
                 parametros.Add("@Apellido", usuario.Apellido);
-                parametros.Add("@Email", usuario.Email);
+                parametros.Add("@Email",    usuario.Email);
                 parametros.Add("@Username", usuario.Username);
-                parametros.Add("@Id", usuario.Id);
+                parametros.Add("@Id",       usuario.Id);
 
-                return Acceso.ExecuteNonQuery(query, parametros);
+                return Acceso.ExecuteNonQuery(UsuarioStoredProcedures.SP_EditarUsuario, parametros, true);
             }
             catch (Exception ex)
             {
@@ -57,29 +55,11 @@ namespace MPP
             try
             {
                 Hashtable parametros = new Hashtable();
-                string query = $"UPDATE Usuario SET Activo = @Activo WHERE Id = @Id";
+
                 parametros.Add("@Activo", false);
                 parametros.Add("@Id", usuario.Id);
-                return Acceso.ExecuteNonQuery(query, parametros);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-        }
-
-        public static bool Buscar(BEUsuario usuario)
-        {
-            try
-            {
-                Hashtable parametros = new Hashtable();
-
-                string query = "SELECT COUNT(*) FROM Usuario WHERE Password = @Password AND Username = @Username";
                 
-                parametros.Add("@Password", usuario.Password);
-                parametros.Add("@Username", usuario.Username);
-
-                return Convert.ToBoolean(Acceso.ExecuteScalar(query, parametros));
+                return Acceso.ExecuteNonQuery(UsuarioStoredProcedures.SP_EliminarUsuario, parametros, true);
             }
             catch (Exception ex)
             {
@@ -93,12 +73,10 @@ namespace MPP
             {
                 Hashtable parametros = new Hashtable();
 
-                string query = "SELECT Id, Nombre, Apellido, Email, Username, Password, Activo FROM Usuario WHERE Password = @Password AND Username = @Username";
-
                 parametros.Add("@Password", usuario.Password);
                 parametros.Add("@Username", usuario.Username);
 
-                DataTable table = Acceso.ExecuteDataTable(query, parametros);
+                DataTable table = Acceso.ExecuteDataTable(UsuarioStoredProcedures.SP_BuscarUsuarioXPswUsername, parametros, true);
 
                 if (table.Rows.Count > 0)
                 {
@@ -117,25 +95,13 @@ namespace MPP
             }
         }
 
-        private static string QueryEditar()
-        {
-            return $"UPDATE Usuario SET Nombre = @Nombre, Apellido = @Apellido, Email = @Email, Username = @Username WHERE Id = @Id";
-        }
-
-        private static string QueryAgregar()
-        {
-            return "INSERT INTO Usuario (Nombre, Apellido, Email, Username, Password, Activo) VALUES (@Nombre, @Apellido, @Email, @Username, @Password, @Activo)";
-        }
-
         public static List<BEUsuario> Listar()
         {
             try
             {
                 List<BEUsuario> lista = new List<BEUsuario>();
 
-                string query = "SELECT Id, Nombre, Apellido, Email, Username, Password, Activo FROM Usuario";
-
-                DataTable table = Acceso.ExecuteDataTable(query, null);
+                DataTable table = Acceso.ExecuteDataTable(UsuarioStoredProcedures.SP_ListarUsuarios, null, true);
 
                 if (table.Rows.Count > 0)
                 {
@@ -162,11 +128,9 @@ namespace MPP
             {
                 Hashtable parametros = new Hashtable();
 
-                string query = $"SELECT Id, Nombre, Apellido, Email, Username, Password, Activo FROM Usuario WHERE Id = @Id";
-
                 parametros.Add("@Id", idUsuario);
 
-                DataTable tabla = Acceso.ExecuteDataTable(query, parametros);
+                DataTable tabla = Acceso.ExecuteDataTable(UsuarioStoredProcedures.SP_BuscarUsuarioXId, parametros, true);
 
                 if (tabla.Rows.Count > 0)
                 {
@@ -204,11 +168,9 @@ namespace MPP
             {
                 Hashtable parametros = new Hashtable();
 
-                string query = "SELECT Id, Nombre, Apellido, Email, Username, Password, Activo FROM Usuario WHERE Username = @Username";
-
                 parametros.Add("@Username", username);
 
-                DataTable table = Acceso.ExecuteDataTable(query, parametros);
+                DataTable table = Acceso.ExecuteDataTable(UsuarioStoredProcedures.SP_BuscarUsuarioXUsername, parametros, true);
 
                 if (table.Rows.Count > 0)
                 {
