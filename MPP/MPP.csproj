@@ -42,10 +42,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="StoredProcedures\BitacoraStoredProcedures.cs" />
     <Compile Include="MPPBitacora.cs" />
     <Compile Include="MPPUsuario.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UsuarioStoredProcedures.cs" />
+    <Compile Include="StoredProcedures\UsuarioStoredProcedures.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BE\BE.csproj">
