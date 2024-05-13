@@ -22,17 +22,23 @@ namespace UI
             try
             {
                 if (CamposInvalidos()) throw new Exception("Los datos ingresados son incorrectos");
-                return new BEUsuario()
+
+                BEUsuario nuevoUsuario = new BEUsuario()
                 {
-                    Nombre = txtNombre.Text,
+                    Nombre   = txtNombre.Text,
                     Apellido = txtApellido.Text,
-                    Email = txtEmail.Text,
+                    Email    = txtEmail.Text,
                     Username = txtUsername.Text,
                     Password = txtPsw.Text,
                 };
+
+                ValidarDatos();
+
+                return nuevoUsuario;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                MetroMessageBox.Show(this, ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return null;
             }
         }
@@ -72,9 +78,7 @@ namespace UI
             {
                 BEUsuario nuevoUsuario = ObtenerDatos();
 
-                if (nuevoUsuario is null) throw new Exception("Debe completar todos los campos, por favor.");
-                if (!emailValido) throw new Exception("El email no es válido. Falta agregar el @ o el formato del email es incorrecto.");
-                if (!pswValida) throw new Exception("La contraseña es inválida. Por favor, ingresala con el formato correcto.");
+                if (nuevoUsuario is null) return;
 
                 bool alta = BLLUsuario.Agregar(nuevoUsuario);
 
@@ -92,6 +96,12 @@ namespace UI
                 MetroMessageBox.Show(this, ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
+        }
+
+        private void ValidarDatos()
+        {
+            if (!emailValido) throw new Exception("El email no es válido. Falta agregar el @ o el formato del email es incorrecto.");
+            if (!pswValida) throw new Exception("La contraseña es inválida. Por favor, ingresala con el formato correcto.");
         }
 
         private void txtEmail_TextChanged_1(object sender, EventArgs e)
