@@ -38,6 +38,7 @@
             this.salirToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.usuarioLogeadoTxt = new System.Windows.Forms.ToolStripStatusLabel();
+            this.idiomaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -62,7 +63,8 @@
             // gestionToolStripMenuItem
             // 
             this.gestionToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.usuariosToolStripMenuItem});
+            this.usuariosToolStripMenuItem,
+            this.idiomaToolStripMenuItem});
             this.gestionToolStripMenuItem.Name = "gestionToolStripMenuItem";
             this.gestionToolStripMenuItem.ShortcutKeyDisplayString = "";
             this.gestionToolStripMenuItem.Size = new System.Drawing.Size(141, 49);
@@ -87,7 +89,7 @@
             // bitácoraToolStripMenuItem
             // 
             this.bitácoraToolStripMenuItem.Name = "bitácoraToolStripMenuItem";
-            this.bitácoraToolStripMenuItem.Size = new System.Drawing.Size(359, 54);
+            this.bitácoraToolStripMenuItem.Size = new System.Drawing.Size(268, 54);
             this.bitácoraToolStripMenuItem.Text = "&Bitácora";
             this.bitácoraToolStripMenuItem.Click += new System.EventHandler(this.bitácoraToolStripMenuItem_Click);
             // 
@@ -103,14 +105,14 @@
             // cerrarSesionToolStripMenuItem
             // 
             this.cerrarSesionToolStripMenuItem.Name = "cerrarSesionToolStripMenuItem";
-            this.cerrarSesionToolStripMenuItem.Size = new System.Drawing.Size(359, 54);
+            this.cerrarSesionToolStripMenuItem.Size = new System.Drawing.Size(339, 54);
             this.cerrarSesionToolStripMenuItem.Text = "&Cerrar Sesión";
             this.cerrarSesionToolStripMenuItem.Click += new System.EventHandler(this.cerrarSesionToolStripMenuItem_Click);
             // 
             // salirToolStripMenuItem1
             // 
             this.salirToolStripMenuItem1.Name = "salirToolStripMenuItem1";
-            this.salirToolStripMenuItem1.Size = new System.Drawing.Size(359, 54);
+            this.salirToolStripMenuItem1.Size = new System.Drawing.Size(339, 54);
             this.salirToolStripMenuItem1.Text = "&Salir";
             this.salirToolStripMenuItem1.Click += new System.EventHandler(this.salirToolStripMenuItem1_Click);
             // 
@@ -133,6 +135,13 @@
             this.usuarioLogeadoTxt.Name = "usuarioLogeadoTxt";
             this.usuarioLogeadoTxt.Size = new System.Drawing.Size(131, 45);
             this.usuarioLogeadoTxt.Text = "Usuario:";
+            // 
+            // idiomaToolStripMenuItem
+            // 
+            this.idiomaToolStripMenuItem.Name = "idiomaToolStripMenuItem";
+            this.idiomaToolStripMenuItem.Size = new System.Drawing.Size(359, 54);
+            this.idiomaToolStripMenuItem.Text = "&Idioma";
+            this.idiomaToolStripMenuItem.Click += new System.EventHandler(this.idiomaToolStripMenuItem_Click);
             // 
             // Sistema
             // 
@@ -170,5 +179,6 @@
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel usuarioLogeadoTxt;
         private System.Windows.Forms.ToolStripMenuItem bitácoraToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem idiomaToolStripMenuItem;
     }
 }
