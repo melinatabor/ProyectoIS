@@ -139,5 +139,20 @@ namespace UI
                 return;
             }
         }
+
+        private void permisosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Permiso permiso = new Permiso();
+                permiso.MdiParent = this;
+                permiso.Show();
+            }
+            catch (Exception ex)
+            {
+                MetroMessageBox.Show(this, ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+        }
     }
 }
