@@ -45,6 +45,7 @@
     <Compile Include="BEBitacora.cs" />
     <Compile Include="BEBitacoraCriteria.cs" />
     <Compile Include="BEBitacoraFiltrada.cs" />
+    <Compile Include="BEIdioma.cs" />
     <Compile Include="BEUsuario.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
