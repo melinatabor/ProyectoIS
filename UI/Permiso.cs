@@ -63,6 +63,10 @@ namespace UI
             {
                 dgvPermisos.DataSource = null;
                 dgvPermisos.DataSource = BLLPermiso.ListarPermisos();
+
+
+                dgvFamilia.DataSource = null;
+                dgvFamilia.DataSource = BLLPermiso.ListarFamilias();
             }
             catch (Exception ex)
             {
@@ -77,23 +81,32 @@ namespace UI
         {
             try
             {
-                //if (dgvPermisos.Rows.Count <= 0) throw new Exception("No hay permisos para listar.");
-                //DataGridViewRow filaSeleccionada = dgvPermisos.SelectedRows[0];
-                //int idPermiso = Convert.ToInt32(filaSeleccionada.Cells[0].Value);
-                
+                if (dgvFamilia.SelectedRows.Count <= 0) throw new Exception("Seleccione una familia.");
+
+                BEPermiso familiaSeleccionada = (BEPermiso)dgvFamilia.CurrentRow.DataBoundItem;
+
+                ListarArbol(familiaSeleccionada);
+            }
+            catch (Exception ex)
+            {
+                MetroMessageBox.Show(this, ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+        }
+
+        private void ListarArbol(BEPermiso familia)
+        {
+            try
+            {
                 treeView1.Nodes.Clear();
 
-                BEPermiso p = new BEPermiso() { Id = 7, Nombre = "Gestionar usuarios", EsPadre = true };
-
-                TreeNode root = new TreeNode(p.Nombre);
-                root.Tag = p;
+                TreeNode root = new TreeNode(familia.Nombre);
+                root.Tag = familia;
                 treeView1.Nodes.Add(root);
 
-                p.Hijos.Add(new BEPermiso() { Id = 4, Nombre = "Alta de usuario", EsPadre = false });
-                p.Hijos.Add(new BEPermiso() { Id = 5, Nombre = "Baja de usuario", EsPadre = false });
-                p.Hijos.Add(new BEPermiso() { Id = 6, Nombre = "Modificacion de usuario", EsPadre = false });
+               List<BEPermiso> hijos = BLLPermiso.ListarHijos(familia);
 
-                foreach (var item in p.Hijos)
+                foreach (var item in hijos)
                     LlenarTreeNode(root, item);
 
                 treeView1.ExpandAll();
@@ -104,6 +117,7 @@ namespace UI
                 return;
             }
         }
+
         private void LlenarTreeNode(TreeNode tree, BEPermiso permiso)
         {
             TreeNode treenode = new TreeNode(permiso.Nombre);
@@ -133,6 +147,47 @@ namespace UI
                 }
 
                 Close();
+            }
+            catch (Exception ex)
+            {
+                MetroMessageBox.Show(this, ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+        }
+
+        private void btnAgregarPermiso_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (dgvPermisos.SelectedRows.Count <= 0)    throw new Exception("Seleccione un permiso para agregar.");
+                
+                if (dgvFamilia.SelectedRows.Count <= 0)     throw new Exception("Seleccione una familia.");
+
+                DataGridViewRow filaSeleccionada = dgvPermisos.SelectedRows[0];
+
+                int idPermiso = Convert.ToInt32(filaSeleccionada.Cells[0].Value);
+
+                BEPermiso permiso = BLLPermiso.BuscarPermiso(idPermiso);
+
+                if (permiso == null) throw new Exception("El permiso no existe.");
+
+                DataGridViewRow filaSeleccionadaFamilia = dgvFamilia.SelectedRows[0];
+
+                int idFamilia = Convert.ToInt32(filaSeleccionadaFamilia.Cells[0].Value);
+
+                BEPermiso familia = BLLPermiso.BuscarFamilia(idFamilia);
+
+                if (familia == null) throw new Exception("La familia no existe.");
+
+                bool alta = BLLPermiso.AgregarPermisoAFamilia(permiso, familia);
+
+                if (alta)
+                    MetroMessageBox.Show(this, "Permiso agregado a familia correctamente.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+
+
+
+
             }
             catch (Exception ex)
             {

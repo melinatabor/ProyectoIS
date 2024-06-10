@@ -21,12 +21,57 @@ namespace BLL
             catch (Exception ex) { throw ex; }
         }
 
+        public static bool AgregarPermisoAFamilia(BEPermiso permiso, BEPermiso familia)
+        {
+            try
+            {
+                return MPPPermiso.AgregarPermisoAFamilia(permiso, familia);
+            }
+            catch (Exception ex) { throw ex; }
+        }
+
         public static bool AgregarPermisoSimple(BEPermiso permiso)
         {
             try
             {
                 permiso.EsPadre = false;
                 return MPPPermiso.AgregarPermiso(permiso);
+            }
+            catch (Exception ex) { throw ex; }
+        }
+
+        public static BEPermiso BuscarFamilia(int idFamilia)
+        {
+            try
+            {
+                return MPPPermiso.BuscarFamilia(idFamilia);
+            }
+            catch (Exception ex) { throw ex; }
+        }
+
+        public static BEPermiso BuscarPermiso(int id)
+        {
+            try
+            {
+                return MPPPermiso.BuscarPermiso(id);
+            }
+            catch (Exception ex) { throw ex; }
+        }
+
+        public static object ListarFamilias()
+        {
+            try
+            {
+                return MPPPermiso.ListarFamilias();
+            }
+            catch (Exception ex) { throw ex; }
+        }
+
+        public static List<BEPermiso> ListarHijos(BEPermiso familia)
+        {
+            try
+            {
+                return MPPPermiso.ListarHijos(familia);
             }
             catch (Exception ex) { throw ex; }
         }
