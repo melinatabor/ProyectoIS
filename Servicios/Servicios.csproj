@@ -45,6 +45,7 @@
     <Compile Include="Encriptador\Encriptador.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SesionManager\SesionManager.cs" />
+    <Compile Include="Traductor\Traductor.cs" />
     <Compile Include="Validador\Validador.cs" />
   </ItemGroup>
   <ItemGroup>

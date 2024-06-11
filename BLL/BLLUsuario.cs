@@ -5,6 +5,7 @@ using Servicios.Encriptador;
 using System;
 using Servicios.SesionManager;
 using static BE.BEBitacora;
+using Abstraccion;
 
 namespace BLL
 {
@@ -93,6 +94,26 @@ namespace BLL
                 };
 
                 BLLBitacora.Agregar(bitacora);
+
+
+            }
+            catch (Exception ex) { throw ex; }
+        }
+
+        public static bool AsignarPermiso(BEUsuario usuario, BEPermiso permiso)
+        {
+            try
+            {
+                return MPPUsuario.AsignarPermiso(usuario, permiso);
+            }
+            catch (Exception ex) { throw ex; }
+        }
+
+        public static bool VerificarPermiso(BEUsuario usuarioActual, int permiso)
+        {
+            try
+            {
+                return MPPUsuario.VerificarPermiso(usuarioActual, permiso);
             }
             catch (Exception ex) { throw ex; }
         }

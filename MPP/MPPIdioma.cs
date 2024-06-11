@@ -55,5 +55,42 @@ namespace MPP
             }
 
         }
+
+        public static List<BEPalabra> ObtenerTags()
+        {
+            try
+            {
+                List<BEPalabra> lista = new List<BEPalabra>();
+
+                Hashtable parametros = new Hashtable();
+
+
+                string query = $"SELECT t.Id AS TagId, t.Tag, tr.Traduccion FROM Tag t JOIN Traduccion tr ON t.Id = tr.Tag JOIN Idioma i ON tr.Idioma = i.Id WHERE i.Id = @IdiomaId";
+            
+                parametros.Add("@IdiomaId", 2);
+
+                DataTable table = Acceso.ExecuteDataTable(query, parametros, false);
+
+                if (table.Rows.Count > 0)
+                {
+                    foreach (DataRow fila in table.Rows)
+                    {
+                        BEPalabra palabra = new BEPalabra()
+                        {
+                            Id          = Convert.ToInt32(fila["TagId"].ToString()),
+                            Tag         = fila["Tag"].ToString(),
+                            Traduccion  = fila["Traduccion"].ToString(),
+                        };
+                        lista.Add(palabra);
+                    }
+                }
+
+                return lista;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }

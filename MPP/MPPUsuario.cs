@@ -185,5 +185,44 @@ namespace MPP
             }
             catch (Exception ex) { throw ex; }
         }
+
+        public static bool AsignarPermiso(BEUsuario usuario, BEPermiso permiso)
+        {
+            try
+            {
+                Hashtable parametros = new Hashtable();
+
+                parametros.Add("@IdUsuario", usuario.Id);
+                parametros.Add("@IdPermiso", permiso.Id);
+
+                string query = "INSERT INTO UsuarioPermiso (Usuario, Permiso) VALUES (@IdUsuario, @IdPermiso)";
+            
+                return Acceso.ExecuteNonQuery(query, parametros, false);
+            }
+            catch (Exception ex) { throw ex; }
+        }
+
+        public static bool VerificarPermiso(BEUsuario usuarioActual, int permiso)
+        {
+            try
+            {
+                Hashtable parametros = new Hashtable();
+
+                parametros.Add("@IdUsuario", usuarioActual.Id);
+                parametros.Add("@IdPermiso", permiso);
+
+                string query = "SELECT Id FROM UsuarioPermiso WHERE Usuario = @IdUsuario AND Permiso = @IdPermiso";
+
+                DataTable table = Acceso.ExecuteDataTable(query, parametros, false);
+
+                if (table.Rows.Count > 0)
+                {
+                    return true;
+                }
+
+                return false;
+            }
+            catch (Exception ex) { throw ex; }
+        }
     }
 }

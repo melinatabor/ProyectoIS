@@ -4,21 +4,13 @@ using System.Collections.Generic;
 
 namespace BE
 {
-    public class BEPermiso
+    public abstract class BEPermiso
     {
         public int Id { get; set; }
         public string Nombre { get; set; }
         public bool EsPadre { get; set; }
-        public List<BEPermiso> Hijos { get; set; }
-
-        public BEPermiso()
-        {
-            Hijos = new List<BEPermiso>();
-        }
-
-        public void AgregarHijo(BEPermiso hijo)
-        {
-            Hijos.Add(hijo);
-        }
+        public abstract List<BEPermiso> Hijos { get; }
+        public abstract void AgregarHijo(BEPermiso hijo);
+        public abstract void EliminarHijos();
     }
 }

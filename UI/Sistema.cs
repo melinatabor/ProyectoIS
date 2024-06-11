@@ -4,17 +4,20 @@ using Servicios.SesionManager;
 using System;
 using System.Windows.Forms;
 using MetroFramework;
+using Abstraccion;
+using System.Collections.Generic;
 
 namespace UI
 {
-    public partial class Sistema : MetroFramework.Forms.MetroForm
+    public partial class Sistema : MetroFramework.Forms.MetroForm, ISubscriptor
     {
         public Sistema()
         {
             try
             {
                 InitializeComponent();
-                usuarioLogeadoTxt.Text = $"Usuario: {SesionManager.GetUsername()}";
+                Actualizar();
+                usuarioLogeadoTxt.Text = $"User: {SesionManager.GetUsername()}";
             }
             catch (Exception ex)
             {
@@ -152,6 +155,90 @@ namespace UI
             {
                 MetroMessageBox.Show(this, ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
+            }
+        }
+
+        private void Sistema_Load(object sender, EventArgs e)
+        {
+            try
+            {
+                string username = SesionManager.GetUsername();
+
+                BEUsuario usuarioActual = BLLUsuario.BuscarUsuarioPorUsername(username) ?? throw new Exception($"No existe el username: {username}");
+
+                bool puedeGestionarUsuarios = BLLUsuario.VerificarPermiso(usuarioActual, 7);
+
+                if (puedeGestionarUsuarios)
+                {
+                    usuariosToolStripMenuItem.Visible = true;
+                }
+                else
+                {
+                    //usuariosToolStripMenuItem.Visible = false;
+                }
+            }
+            catch (Exception ex)
+            {
+                MetroMessageBox.Show(this, ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+        }
+
+        public void Subscribirse()
+        {
+            try
+            {
+                BLLIdioma.RegistrarSubscriptor(this);
+
+            }
+            catch (Exception ex)
+            {
+                MetroMessageBox.Show(this, ex.Message, "Error Subscriptor", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+        }
+
+        public void Actualizar()
+        {
+            try
+            {
+                List<BEPalabra> palabras = BLLIdioma.ObtenerTags();
+
+                // Actualizar el titulo del formulario
+                if (this.Tag != null && this.Tag.ToString() != "")
+                {
+                    BEPalabra palabra = palabras.Find(pal => pal.Tag.Equals(this.Tag.ToString()));
+
+                    if (palabra != null)
+                        this.Text = palabra.Traduccion;
+                }
+
+                // Actualizar los ToolStripMenuItem
+                foreach (ToolStripMenuItem menuItem in this.MainMenuStrip.Items)
+                    ActualizarToolStripMenuItem(menuItem, palabras);
+            }
+            catch (Exception ex)
+            {
+                MetroMessageBox.Show(this, ex.Message, "Error Actualizar Idioma", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+        }
+
+        private void ActualizarToolStripMenuItem(ToolStripMenuItem menuItem, List<BEPalabra> palabras)
+        {
+            if (menuItem.Tag != null && menuItem.Tag.ToString() != "")
+            {
+                BEPalabra palabra = palabras.Find(pal => pal.Tag.Equals(menuItem.Tag.ToString()));
+
+                if (palabra != null)
+                    menuItem.Text = palabra.Traduccion;
+            }
+
+            // Actualizar recursivamente los subitems
+            foreach (ToolStripItem subItem in menuItem.DropDownItems)
+            {
+                if (subItem is ToolStripMenuItem subMenuItem)
+                    ActualizarToolStripMenuItem(subMenuItem, palabras);
             }
         }
     }

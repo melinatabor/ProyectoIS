@@ -37,6 +37,11 @@ namespace MPP
         {
             try
             {
+                if (permisoHijo.Id == permisoPadre.Id)
+                {
+                    throw new Exception("No se puede agregar un permiso a si mismo.");
+                }
+
                 Hashtable parametros = new Hashtable();
 
                 string query = $"INSERT INTO PermisoPermiso (PermisoHijo, PermisoPadre) VALUES (@PermisoHijo, @PermisoPadre)";
@@ -68,11 +73,10 @@ namespace MPP
                 {
                     foreach (DataRow fila in table.Rows)
                     {
-                        BEPermiso permiso = new BEPermiso()
+                        BEPermiso permiso = new BEFamilia()
                         {
                             Id = Convert.ToInt32(fila["Id"].ToString()),
-                            Nombre = fila["Nombre"].ToString(),
-                            EsPadre = Convert.ToBoolean(fila["EsPadre"].ToString())
+                            Nombre = fila["Nombre"].ToString()
                         };
 
                         return permiso;
@@ -103,7 +107,7 @@ namespace MPP
                 {
                     foreach (DataRow fila in table.Rows)
                     {
-                        BEPermiso permiso = new BEPermiso()
+                        BEPermiso permiso = new BEPermisoSimple()
                         {
                             Id = Convert.ToInt32(fila["Id"].ToString()),
                             Nombre = fila["Nombre"].ToString(),
@@ -136,11 +140,10 @@ namespace MPP
                 {
                     foreach (DataRow fila in table.Rows)
                     {
-                        BEPermiso permiso = new BEPermiso()
+                        BEPermiso permiso = new BEFamilia()
                         {
                             Id = Convert.ToInt32(fila["Id"].ToString()),
-                            Nombre = fila["Nombre"].ToString(),
-                            EsPadre = Convert.ToBoolean(fila["EsPadre"].ToString())
+                            Nombre = fila["Nombre"].ToString()
                         };
                         lista.Add(permiso);
                     }
@@ -172,7 +175,7 @@ namespace MPP
                 {
                     foreach (DataRow fila in table.Rows)
                     {
-                        BEPermiso permiso = new BEPermiso()
+                        BEPermiso permiso = new BEPermisoSimple()
                         {
                             Id          = Convert.ToInt32(fila["Id"].ToString()),
                             Nombre      = fila["Nombre"].ToString(),
@@ -222,47 +225,30 @@ namespace MPP
                     foreach (DataRow fila in table.Rows)
                     {
                         int idPadre = 0;
+
                         if (fila["PermisoPadre"] != DBNull.Value)
-                        {
                             idPadre = Convert.ToInt32(fila["PermisoPadre"]);
-                        }
 
-                        var id = Convert.ToInt32(fila["Id"]);
-                        var nombre = fila["Nombre"].ToString();
-                        var esPadre = Convert.ToBoolean(fila["EsPadre"]);
-
+                        int id          = Convert.ToInt32(fila["Id"]);
+                        string nombre   = fila["Nombre"].ToString();
+                        bool esPadre    = Convert.ToBoolean(fila["EsPadre"]);
 
                         BEPermiso permiso;
 
                         if (!esPadre)
-                            permiso = new BEPermiso() { EsPadre = false };
+                            permiso = new BEPermisoSimple() { EsPadre = false };
                         else
-                            permiso = new BEPermiso() { EsPadre = true };
+                            permiso = new BEFamilia();
 
-                        permiso.Id = id;
-                        permiso.Nombre = nombre;
+                        permiso.Id      = id;
+                        permiso.Nombre  = nombre;
 
-                        var padre = ObtenerPadre(idPadre, lista);
+                        BEPermiso padre = ObtenerPadre(idPadre, lista);
 
                         if (padre == null)
-                        {
                             lista.Add(permiso);
-                        }
                         else
-                        {
                             padre.AgregarHijo(permiso);
-                        }
-
-
-
-
-                        //BEPermiso permiso = new BEPermiso()
-                        //{
-                        //    Id = Convert.ToInt32(fila["Id"].ToString()),
-                        //    Nombre = fila["Nombre"].ToString(),
-                        //    EsPadre = false
-                        //};
-                        //lista.Add(permiso);
                     }
                 }
 
@@ -288,7 +274,7 @@ namespace MPP
                 {
                     foreach (DataRow fila in table.Rows)
                     {
-                        BEPermiso permiso = new BEPermiso()
+                        BEPermiso permiso = new BEPermisoSimple()
                         {
                             Id = Convert.ToInt32(fila["Id"].ToString()),
                             Nombre = fila["Nombre"].ToString(),
@@ -313,20 +299,18 @@ namespace MPP
 
             if (padre == null && lista != null)
             {
-                foreach (var p in lista)
+                foreach (BEPermiso permiso in lista)
                 {
+                    BEPermiso p = ObtenerPadre(id, permiso.Hijos);
 
-                    var l = ObtenerPadre(id, p.Hijos);
-                    if (l != null && l.Id == id) return l;
-                    else
-                    if (l != null)
-                        return ObtenerPadre(id, l.Hijos);
-
+                    if (p != null && p.Id == id) 
+                        return p;
+                    else if (p != null)
+                        return ObtenerPadre(id, p.Hijos);
                 }
             }
 
             return padre;
         }
-
     }
 }
