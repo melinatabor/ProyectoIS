@@ -84,7 +84,7 @@
             // idiomaToolStripMenuItem
             // 
             this.idiomaToolStripMenuItem.Name = "idiomaToolStripMenuItem";
-            this.idiomaToolStripMenuItem.Size = new System.Drawing.Size(276, 54);
+            this.idiomaToolStripMenuItem.Size = new System.Drawing.Size(359, 54);
             this.idiomaToolStripMenuItem.Tag = "btnGestionIdiomas";
             this.idiomaToolStripMenuItem.Text = "&Idiomas";
             this.idiomaToolStripMenuItem.Click += new System.EventHandler(this.idiomaToolStripMenuItem_Click);

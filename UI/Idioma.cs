@@ -7,13 +7,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Abstraccion;
 using BE;
 using BLL;
 using MetroFramework;
 
 namespace UI
 {
-    public partial class Idioma : MetroFramework.Forms.MetroForm
+    public partial class Idioma : MetroFramework.Forms.MetroForm, ISubscriptor
     {
         public Idioma()
         {
@@ -23,6 +24,7 @@ namespace UI
         private void Idioma_Load(object sender, EventArgs e)
         {
             ActualizarDgv();
+            Actualizar();
         }
 
         private void ActualizarDgv()
@@ -39,6 +41,42 @@ namespace UI
                 return;
             }
 
+        }
+
+        public void Subscribirse()
+        {
+            try
+            {
+                BLLIdioma.RegistrarSubscriptor(this);
+
+            }
+            catch (Exception ex)
+            {
+                MetroMessageBox.Show(this, ex.Message, "Error Subscriptor", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+        }
+
+        public void Actualizar()
+        {
+            try
+            {
+                List<BEPalabra> palabras = BLLIdioma.ObtenerTags();
+
+                // Actualizar el titulo del formulario
+                if (this.Tag != null && this.Tag.ToString() != "")
+                {
+                    BEPalabra palabra = palabras.Find(pal => pal.Tag.Equals(this.Tag.ToString()));
+
+                    if (palabra != null)
+                        this.Text = palabra.Traduccion;
+                }
+            }
+            catch (Exception ex)
+            {
+                MetroMessageBox.Show(this, ex.Message, "Error Actualizar Idioma", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
         }
     }
 }
