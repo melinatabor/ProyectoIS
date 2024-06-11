@@ -6,6 +6,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Runtime.Remoting.Messaging;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -189,6 +190,90 @@ namespace MPP
             }
         }
 
+        public static List<BEPermiso> ListarHijosRecursivo(BEPermiso familia)
+        {
+            try
+            {
+                List<BEPermiso> lista = new List<BEPermiso>();
+
+
+                var where = "is NULL";
+
+                if (familia is BEPermiso)
+                    where = $" = + {familia.Id}";
+
+
+                string query = $@"with recursivo as (
+                        select SP2.PermisoPadre, SP2.PermisoHijo  from PermisoPermiso SP2
+                        where SP2.PermisoPadre {where}
+                        UNION ALL 
+                        select sp.PermisoPadre, sp.PermisoHijo from PermisoPermiso sp 
+                        inner join recursivo r on r.PermisoHijo= sp.PermisoPadre
+                        )
+                        select r.PermisoPadre,r.PermisoHijo,p.Id,p.Nombre, p.EsPadre
+                        from recursivo r 
+                        inner join permiso p on r.PermisoHijo = p.Id 
+                        ";
+
+                DataTable table = Acceso.ExecuteDataTable(query, null, false);
+
+                if (table.Rows.Count > 0)
+                {
+                    foreach (DataRow fila in table.Rows)
+                    {
+                        int idPadre = 0;
+                        if (fila["PermisoPadre"] != DBNull.Value)
+                        {
+                            idPadre = Convert.ToInt32(fila["PermisoPadre"]);
+                        }
+
+                        var id = Convert.ToInt32(fila["Id"]);
+                        var nombre = fila["Nombre"].ToString();
+                        var esPadre = Convert.ToBoolean(fila["EsPadre"]);
+
+
+                        BEPermiso permiso;
+
+                        if (!esPadre)
+                            permiso = new BEPermiso() { EsPadre = false };
+                        else
+                            permiso = new BEPermiso() { EsPadre = true };
+
+                        permiso.Id = id;
+                        permiso.Nombre = nombre;
+
+                        var padre = ObtenerPadre(idPadre, lista);
+
+                        if (padre == null)
+                        {
+                            lista.Add(permiso);
+                        }
+                        else
+                        {
+                            padre.AgregarHijo(permiso);
+                        }
+
+
+
+
+                        //BEPermiso permiso = new BEPermiso()
+                        //{
+                        //    Id = Convert.ToInt32(fila["Id"].ToString()),
+                        //    Nombre = fila["Nombre"].ToString(),
+                        //    EsPadre = false
+                        //};
+                        //lista.Add(permiso);
+                    }
+                }
+
+                return lista;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
         public static List<BEPermiso> ListarPermisos()
         {
             try
@@ -220,5 +305,28 @@ namespace MPP
                 throw ex;
             }
         }
+
+        private static BEPermiso ObtenerPadre(int id, List<BEPermiso> lista)
+        {
+
+            BEPermiso padre = lista.Count() != 0 ? lista.Where(i => i.Id.Equals(id)).FirstOrDefault() : null;
+
+            if (padre == null && lista != null)
+            {
+                foreach (var p in lista)
+                {
+
+                    var l = ObtenerPadre(id, p.Hijos);
+                    if (l != null && l.Id == id) return l;
+                    else
+                    if (l != null)
+                        return ObtenerPadre(id, l.Hijos);
+
+                }
+            }
+
+            return padre;
+        }
+
     }
 }

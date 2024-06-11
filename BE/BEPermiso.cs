@@ -1,4 +1,5 @@
 ﻿
+using System;
 using System.Collections.Generic;
 
 namespace BE
@@ -13,6 +14,11 @@ namespace BE
         public BEPermiso()
         {
             Hijos = new List<BEPermiso>();
+        }
+
+        public void AgregarHijo(BEPermiso hijo)
+        {
+            Hijos.Add(hijo);
         }
     }
 }

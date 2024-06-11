@@ -3,14 +3,7 @@ using BLL;
 using MetroFramework;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace UI
 {
@@ -67,49 +60,6 @@ namespace UI
 
                 dgvFamilia.DataSource = null;
                 dgvFamilia.DataSource = BLLPermiso.ListarFamilias();
-            }
-            catch (Exception ex)
-            {
-                MetroMessageBox.Show(this, ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-        }
-
-        
-
-        private void btnListarArbol_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                if (dgvFamilia.SelectedRows.Count <= 0) throw new Exception("Seleccione una familia.");
-
-                BEPermiso familiaSeleccionada = (BEPermiso)dgvFamilia.CurrentRow.DataBoundItem;
-
-                ListarArbol(familiaSeleccionada);
-            }
-            catch (Exception ex)
-            {
-                MetroMessageBox.Show(this, ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-        }
-
-        private void ListarArbol(BEPermiso familia)
-        {
-            try
-            {
-                treeView1.Nodes.Clear();
-
-                TreeNode root = new TreeNode(familia.Nombre);
-                root.Tag = familia;
-                treeView1.Nodes.Add(root);
-
-               List<BEPermiso> hijos = BLLPermiso.ListarHijos(familia);
-
-                foreach (var item in hijos)
-                    LlenarTreeNode(root, item);
-
-                treeView1.ExpandAll();
             }
             catch (Exception ex)
             {
@@ -183,11 +133,47 @@ namespace UI
 
                 if (alta)
                     MetroMessageBox.Show(this, "Permiso agregado a familia correctamente.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MetroMessageBox.Show(this, ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+        }
 
+        private void btnListarRecursivo_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (dgvFamilia.SelectedRows.Count <= 0) throw new Exception("Seleccione una familia.");
 
+                BEPermiso familiaSeleccionada = (BEPermiso)dgvFamilia.CurrentRow.DataBoundItem;
 
+                ListarArbolRecursivo(familiaSeleccionada);
+            }
+            catch (Exception ex)
+            {
+                MetroMessageBox.Show(this, ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+        }
 
+        private void ListarArbolRecursivo(BEPermiso familia)
+        {
+            try
+            {
+                treeView1.Nodes.Clear();
 
+                TreeNode root = new TreeNode(familia.Nombre);
+                root.Tag = familia;
+                treeView1.Nodes.Add(root);
+
+                List<BEPermiso> hijos = BLLPermiso.ListarHijosRecursivo(familia);
+
+                foreach (var item in hijos)
+                    LlenarTreeNode(root, item);
+
+                treeView1.ExpandAll();
             }
             catch (Exception ex)
             {
