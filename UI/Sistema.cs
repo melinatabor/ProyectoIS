@@ -16,7 +16,6 @@ namespace UI
             try
             {
                 InitializeComponent();
-                Actualizar();
                 usuarioLogeadoTxt.Text = $"User: {SesionManager.GetUsername()}";
             }
             catch (Exception ex)
@@ -162,6 +161,8 @@ namespace UI
         {
             try
             {
+                Subscribirse();
+
                 string username = SesionManager.GetUsername();
 
                 BEUsuario usuarioActual = BLLUsuario.BuscarUsuarioPorUsername(username) ?? throw new Exception($"No existe el username: {username}");
@@ -189,7 +190,6 @@ namespace UI
             try
             {
                 BLLIdioma.RegistrarSubscriptor(this);
-
             }
             catch (Exception ex)
             {
@@ -210,7 +210,11 @@ namespace UI
                     BEPalabra palabra = palabras.Find(pal => pal.Tag.Equals(this.Tag.ToString()));
 
                     if (palabra != null)
+                    {
                         this.Text = palabra.Traduccion;
+                        this.Refresh();
+                    }
+                        
                 }
 
                 // Actualizar los ToolStripMenuItem

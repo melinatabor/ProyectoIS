@@ -9,6 +9,8 @@ namespace Servicios.SesionManager
 
         private IUsuario _usuario { get; set; }
 
+        public Traductor.Traductor traductor { get; set; }
+
         private SesionManager() { }
 
         public static void Login(IUsuario usuario)
@@ -19,6 +21,7 @@ namespace Servicios.SesionManager
                 {
                     _session = new SesionManager();
                     _session._usuario = usuario;
+                    _session.traductor = new Traductor.Traductor();
                 }
                 else
                     throw new Exception("Sesion no iniciada");
@@ -52,6 +55,12 @@ namespace Servicios.SesionManager
             {
                 throw ex;
             }
+        }
+
+        public static SesionManager GetSession()
+        {
+            SesionManager s = _session;
+            return s;
         }
     }
 }

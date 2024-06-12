@@ -56,7 +56,7 @@ namespace MPP
 
         }
 
-        public static List<BEPalabra> ObtenerTags()
+        public static List<BEPalabra> ObtenerTags(int idioma)
         {
             try
             {
@@ -67,7 +67,7 @@ namespace MPP
 
                 string query = $"SELECT t.Id AS TagId, t.Tag, tr.Traduccion FROM Tag t JOIN Traduccion tr ON t.Id = tr.Tag JOIN Idioma i ON tr.Idioma = i.Id WHERE i.Id = @IdiomaId";
             
-                parametros.Add("@IdiomaId", 2);
+                parametros.Add("@IdiomaId", idioma);
 
                 DataTable table = Acceso.ExecuteDataTable(query, parametros, false);
 
