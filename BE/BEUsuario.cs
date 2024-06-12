@@ -1,4 +1,5 @@
 ﻿using Abstraccion;
+using System.Collections.Generic;
 
 namespace BE
 {
@@ -12,10 +13,17 @@ namespace BE
         public string Username { get; set; }
         public string Password { get; set; }
         public bool Activo { get; set; }
+        public string DigitoVerificadorH { get; set; }
+        public List<BEPermiso> Permisos { get; set; }
+        public List<int> ListaPermisos { get; set; }
         #endregion
 
         #region Constructores
-        public BEUsuario() { }
+        public BEUsuario() 
+        { 
+            Permisos = new List<BEPermiso>();
+            ListaPermisos = new List<int>();
+        }
         public BEUsuario(int id) {
             Id = id;
         }

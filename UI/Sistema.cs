@@ -11,6 +11,20 @@ namespace UI
 {
     public partial class Sistema : MetroFramework.Forms.MetroForm, ISubscriptor
     {
+        private Dictionary<int, ToolStripMenuItem> _permisosMDI;
+        private void InicializarPermisosMenuItems()
+        {
+            _permisosMDI = new Dictionary<int, ToolStripMenuItem>
+            {
+                { 7,  usuariosToolStripMenuItem },
+                { 11, idiomaToolStripMenuItem   },
+                { 16, permisosToolStripMenuItem },
+                { 17, informesToolStripMenuItem },
+            };
+
+            VerificarPermisos();
+        }
+
         public Sistema()
         {
             try
@@ -163,21 +177,8 @@ namespace UI
             {
                 Subscribirse();
                 Actualizar();
-
-                string username = SesionManager.GetUsername();
-
-                BEUsuario usuarioActual = BLLUsuario.BuscarUsuarioPorUsername(username) ?? throw new Exception($"No existe el username: {username}");
-
-                bool puedeGestionarUsuarios = BLLUsuario.VerificarPermiso(usuarioActual, 7);
-
-                if (puedeGestionarUsuarios)
-                {
-                    usuariosToolStripMenuItem.Visible = true;
-                }
-                else
-                {
-                    //usuariosToolStripMenuItem.Visible = false;
-                }
+                InicializarPermisosMenuItems();
+                
             }
             catch (Exception ex)
             {
@@ -246,5 +247,20 @@ namespace UI
                     ActualizarToolStripMenuItem(subMenuItem, palabras);
             }
         }
+
+        private void VerificarPermisos()
+        {
+            foreach (var permisoMenu in _permisosMDI)
+            {
+                int permisoId = permisoMenu.Key;
+                ToolStripMenuItem menuItem = permisoMenu.Value;
+
+                bool permiso = BLLUsuario.VerificarPermiso(permisoId);
+
+                // Ocultar o mostrar los menu items
+                menuItem.Visible = permiso;
+            }
+        }
+
     }
 }

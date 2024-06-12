@@ -224,5 +224,40 @@ namespace MPP
             }
             catch (Exception ex) { throw ex; }
         }
+
+        public static void ObtenerPermisosUsuario(BEUsuario usuario)
+        {
+            try
+            {
+                List<BEPermiso> lista = new List<BEPermiso>();
+
+                Hashtable parametros = new Hashtable();
+
+                parametros.Add("@IdUsuario", usuario.Id);
+
+                string query = $"select per.Id from Usuario u inner join usuarioPermiso as up on up.Usuario = u.Id inner join permiso as per on up.Permiso=per.Id where u.Id=@IdUsuario";
+
+                DataTable table = Acceso.ExecuteDataTable(query, parametros, false);
+
+                if (table.Rows.Count > 0)
+                {
+                    foreach (DataRow fila in table.Rows)
+                    {
+                        int id = Convert.ToInt32(fila["Id"]);
+                        lista.AddRange(MPPPermiso.ListarHijosRecursivo(MPPPermiso.BuscarPermiso(id)));
+                    }
+                }
+
+                foreach (BEPermiso permiso in lista)
+                {
+                    usuario.ListaPermisos.Add(permiso.Id);
+                }
+                
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }

@@ -62,5 +62,17 @@ namespace Servicios.SesionManager
             SesionManager s = _session;
             return s;
         }
+
+        public static IUsuario GetUsuario()
+        {
+            try
+            {
+                return _session._usuario;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }

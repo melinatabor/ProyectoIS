@@ -84,6 +84,8 @@ namespace BLL
                 BEUsuario usuarioExistente = BLLUsuario.BuscarUsuario(usuario) 
                     ?? throw new Exception("Credenciales incorrectas. Por favor vuelva a ingresar los datos correctamente.");
 
+                ObtenerPermisosUsuario(usuarioExistente);
+
                 SesionManager.Login(usuarioExistente);
 
                 BEBitacora bitacora = new BEBitacora()
@@ -100,6 +102,15 @@ namespace BLL
             catch (Exception ex) { throw ex; }
         }
 
+        private static void ObtenerPermisosUsuario(BEUsuario usuario)
+        {
+            try
+            {
+                MPPUsuario.ObtenerPermisosUsuario(usuario);
+            }
+            catch (Exception ex) { throw ex; }
+        }
+
         public static bool AsignarPermiso(BEUsuario usuario, BEPermiso permiso)
         {
             try
@@ -109,11 +120,12 @@ namespace BLL
             catch (Exception ex) { throw ex; }
         }
 
-        public static bool VerificarPermiso(BEUsuario usuarioActual, int permiso)
+        public static bool VerificarPermiso(int permiso)
         {
             try
             {
-                return MPPUsuario.VerificarPermiso(usuarioActual, permiso);
+                List<int> permisosUsuario = SesionManager.GetUsuario().ListaPermisos;
+                return permisosUsuario.Contains(permiso);
             }
             catch (Exception ex) { throw ex; }
         }
