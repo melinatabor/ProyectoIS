@@ -11,10 +11,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using MetroFramework;
+using Abstraccion;
 
 namespace UI
 {
-    public partial class Modificacion : MetroFramework.Forms.MetroForm
+    public partial class Modificacion : MetroFramework.Forms.MetroForm, ISubscriptor
     {
         private int idUsuario;
 
@@ -28,6 +29,9 @@ namespace UI
         {
             try
             {
+                Subscribirse();
+                Actualizar();
+
                 BEUsuario usuario = BLLUsuario.ObtenerUsuario(idUsuario);
                 txtNombre.Text = usuario.Nombre;
                 txtApellido.Text = usuario.Apellido;
@@ -94,6 +98,64 @@ namespace UI
             {
                 MetroMessageBox.Show(this, ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 RegistrarBitacora($"Ha ocurrido un error: {ex.Message}", BEBitacora.BitacoraTipo.ERROR);
+                return;
+            }
+        }
+
+        public void Subscribirse()
+        {
+            try
+            {
+                BLLIdioma.RegistrarSubscriptor(this);
+            }
+            catch (Exception ex)
+            {
+                MetroMessageBox.Show(this, ex.Message, "Error Subscriptor", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+        }
+
+        public void Actualizar()
+        {
+            try
+            {
+                List<BEPalabra> palabras = BLLIdioma.ObtenerTags();
+
+                // Actualizar el titulo del formulario
+                if (this.Tag != null && this.Tag.ToString() != "")
+                {
+                    BEPalabra palabra = palabras.Find(pal => pal.Tag.Equals(this.Tag.ToString()));
+
+                    if (palabra != null)
+                    {
+                        this.Text = palabra.Traduccion;
+                        this.Refresh();
+                    }
+                }
+
+                // Actualizar controles
+                foreach (Control control in Controls)
+                {
+                    if (control.Tag != null && control.Tag.ToString() != "")
+                    {
+                        BEPalabra palabra = palabras.Find(pal => pal.Tag.Equals(control.Tag.ToString()));
+                        if (palabra != null)
+                        {
+                            if (control is MaterialSkin.Controls.MaterialTextBox materialTextBox)
+                            {
+                                materialTextBox.Hint = palabra.Traduccion;
+                            }
+                            else
+                            {
+                                control.Text = palabra.Traduccion;
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MetroMessageBox.Show(this, ex.Message, "Error Actualizar Modificacion Usuario", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
         }

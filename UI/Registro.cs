@@ -4,10 +4,12 @@ using System;
 using System.Windows.Forms;
 using Servicios.Validador;
 using MetroFramework;
+using Abstraccion;
+using System.Collections.Generic;
 
 namespace UI
 {
-    public partial class Registro : MetroFramework.Forms.MetroForm
+    public partial class Registro : MetroFramework.Forms.MetroForm, ISubscriptor
     {
         private bool emailValido = false;
         private bool pswValida = false;
@@ -144,6 +146,78 @@ namespace UI
                     "Debe tener al menos 8 caracteres de longitud.");
                     pswValida = false;
                 }
+            }
+            catch (Exception ex)
+            {
+                MetroMessageBox.Show(this, ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+        }
+
+        public void Subscribirse()
+        {
+            try
+            {
+                BLLIdioma.RegistrarSubscriptor(this);
+            }
+            catch (Exception ex)
+            {
+                MetroMessageBox.Show(this, ex.Message, "Error Subscripcion", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+        }
+
+        public void Actualizar()
+        {
+            try
+            {
+                List<BEPalabra> palabras = BLLIdioma.ObtenerTags();
+
+                // Actualizar el titulo del formulario
+                if (this.Tag != null && this.Tag.ToString() != "")
+                {
+                    BEPalabra palabra = palabras.Find(pal => pal.Tag.Equals(this.Tag.ToString()));
+
+                    if (palabra != null)
+                    {
+                        this.Text = palabra.Traduccion;
+                        this.Refresh();
+                    }
+                }
+
+                // Actualizar controles
+                foreach (Control control in Controls)
+                {
+                    if (control.Tag != null && control.Tag.ToString() != "")
+                    {
+                        BEPalabra palabra = palabras.Find(pal => pal.Tag.Equals(control.Tag.ToString()));
+                        if (palabra != null)
+                        {
+                            if (control is MaterialSkin.Controls.MaterialTextBox materialTextBox)
+                            {
+                                materialTextBox.Hint = palabra.Traduccion;
+                            }
+                            else
+                            {
+                                control.Text = palabra.Traduccion;
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MetroMessageBox.Show(this, ex.Message, "Error Actualizar Registro Usuario", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+        }
+
+        private void Registro_Load(object sender, EventArgs e)
+        {
+            try
+            {
+                Subscribirse();
+                Actualizar();
             }
             catch (Exception ex)
             {
