@@ -1,4 +1,5 @@
-﻿using BE;
+﻿using Abstraccion;
+using BE;
 using BLL;
 using MetroFramework;
 using System;
@@ -7,7 +8,7 @@ using System.Windows.Forms;
 
 namespace UI
 {
-    public partial class Permiso : MetroFramework.Forms.MetroForm
+    public partial class Permiso : MetroFramework.Forms.MetroForm, ISubscriptor
     {
         public Permiso()
         {
@@ -41,6 +42,9 @@ namespace UI
         {
             try
             {
+                Subscribirse();
+                Actualizar();
+
                 ActualizarDGV();
                 dgvUsuarios.DataSource = null;
                 dgvUsuarios.DataSource = BLLUsuario.Listar();
@@ -143,23 +147,6 @@ namespace UI
             }
         }
 
-        private void btnListarRecursivo_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                if (dgvFamilia.SelectedRows.Count <= 0) throw new Exception("Seleccione una familia.");
-
-                BEPermiso familiaSeleccionada = (BEPermiso)dgvFamilia.CurrentRow.DataBoundItem;
-
-                ListarArbolRecursivo(familiaSeleccionada);
-            }
-            catch (Exception ex)
-            {
-                MetroMessageBox.Show(this, ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-        }
-
         private void ListarArbolRecursivo(BEPermiso familia)
         {
             try
@@ -218,6 +205,83 @@ namespace UI
             {
                 MetroMessageBox.Show(this, ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
+            }
+        }
+
+        private void dgvFamilia_SelectionChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                BEPermiso familiaSeleccionada = (BEPermiso)dgvFamilia.CurrentRow.DataBoundItem;
+
+                ListarArbolRecursivo(familiaSeleccionada);
+            }
+            catch (Exception ex)
+            {
+                MetroMessageBox.Show(this, ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+        }
+
+        public void Subscribirse()
+        {
+            try
+            {
+                BLLIdioma.RegistrarSubscriptor(this);
+            }
+            catch (Exception ex)
+            {
+                MetroMessageBox.Show(this, ex.Message, "Error Subscriptor", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+        }
+
+        public void Actualizar()
+        {
+            try
+            {
+                List<BEPalabra> palabras = BLLIdioma.ObtenerTags();
+
+                // Actualizar el titulo del formulario
+                if (this.Tag != null && this.Tag.ToString() != "")
+                {
+                    BEPalabra palabra = palabras.Find(pal => pal.Tag.Equals(this.Tag.ToString()));
+
+                    if (palabra != null)
+                    {
+                        this.Text = palabra.Traduccion;
+                        this.Refresh();
+                    }
+                }
+
+                // Actualizar controles recursivamente
+                ActualizarControles(this.Controls, palabras);
+            }
+            catch (Exception ex)
+            {
+                MetroMessageBox.Show(this, ex.Message, "Error Actualizar Idioma en Permisos", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+        }
+
+        private void ActualizarControles(Control.ControlCollection controls, List<BEPalabra> palabras)
+        {
+            foreach (Control control in controls)
+            {
+                if (control.Tag != null && control.Tag.ToString() != "")
+                {
+                    BEPalabra palabra = palabras.Find(pal => pal.Tag.Equals(control.Tag.ToString()));
+                    if (palabra != null)
+                    {
+                        if (control is MaterialSkin.Controls.MaterialTextBox materialTextBox)
+                            materialTextBox.Hint = palabra.Traduccion;
+                        else
+                            control.Text = palabra.Traduccion;
+                    }
+                }
+
+                if (control.Controls.Count > 0)
+                    ActualizarControles(control.Controls, palabras);
             }
         }
     }
