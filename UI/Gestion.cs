@@ -15,7 +15,7 @@ using MetroFramework;
 
 namespace UI
 {
-    public partial class Gestion : MetroFramework.Forms.MetroForm
+    public partial class Gestion : MetroFramework.Forms.MetroForm, ISubscriptor
     {
         public Gestion()
         {
@@ -41,6 +41,8 @@ namespace UI
         private void Gestion_Load(object sender, EventArgs e)
         {
             ActualizarDgv();
+            Subscribirse();
+            Actualizar();
         }
 
 
@@ -153,6 +155,55 @@ namespace UI
             {
                 RegistrarBitacora(ex.Message, BEBitacora.BitacoraTipo.ERROR);
                 MetroMessageBox.Show(this, ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        public void Subscribirse()
+        {
+            try
+            {
+                BLLIdioma.RegistrarSubscriptor(this);
+            }
+            catch (Exception ex)
+            {
+                MetroMessageBox.Show(this, ex.Message, "Error Subscriptor", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+        }
+
+        public void Actualizar()
+        {
+            try
+            {
+                List<BEPalabra> palabras = BLLIdioma.ObtenerTags();
+
+                // Actualizar el titulo del formulario
+                if (this.Tag != null && this.Tag.ToString() != "")
+                {
+                    BEPalabra palabra = palabras.Find(pal => pal.Tag.Equals(this.Tag.ToString()));
+
+                    if (palabra != null)
+                    {
+                        this.Text = palabra.Traduccion;
+                        this.Refresh();
+                    }
+                }
+
+                // Actualizar controles
+                foreach (Control control in Controls)
+                {
+                    if (control.Tag != null && control.Tag.ToString() != "")
+                    {
+                        BEPalabra palabra = palabras.Find(pal => pal.Tag.Equals(control.Tag.ToString()));
+                        if (palabra != null)
+                            control.Text = palabra.Traduccion;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MetroMessageBox.Show(this, ex.Message, "Error Actualizar Idioma", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
             }
         }
     }

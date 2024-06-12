@@ -28,6 +28,7 @@ namespace UI
             {
                 ActualizarDgv();
                 Subscribirse();
+                Actualizar();
 
                 ddIdiomas.DataSource = null;
                 ddIdiomas.DataSource = BLLIdioma.Listar();

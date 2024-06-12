@@ -106,6 +106,7 @@
             this.btnModificar.NoAccentTextColor = System.Drawing.Color.Empty;
             this.btnModificar.Size = new System.Drawing.Size(223, 49);
             this.btnModificar.TabIndex = 9;
+            this.btnModificar.Tag = "btnModificarUsuario";
             this.btnModificar.Text = "Modificar usuario";
             this.btnModificar.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Outlined;
             this.btnModificar.UseAccentColor = true;
@@ -130,6 +131,7 @@
             this.btnAgregar.NoAccentTextColor = System.Drawing.Color.Empty;
             this.btnAgregar.Size = new System.Drawing.Size(213, 49);
             this.btnAgregar.TabIndex = 8;
+            this.btnAgregar.Tag = "btnAgregarUsuario";
             this.btnAgregar.Text = "Agregar Usuario";
             this.btnAgregar.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
             this.btnAgregar.UseAccentColor = true;
@@ -154,6 +156,7 @@
             this.btnEliminar.NoAccentTextColor = System.Drawing.Color.Empty;
             this.btnEliminar.Size = new System.Drawing.Size(218, 49);
             this.btnEliminar.TabIndex = 10;
+            this.btnEliminar.Tag = "btnEliminarUsuario";
             this.btnEliminar.Text = "Eliminar Usuario";
             this.btnEliminar.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
             this.btnEliminar.UseAccentColor = false;
@@ -175,6 +178,7 @@
             this.Name = "Gestion";
             this.Padding = new System.Windows.Forms.Padding(15, 60, 15, 16);
             this.Style = MetroFramework.MetroColorStyle.Purple;
+            this.Tag = "formGestionUsuarios";
             this.Text = "Gestión de Usuarios";
             this.Load += new System.EventHandler(this.Gestion_Load);
             ((System.ComponentModel.ISupportInitialize)(this.gridUsuarios)).EndInit();

@@ -162,6 +162,7 @@ namespace UI
             try
             {
                 Subscribirse();
+                Actualizar();
 
                 string username = SesionManager.GetUsername();
 
