@@ -13,6 +13,18 @@ namespace MPP
 {
     public class MPPTraduccion
     {
+        public static bool Agregar(int idioma, int tag, string traduccion)
+        {
+            Hashtable parametros = new Hashtable
+                {
+                    { "@Idioma", idioma },
+                    { "@Tag", tag },
+                    { "@Traduccion", traduccion }
+                };
+
+            return Acceso.ExecuteNonQuery(IdiomaStoredProcedures.SP_AgregarTraduccion, parametros, true);
+        }
+
         public static List<BETraduccion> Listar(int idIdioma)
         {
             try
@@ -32,6 +44,7 @@ namespace MPP
                     {
                         BETraduccion traduccion = new BETraduccion()
                         {
+                            Id = Convert.ToInt32(fila["Id"].ToString()),
                             Tag = fila["Tag"].ToString(),
                             Neutro = fila["Neutro"].ToString(),
                             Traduccion = fila["Traduccion"].ToString()
@@ -46,6 +59,18 @@ namespace MPP
             {
                 throw ex;
             }
+        }
+
+        public static bool Modificar(int idioma, int tag, string traduccion)
+        {
+            Hashtable parametros = new Hashtable
+                {
+                    { "@Idioma", idioma },
+                    { "@Tag", tag },
+                    { "@NuevaTraduccion", traduccion }
+                };
+
+            return Acceso.ExecuteNonQuery(IdiomaStoredProcedures.SP_ModificarTraduccion, parametros, true);
         }
     }
 }

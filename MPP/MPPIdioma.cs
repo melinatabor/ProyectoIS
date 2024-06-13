@@ -14,9 +14,10 @@ namespace MPP
         {
             try
             {
-                Hashtable parametros = new Hashtable();
-
-                parametros.Add("@Idioma", idioma.Idioma);
+                Hashtable parametros = new Hashtable
+                {
+                    { "@Idioma", idioma.Idioma }
+                };
                 
                 return Acceso.ExecuteNonQuery(IdiomaStoredProcedures.SP_AgregarIdioma, parametros, true);
             }

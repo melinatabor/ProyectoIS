@@ -8,6 +8,7 @@ namespace BE
 {
     public class BETraduccion
     {
+        public int Id { get; set; }
         public string Tag { get; set; }
         public string Neutro { get; set; }
         public string Traduccion { get; set; }

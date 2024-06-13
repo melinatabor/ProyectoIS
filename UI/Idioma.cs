@@ -17,6 +17,8 @@ namespace UI
 {
     public partial class Idioma : MetroFramework.Forms.MetroForm, ISubscriptor
     {
+        private string _tag = "Traducción para ";
+
         public Idioma()
         {
             InitializeComponent();
@@ -34,9 +36,6 @@ namespace UI
                 ddIdiomas.DataSource = BLLIdioma.Listar();
                 ddIdiomas.DisplayMember = "Idioma";
                 ddIdiomas.ValueMember = "Id";
-
-                // Manejador del evento de cambio de idioma
-                ddIdiomas.SelectedIndexChanged += ddIdiomas_SelectedIndexChanged;
             }
             catch (Exception ex)
             {
@@ -55,7 +54,6 @@ namespace UI
             }
             catch (Exception ex)
             {
-                // RegistrarBitacora(ex.Message, BEBitacora.BitacoraTipo.ERROR);
                 MetroMessageBox.Show(this, ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
@@ -100,7 +98,20 @@ namespace UI
                     {
                         BEPalabra palabra = palabras.Find(pal => pal.Tag.Equals(control.Tag.ToString()));
                         if (palabra != null)
-                            control.Text = palabra.Traduccion;
+                        {
+                            if (control is Label label && label.Name == "labelTag")
+                            {
+                                label.Text = _tag = palabra.Traduccion;
+                            }
+                            else if (control is MaterialSkin.Controls.MaterialComboBox materialComboBox)
+                            {
+                                materialComboBox.Hint = palabra.Traduccion;
+                            }
+                            else
+                            {
+                                control.Text = palabra.Traduccion;
+                            }
+                        }
                     }
                 }
             }
@@ -133,6 +144,46 @@ namespace UI
             if (ddIdiomas.SelectedValue != null && ddIdiomas.SelectedValue is int selectedId)
             {
                 ActualizarDgv(selectedId);
+            }
+        }
+
+        private void dgvTraduccion_SelectionChanged(object sender, EventArgs e)
+        {
+            if (dgvTraduccion.SelectedRows.Count > 0)
+            {
+                DataGridViewRow selectedRow = dgvTraduccion.SelectedRows[0];
+
+                string tag = selectedRow.Cells[1].Value.ToString();
+                string traduccion = selectedRow.Cells[3].Value.ToString();
+
+                labelTag.Text = _tag + tag + ":";
+                txtTraduccion.Hint = traduccion;
+            }
+        }
+
+        private void btnModificar_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                DataGridViewRow selectedRow = dgvTraduccion.SelectedRows[0];
+                int tag = Convert.ToInt32(selectedRow.Cells[0].Value.ToString());
+                int idioma = Convert.ToInt32(ddIdiomas.SelectedValue);
+                bool isTraduccionActual = selectedRow.Cells[3].Value.ToString() != "";
+
+                DialogResult result = MetroMessageBox.Show(this, "¿Está seguro que desea modificar la traducción?", "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                if (result == DialogResult.Yes)
+                {
+                    if (isTraduccionActual) BLLTraduccion.Modificar(idioma, tag, txtTraduccion.Text);
+                    else BLLTraduccion.Agregar(idioma, tag, txtTraduccion.Text);
+                    ActualizarDgv(idioma);
+                    txtTraduccion.Text = "";
+                }
+            }
+            catch (Exception ex)
+            {
+                MetroMessageBox.Show(this, ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
             }
         }
     }
