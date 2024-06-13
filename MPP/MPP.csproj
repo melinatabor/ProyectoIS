@@ -44,6 +44,7 @@
   <ItemGroup>
     <Compile Include="MPPIdioma.cs" />
     <Compile Include="MPPPermiso.cs" />
+    <Compile Include="MPPTraduccion.cs" />
     <Compile Include="StoredProcedures\BitacoraStoredProcedures.cs" />
     <Compile Include="MPPBitacora.cs" />
     <Compile Include="MPPUsuario.cs" />

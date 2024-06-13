@@ -33,8 +33,10 @@ namespace UI
                 ddIdiomas.DataSource = null;
                 ddIdiomas.DataSource = BLLIdioma.Listar();
                 ddIdiomas.DisplayMember = "Idioma";
-                ddIdiomas.ValueMember = "Id"; 
+                ddIdiomas.ValueMember = "Id";
 
+                // Manejador del evento de cambio de idioma
+                ddIdiomas.SelectedIndexChanged += ddIdiomas_SelectedIndexChanged;
             }
             catch (Exception ex)
             {
@@ -44,16 +46,16 @@ namespace UI
 
         }
 
-        private void ActualizarDgv()
+        private void ActualizarDgv(int idIdioma = 1)
         {
             try
             {
-                gridIdiomas.DataSource = null;
-                gridIdiomas.DataSource = BLLIdioma.Listar();
+                dgvTraduccion.DataSource = null;
+                dgvTraduccion.DataSource = BLLTraduccion.Listar(idIdioma);
             }
             catch (Exception ex)
             {
-                //RegistrarBitacora(ex.Message, BEBitacora.BitacoraTipo.ERROR);
+                // RegistrarBitacora(ex.Message, BEBitacora.BitacoraTipo.ERROR);
                 MetroMessageBox.Show(this, ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
@@ -123,6 +125,14 @@ namespace UI
             {
                 MetroMessageBox.Show(this, ex.Message, "Error Actualizar Idioma", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
+            }
+        }
+
+        private void ddIdiomas_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (ddIdiomas.SelectedValue != null && ddIdiomas.SelectedValue is int selectedId)
+            {
+                ActualizarDgv(selectedId);
             }
         }
     }
