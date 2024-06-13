@@ -3,13 +3,18 @@ using BLL;
 using System;
 using System.Windows.Forms;
 using MetroFramework;
+using Abstraccion;
+using System.Collections.Generic;
+using System.Globalization;
+using static System.Net.WebRequestMethods;
 
 namespace UI
 {
-    public partial class Bitacora : MetroFramework.Forms.MetroForm
+    public partial class Bitacora : MetroFramework.Forms.MetroForm, ISubscriptor
     {
         private int _pagina = 1;
         private int _rowsPerPage = 5;
+        private string _paginaTag = "Página: ";
 
         public Bitacora()
         {
@@ -20,7 +25,11 @@ namespace UI
         {
             try
             {
-                labelPagina.Text = "Página: " + _pagina.ToString();
+                dtFrom.Format = dtTo.Format = DateTimePickerFormat.Custom;
+                dtFrom.CustomFormat = dtTo.CustomFormat = "dd-MM-yyyy";
+                Subscribirse();
+                Actualizar();
+                labelPagina.Text = _paginaTag + _pagina.ToString();
 
                 dtFrom.Value = new DateTime(DateTime.Now.Year, 1, 1);
                 dtTo.Value = DateTime.Now;
@@ -61,7 +70,7 @@ namespace UI
                 if (_pagina <= 1)
                 {
                     btnLeft.Enabled = false;
-                    labelPagina.Text = "Página: " + _pagina.ToString();
+                    labelPagina.Text = _paginaTag + _pagina.ToString();
                     return;
                 }
 
@@ -79,7 +88,7 @@ namespace UI
 
                 btnRight.Enabled = true;
 
-                labelPagina.Text = "Página: " + _pagina.ToString();
+                labelPagina.Text = _paginaTag + _pagina.ToString();
             }
             catch (Exception ex)
             {
@@ -117,7 +126,7 @@ namespace UI
 
                 btnLeft.Enabled = true;
 
-                labelPagina.Text = "Página: " + _pagina.ToString();
+                labelPagina.Text = _paginaTag + _pagina.ToString();
             }
             catch (Exception ex)
             {
@@ -154,11 +163,73 @@ namespace UI
                 gridBitacora.DataSource = null;
                 gridBitacora.DataSource = results;
 
-                labelPagina.Text = "Página: " + _pagina.ToString();
+                labelPagina.Text = _paginaTag + _pagina.ToString();
             }
             catch (Exception ex)
             {
                 MetroMessageBox.Show(this, ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+        }
+
+        public void Subscribirse()
+        {
+            try
+            {
+                BLLIdioma.RegistrarSubscriptor(this);
+            }
+            catch (Exception ex)
+            {
+                MetroMessageBox.Show(this, ex.Message, "Error Subscripcion", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+        }
+
+        public void Actualizar()
+        {
+            try
+            {
+                List<BEPalabra> palabras = BLLIdioma.ObtenerTags();
+
+                // Actualizar el titulo del formulario
+                if (this.Tag != null && this.Tag.ToString() != "")
+                {
+                    BEPalabra palabra = palabras.Find(pal => pal.Tag.Equals(this.Tag.ToString()));
+
+                    if (palabra != null)
+                    {
+                        this.Text = palabra.Traduccion;
+                        this.Refresh();
+                    }
+                }
+
+                // Actualizar controles
+                foreach (Control control in Controls)
+                {
+                    if (control.Tag != null && control.Tag.ToString() != "")
+                    {
+                        BEPalabra palabra = palabras.Find(pal => pal.Tag.Equals(control.Tag.ToString()));
+                        if (palabra != null)
+                        {
+                            if (control is MaterialSkin.Controls.MaterialComboBox materialComboBox)
+                            {
+                                materialComboBox.Hint = palabra.Traduccion;
+                            }
+                            else if (control is Label label && label.Name == "labelPagina")
+                            {
+                                label.Text = _paginaTag = palabra.Traduccion;
+                            }
+                            else
+                            {
+                                control.Text = palabra.Traduccion;
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MetroMessageBox.Show(this, ex.Message, "Error Actualizar Idioma", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
         }
