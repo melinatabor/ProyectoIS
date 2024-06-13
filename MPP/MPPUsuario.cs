@@ -322,7 +322,7 @@ namespace MPP
             }
         }
 
-        public static List<BEUsuario> FiltrarHistoricosPorUsername(string username)
+        public static List<BEUsuario> FiltrarHistoricosPorUsuario(int usuarioId)
         {
             try
             {
@@ -330,9 +330,9 @@ namespace MPP
 
                 Hashtable parametros = new Hashtable();
 
-                parametros.Add("@Username", username + "%");
+                parametros.Add("@UsuarioId", usuarioId);
 
-                string query = "SELECT * FROM UsuarioHistorico WHERE Username LIKE @Username";
+                string query = "SELECT * FROM UsuarioHistorico WHERE UsuarioId = @UsuarioId";
 
                 DataTable table = Acceso.ExecuteDataTable(query, parametros, false);
 
@@ -390,6 +390,46 @@ namespace MPP
                 parametros.Add("@DigitoVerificadorVertical", dvvCalculado);
 
                 Acceso.ExecuteNonQuery(DigitoVerificadorVerticalStoredProcedures.SP_ActualizarDigitoVerificadorVertical, parametros, true);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        public static bool RestaurarVersion(BEUsuario usuarioHistorico, BEUsuario usuario)
+        {
+            try
+            {
+                Hashtable parametros = new Hashtable();
+
+                parametros.Add("@Nombre", usuarioHistorico.Nombre);
+                parametros.Add("@Apellido", usuarioHistorico.Apellido);
+                parametros.Add("@Email", usuarioHistorico.Email);
+                parametros.Add("@Username", usuarioHistorico.Username);
+                parametros.Add("@Id", usuario.Id);
+                parametros.Add("@DVH", usuarioHistorico.DigitoVerificadorH);
+
+                bool guardado = Acceso.ExecuteNonQuery(UsuarioStoredProcedures.SP_EditarUsuario, parametros, true);
+
+                if (guardado)
+                {
+                    // Guardar en historico
+                    Hashtable parametrosHistorico = new Hashtable();
+
+                    parametrosHistorico.Add("@UsuarioId", usuario.Id);
+                    parametrosHistorico.Add("@Nombre", usuarioHistorico.Nombre);
+                    parametrosHistorico.Add("@Apellido", usuarioHistorico.Apellido);
+                    parametrosHistorico.Add("@Email", usuarioHistorico.Email);
+                    parametrosHistorico.Add("@Username", usuarioHistorico.Username);
+                    parametrosHistorico.Add("@Activo", usuarioHistorico.Activo);
+
+                    string query = $"insert into UsuarioHistorico (UsuarioId, Nombre, Apellido, Email, Username, Activo) Values (@UsuarioId, @Nombre, @Apellido, @Email, @Username, @Activo)";
+                    guardado = Acceso.ExecuteNonQuery(query, parametrosHistorico, false);
+                }
+
+                return guardado;
             }
             catch (Exception)
             {

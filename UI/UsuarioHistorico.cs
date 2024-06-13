@@ -2,6 +2,7 @@
 using BE;
 using BLL;
 using MetroFramework;
+using Servicios.SesionManager;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -77,6 +78,9 @@ namespace UI
                 Subscribirse();
                 Actualizar();
                 //ActualizarDGV();
+                ddUsuarios.Items.Clear();
+                foreach (BEUsuario usuario in BLLUsuario.Listar())
+                    ddUsuarios.Items.Add(usuario.Username);
 
             }
             catch (Exception ex)
@@ -105,12 +109,49 @@ namespace UI
         {
             try
             {
-                string username = inputUsuarios.Text;
+                string username = ddUsuarios.Items[ddUsuarios.SelectedIndex].ToString();
 
-                List<BEUsuario> lista = BLLUsuario.FiltrarHistoricosPorUsername(username);
+                BEUsuario usuario = BLLUsuario.BuscarUsuarioPorUsername(username);
+
+                List<BEUsuario> lista = BLLUsuario.FiltrarHistoricosPorUsuario(usuario.Id);
 
                 if (lista.Count > 0) 
                     ActualizarDGV(lista);
+            }
+            catch (Exception ex)
+            {
+                MetroMessageBox.Show(this, ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+        }
+
+        private void btnRestaurarVersion_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (dgvUsuariosHistoricos.SelectedRows.Count == 1)
+                {
+                    string username = ddUsuarios.Items[ddUsuarios.SelectedIndex].ToString();
+                    BEUsuario usuario = BLLUsuario.BuscarUsuarioPorUsername(username);
+
+                    BEUsuario usuarioHistorico = (BEUsuario)dgvUsuariosHistoricos.SelectedRows[0].DataBoundItem;
+                    bool guardado = BLLUsuario.RestaurarVersion(usuarioHistorico, usuario);
+
+                    if (guardado)
+                    {
+                        BLLUsuario.RecalcularDigitoVerificadorVertical();
+
+                        MetroMessageBox.Show(
+                            this,
+                            $"Usuario Restaurado",
+                            "Restaurado",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Information
+                        );
+                    }
+
+                }
+
             }
             catch (Exception ex)
             {

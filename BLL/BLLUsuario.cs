@@ -79,11 +79,11 @@ namespace BLL
             catch (Exception ex) { throw ex; }
         }
 
-        public static List<BEUsuario> FiltrarHistoricosPorUsername(string username)
+        public static List<BEUsuario> FiltrarHistoricosPorUsuario(int usuarioId)
         {
             try
             {
-                return MPPUsuario.FiltrarHistoricosPorUsername(username);
+                return MPPUsuario.FiltrarHistoricosPorUsuario(usuarioId);
             }
             catch (Exception ex) { throw ex; }
         }
@@ -164,6 +164,16 @@ namespace BLL
             {
                 string dvvCalculado = DigitoVerificador.RunVertical(BLLUsuario.Listar());
                 MPPUsuario.ActualizarDigitoVerificadorVertical(dvvCalculado);
+            }
+            catch (Exception ex) { throw ex; }
+        }
+
+        public static bool RestaurarVersion(BEUsuario usuarioHistorico, BEUsuario usuario)
+        {
+            try
+            {
+                usuarioHistorico.DigitoVerificadorH = DigitoVerificador.Run(usuarioHistorico);
+                return MPPUsuario.RestaurarVersion(usuarioHistorico, usuario);
             }
             catch (Exception ex) { throw ex; }
         }
