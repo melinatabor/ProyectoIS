@@ -20,12 +20,10 @@ namespace MPP
 			{
                 Hashtable parametros = new Hashtable();
 
-                string query = $"INSERT INTO Permiso (Nombre, EsPadre) VALUES (@Nombre, @EsPadre)";
-
                 parametros.Add("@Nombre", permiso.Nombre);
                 parametros.Add("@EsPadre", permiso.EsPadre);
 
-                return Acceso.ExecuteNonQuery(query, parametros);
+                return Acceso.ExecuteNonQuery(PermisoStoredProcedures.SP_AgregarPermiso, parametros, true);
             }
             catch (Exception ex)
 			{
@@ -38,18 +36,14 @@ namespace MPP
             try
             {
                 if (permisoHijo.Id == permisoPadre.Id)
-                {
                     throw new Exception("No se puede agregar un permiso a si mismo.");
-                }
 
                 Hashtable parametros = new Hashtable();
-
-                string query = $"INSERT INTO PermisoPermiso (PermisoHijo, PermisoPadre) VALUES (@PermisoHijo, @PermisoPadre)";
 
                 parametros.Add("@PermisoHijo", permisoHijo.Id);
                 parametros.Add("@PermisoPadre", permisoPadre.Id);
 
-                return Acceso.ExecuteNonQuery(query, parametros);
+                return Acceso.ExecuteNonQuery(PermisoStoredProcedures.SP_AgregarPermisoFamilia, parametros, true);
             }
             catch (Exception ex)
             {
@@ -63,11 +57,9 @@ namespace MPP
             {
                 Hashtable parametros = new Hashtable();
 
-                string query = $"SELECT Id, Nombre, EsPadre FROM Permiso WHERE Id = @Id AND EsPadre = 1";
-
                 parametros.Add("@Id", idFamilia);
 
-                DataTable table = Acceso.ExecuteDataTable(query, parametros, false);
+                DataTable table = Acceso.ExecuteDataTable(PermisoStoredProcedures.SP_BuscarFamilia, parametros, true);
 
                 if (table.Rows.Count > 0)
                 {
@@ -97,11 +89,9 @@ namespace MPP
             {
                 Hashtable parametros = new Hashtable();
 
-                string query = $"SELECT Id, Nombre, EsPadre FROM Permiso WHERE Id = @Id";
-
                 parametros.Add("@Id", id);
 
-                DataTable table = Acceso.ExecuteDataTable(query, parametros, false);
+                DataTable table = Acceso.ExecuteDataTable(PermisoStoredProcedures.SP_BuscarPermiso, parametros, true);
 
                 if (table.Rows.Count > 0)
                 {
@@ -132,9 +122,7 @@ namespace MPP
             {
                 List<BEPermiso> lista = new List<BEPermiso>();
 
-                string query = $"SELECT Id, Nombre, EsPadre FROM Permiso WHERE EsPadre = 1";
-
-                DataTable table = Acceso.ExecuteDataTable(query, null, false);
+                DataTable table = Acceso.ExecuteDataTable(PermisoStoredProcedures.SP_ListarFamilias, null, true);
 
                 if (table.Rows.Count > 0)
                 {
@@ -157,68 +145,22 @@ namespace MPP
             }
         }
 
-        public static List<BEPermiso> ListarHijos(BEPermiso familia)
-        {
-            try
-            {
-                Hashtable parametros = new Hashtable();
-
-                List<BEPermiso> lista = new List<BEPermiso>();
-
-                string query = $"select p.Id, p.Nombre from Permiso as p inner join PermisoPermiso as pp on pp.PermisoHijo = p.Id where pp.PermisoPadre = @PermisoPadre";
-
-                parametros.Add("@PermisoPadre", familia.Id);
-
-                DataTable table = Acceso.ExecuteDataTable(query, parametros, false);
-
-                if (table.Rows.Count > 0)
-                {
-                    foreach (DataRow fila in table.Rows)
-                    {
-                        BEPermiso permiso = new BEPermisoSimple()
-                        {
-                            Id          = Convert.ToInt32(fila["Id"].ToString()),
-                            Nombre      = fila["Nombre"].ToString(),
-                            EsPadre     = false
-                        };
-                        lista.Add(permiso);
-                    }
-                }
-
-                return lista;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-        }
-
         public static List<BEPermiso> ListarHijosRecursivo(BEPermiso familia)
         {
             try
             {
                 List<BEPermiso> lista = new List<BEPermiso>();
 
+                Hashtable parametros = new Hashtable();
 
-                var where = "is NULL";
+                int? condition = null;
 
                 if (familia is BEPermiso)
-                    where = $" = + {familia.Id}";
+                    condition = familia.Id;
 
+                parametros.Add("@FamiliaId", condition);
 
-                string query = $@"with recursivo as (
-                        select SP2.PermisoPadre, SP2.PermisoHijo  from PermisoPermiso SP2
-                        where SP2.PermisoPadre {where}
-                        UNION ALL 
-                        select sp.PermisoPadre, sp.PermisoHijo from PermisoPermiso sp 
-                        inner join recursivo r on r.PermisoHijo= sp.PermisoPadre
-                        )
-                        select r.PermisoPadre,r.PermisoHijo,p.Id,p.Nombre, p.EsPadre
-                        from recursivo r 
-                        inner join permiso p on r.PermisoHijo = p.Id 
-                        ";
-
-                DataTable table = Acceso.ExecuteDataTable(query, null, false);
+                DataTable table = Acceso.ExecuteDataTable(PermisoStoredProcedures.SP_ListarHijosRecursivo, parametros, true);
 
                 if (table.Rows.Count > 0)
                 {
@@ -266,9 +208,7 @@ namespace MPP
             {
                 List<BEPermiso> lista = new List<BEPermiso>();
 
-                string query = $"SELECT Id, Nombre, EsPadre FROM Permiso";
-
-                DataTable table = Acceso.ExecuteDataTable(query, null, false);
+                DataTable table = Acceso.ExecuteDataTable(PermisoStoredProcedures.SP_ListarPermisos, null, true);
 
                 if (table.Rows.Count > 0)
                 {

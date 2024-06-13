@@ -67,15 +67,6 @@ namespace BLL
             catch (Exception ex) { throw ex; }
         }
 
-        public static List<BEPermiso> ListarHijos(BEPermiso familia)
-        {
-            try
-            {
-                return MPPPermiso.ListarHijos(familia);
-            }
-            catch (Exception ex) { throw ex; }
-        }
-
         public static List<BEPermiso> ListarHijosRecursivo(BEPermiso familia)
         {
             try

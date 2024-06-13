@@ -42,8 +42,7 @@ namespace MPP
                     parametrosHistorico.Add("@Username", usuario.Username);
                     parametrosHistorico.Add("@Activo", usuario.Activo);
 
-                    string query = $"insert into UsuarioHistorico (UsuarioId, Nombre, Apellido, Email, Username, Activo) Values (@UsuarioId, @Nombre, @Apellido, @Email, @Username, @Activo);";
-                    guardado = Acceso.ExecuteNonQuery(query, parametrosHistorico, false);
+                    guardado = Acceso.ExecuteNonQuery(UsuarioStoredProcedures.SP_AgregarUsuarioHistorico, parametrosHistorico, true);
                 }
 
                 return guardado;
@@ -81,8 +80,7 @@ namespace MPP
                     parametrosHistorico.Add("@Username", usuario.Username);
                     parametrosHistorico.Add("@Activo", usuario.Activo);
 
-                    string query = $"insert into UsuarioHistorico (UsuarioId, Nombre, Apellido, Email, Username, Activo) Values (@UsuarioId, @Nombre, @Apellido, @Email, @Username, @Activo)";
-                    guardado = Acceso.ExecuteNonQuery(query, parametrosHistorico, false);
+                    guardado = Acceso.ExecuteNonQuery(UsuarioStoredProcedures.SP_AgregarUsuarioHistorico, parametrosHistorico, true);
                 }
 
                 return guardado;
@@ -116,8 +114,7 @@ namespace MPP
                     parametrosHistorico.Add("@Username", usuario.Username);
                     parametrosHistorico.Add("@Activo", false);
 
-                    string query = $"insert into UsuarioHistorico (UsuarioId, Nombre, Apellido, Email, Username, Activo) Values (@UsuarioId, @Nombre, @Apellido, @Email, @Username, @Activo)";
-                    eliminado = Acceso.ExecuteNonQuery(query, parametrosHistorico, false);
+                    eliminado = Acceso.ExecuteNonQuery(UsuarioStoredProcedures.SP_AgregarUsuarioHistorico, parametrosHistorico, true);
                 }
 
                 return eliminado;
@@ -257,32 +254,7 @@ namespace MPP
                 parametros.Add("@IdUsuario", usuario.Id);
                 parametros.Add("@IdPermiso", permiso.Id);
 
-                string query = "INSERT INTO UsuarioPermiso (Usuario, Permiso) VALUES (@IdUsuario, @IdPermiso)";
-            
-                return Acceso.ExecuteNonQuery(query, parametros, false);
-            }
-            catch (Exception ex) { throw ex; }
-        }
-
-        public static bool VerificarPermiso(BEUsuario usuarioActual, int permiso)
-        {
-            try
-            {
-                Hashtable parametros = new Hashtable();
-
-                parametros.Add("@IdUsuario", usuarioActual.Id);
-                parametros.Add("@IdPermiso", permiso);
-
-                string query = "SELECT Id FROM UsuarioPermiso WHERE Usuario = @IdUsuario AND Permiso = @IdPermiso";
-
-                DataTable table = Acceso.ExecuteDataTable(query, parametros, false);
-
-                if (table.Rows.Count > 0)
-                {
-                    return true;
-                }
-
-                return false;
+                return Acceso.ExecuteNonQuery(UsuarioStoredProcedures.SP_AsignarPermiso, parametros, true);
             }
             catch (Exception ex) { throw ex; }
         }
@@ -297,16 +269,25 @@ namespace MPP
 
                 parametros.Add("@IdUsuario", usuario.Id);
 
-                string query = $"select per.Id from Usuario u inner join usuarioPermiso as up on up.Usuario = u.Id inner join permiso as per on up.Permiso=per.Id where u.Id=@IdUsuario";
-
-                DataTable table = Acceso.ExecuteDataTable(query, parametros, false);
+                DataTable table = Acceso.ExecuteDataTable(UsuarioStoredProcedures.SP_ObtenerPermisosUsuario, parametros, true);
 
                 if (table.Rows.Count > 0)
                 {
                     foreach (DataRow fila in table.Rows)
                     {
                         int id = Convert.ToInt32(fila["Id"]);
-                        lista.AddRange(MPPPermiso.ListarHijosRecursivo(MPPPermiso.BuscarPermiso(id)));
+
+                        BEPermiso permiso = MPPPermiso.BuscarPermiso(id);
+
+                        List<BEPermiso> hijos = MPPPermiso.ListarHijosRecursivo(permiso);
+
+                        if (hijos.Count > 0)
+                        {
+                            lista.AddRange(hijos);
+                            lista.Add(permiso);
+                        }
+                        else
+                            lista.Add(permiso);
                     }
                 }
 
@@ -332,9 +313,7 @@ namespace MPP
 
                 parametros.Add("@UsuarioId", usuarioId);
 
-                string query = "SELECT * FROM UsuarioHistorico WHERE UsuarioId = @UsuarioId";
-
-                DataTable table = Acceso.ExecuteDataTable(query, parametros, false);
+                DataTable table = Acceso.ExecuteDataTable(UsuarioStoredProcedures.SP_FiltrarHistoricosXUsuario, parametros, true);
 
                 if (table.Rows.Count > 0)
                 {
@@ -425,8 +404,7 @@ namespace MPP
                     parametrosHistorico.Add("@Username", usuarioHistorico.Username);
                     parametrosHistorico.Add("@Activo", usuarioHistorico.Activo);
 
-                    string query = $"insert into UsuarioHistorico (UsuarioId, Nombre, Apellido, Email, Username, Activo) Values (@UsuarioId, @Nombre, @Apellido, @Email, @Username, @Activo)";
-                    guardado = Acceso.ExecuteNonQuery(query, parametrosHistorico, false);
+                    guardado = Acceso.ExecuteNonQuery(UsuarioStoredProcedures.SP_AgregarUsuarioHistorico, parametrosHistorico, true);
                 }
 
                 return guardado;

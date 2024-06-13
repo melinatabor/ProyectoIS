@@ -10,5 +10,10 @@ namespace MPP
         public const string SP_EliminarUsuario           = "SP_Eliminar_Usuario";
         public const string SP_BuscarUsuarioXId          = "SP_Buscar_Usuario_X_Id";
         public const string SP_BuscarUsuarioXUsername    = "SP_Buscar_Usuario_X_Username";
+        public const string SP_AgregarUsuarioHistorico   = "SP_Agregar_Usuario_Historico";
+        public const string SP_AsignarPermiso            = "SP_Asignar_Permiso";
+        public const string SP_VerificarPermiso          = "SP_Verificar_Permiso";
+        public const string SP_ObtenerPermisosUsuario    = "SP_Obtener_Permisos_Usuario";
+        public const string SP_FiltrarHistoricosXUsuario = "SP_Filtrar_Historicos_X_Usuario";
     }
 }
