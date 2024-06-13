@@ -87,6 +87,8 @@ namespace UI
 
                 if (alta)
                 {
+                    BLLUsuario.RecalcularDigitoVerificadorVertical();
+
                     MetroMessageBox.Show(this, "Usuario agregado correctamente.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     nuevoUsuario = BLLUsuario.BuscarUsuarioPorUsername(nuevoUsuario.Username);
                     RegistrarBitacora(nuevoUsuario, $"Se ha registrado un nuevo usuario con Id: {nuevoUsuario.Id}");

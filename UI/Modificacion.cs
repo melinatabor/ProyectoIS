@@ -88,6 +88,8 @@ namespace UI
                     bool guardado = BLLUsuario.Editar(usuario);
                     if (guardado)
                     {
+                        BLLUsuario.RecalcularDigitoVerificadorVertical();
+
                         RegistrarBitacora($"El usuario ha modificado un usuario", BEBitacora.BitacoraTipo.INFO);
                         MetroMessageBox.Show(this, "Usuario modificado con exito", "Modificado", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         this.Close();

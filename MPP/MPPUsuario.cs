@@ -1,5 +1,6 @@
 ﻿using BE;
 using DAL;
+using MPP.StoredProcedures;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -351,6 +352,44 @@ namespace MPP
                 }
 
                 return lista;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        public static string ObtenerDigitoVerificadorVertical()
+        {
+            try
+            {
+                DataTable table = Acceso.ExecuteDataTable(DigitoVerificadorVerticalStoredProcedures.SP_ObtenerDigitoVerificadorVertical, null, true);
+
+                if (table.Rows.Count == 1)
+                {
+                    DataRow row = table.Rows[0];
+                    return row["DigitoVerificadorVertical"].ToString();
+                }
+
+                return null;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        public static void ActualizarDigitoVerificadorVertical(string dvvCalculado)
+        {
+            try
+            {
+                Hashtable parametros = new Hashtable();
+
+                parametros.Add("@DigitoVerificadorVertical", dvvCalculado);
+
+                Acceso.ExecuteNonQuery(DigitoVerificadorVerticalStoredProcedures.SP_ActualizarDigitoVerificadorVertical, parametros, true);
             }
             catch (Exception)
             {

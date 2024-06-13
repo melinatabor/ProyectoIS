@@ -98,6 +98,9 @@ namespace BLL
                 if (HuboModificacionesExternas(usuarioExistente)) 
                     throw new Exception("El usuario ha sido modificado. Por favor contacte al administrador.");
 
+                if (InformacionCorrupta())
+                    throw new Exception("La base de datos ha sido modificada. Por favor contacte al administrador.");
+
                 ObtenerPermisosUsuario(usuarioExistente);
 
                 SesionManager.Login(usuarioExistente);
@@ -112,6 +115,14 @@ namespace BLL
                 BLLBitacora.Agregar(bitacora);
             }
             catch (Exception ex) { throw ex; }
+        }
+
+        private static bool InformacionCorrupta()
+        {
+            // Generar Digito Verificador Vertical con los datos de la tabla de usuarios.
+            // El valor dvvCalculado deberia coincidir con el de la tabla DigitoVerificadorVertical
+            string dvvCalculado = DigitoVerificador.RunVertical(BLLUsuario.Listar());
+            return dvvCalculado != MPPUsuario.ObtenerDigitoVerificadorVertical();
         }
 
         private static bool HuboModificacionesExternas(BEUsuario usuarioExistente)
@@ -143,6 +154,16 @@ namespace BLL
             {
                 List<int> permisosUsuario = SesionManager.GetUsuario().ListaPermisos;
                 return permisosUsuario.Contains(permiso);
+            }
+            catch (Exception ex) { throw ex; }
+        }
+
+        public static void RecalcularDigitoVerificadorVertical()
+        {
+            try
+            {
+                string dvvCalculado = DigitoVerificador.RunVertical(BLLUsuario.Listar());
+                MPPUsuario.ActualizarDigitoVerificadorVertical(dvvCalculado);
             }
             catch (Exception ex) { throw ex; }
         }
