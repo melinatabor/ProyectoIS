@@ -5,7 +5,7 @@ using Servicios.Encriptador;
 using System;
 using Servicios.SesionManager;
 using static BE.BEBitacora;
-using Abstraccion;
+using Servicios.DigitoVerificador;
 
 namespace BLL
 {
@@ -17,6 +17,7 @@ namespace BLL
             {
                 usuario.Activo = true;
                 usuario.Password = Encriptador.Run(usuario.Password);
+                usuario.DigitoVerificadorH = DigitoVerificador.Run(usuario);
                 return MPPUsuario.Agregar(usuario);
             }
             catch (Exception ex) { throw ex; }
@@ -26,6 +27,7 @@ namespace BLL
         {
             try
             {
+                usuario.DigitoVerificadorH = DigitoVerificador.Run(usuario);
                 return MPPUsuario.Editar(usuario);
             }
             catch (Exception ex) { throw ex; }
@@ -93,6 +95,9 @@ namespace BLL
                 BEUsuario usuarioExistente = BLLUsuario.BuscarUsuario(usuario) 
                     ?? throw new Exception("Credenciales incorrectas. Por favor vuelva a ingresar los datos correctamente.");
 
+                if (HuboModificacionesExternas(usuarioExistente)) 
+                    throw new Exception("El usuario ha sido modificado. Por favor contacte al administrador.");
+
                 ObtenerPermisosUsuario(usuarioExistente);
 
                 SesionManager.Login(usuarioExistente);
@@ -105,10 +110,13 @@ namespace BLL
                 };
 
                 BLLBitacora.Agregar(bitacora);
-
-
             }
             catch (Exception ex) { throw ex; }
+        }
+
+        private static bool HuboModificacionesExternas(BEUsuario usuarioExistente)
+        {
+            return usuarioExistente.DigitoVerificadorH != DigitoVerificador.Run(usuarioExistente);
         }
 
         private static void ObtenerPermisosUsuario(BEUsuario usuario)

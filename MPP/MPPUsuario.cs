@@ -21,6 +21,7 @@ namespace MPP
                 parametros.Add("@Username", usuario.Username);
                 parametros.Add("@Password", usuario.Password);
                 parametros.Add("@Activo",   usuario.Activo);
+                parametros.Add("@DVH",      usuario.DigitoVerificadorH);
 
                 bool guardado = Acceso.ExecuteNonQuery(UsuarioStoredProcedures.SP_AgregarUsuario, parametros, true);
 
@@ -63,6 +64,7 @@ namespace MPP
                 parametros.Add("@Email",    usuario.Email);
                 parametros.Add("@Username", usuario.Username);
                 parametros.Add("@Id",       usuario.Id);
+                parametros.Add("@DVH",      usuario.DigitoVerificadorH);
 
                 bool guardado = Acceso.ExecuteNonQuery(UsuarioStoredProcedures.SP_EditarUsuario, parametros, true);
 
@@ -141,6 +143,7 @@ namespace MPP
                     foreach (DataRow fila in table.Rows)
                     {
                         BEUsuario u = new BEUsuario();
+                        u.DigitoVerificadorH = fila["DigitoVerificadorH"].ToString();
                         return Llenar(fila, u);
                     }
                 }
