@@ -14,7 +14,7 @@ namespace UI
     {
         private int _pagina = 1;
         private int _rowsPerPage = 5;
-        private string _paginaTag = "Página: ";
+        private string _paginaTag = "Página:";
 
         public Bitacora()
         {
@@ -29,7 +29,7 @@ namespace UI
                 dtFrom.CustomFormat = dtTo.CustomFormat = "dd-MM-yyyy";
                 Subscribirse();
                 Actualizar();
-                labelPagina.Text = _paginaTag + _pagina.ToString();
+                labelPagina.Text = _paginaTag + " " + _pagina.ToString();
 
                 dtFrom.Value = new DateTime(DateTime.Now.Year, 1, 1);
                 dtTo.Value = DateTime.Now;
@@ -70,7 +70,7 @@ namespace UI
                 if (_pagina <= 1)
                 {
                     btnLeft.Enabled = false;
-                    labelPagina.Text = _paginaTag + _pagina.ToString();
+                    labelPagina.Text = _paginaTag + " " + _pagina.ToString();
                     return;
                 }
 
@@ -88,7 +88,7 @@ namespace UI
 
                 btnRight.Enabled = true;
 
-                labelPagina.Text = _paginaTag + _pagina.ToString();
+                labelPagina.Text = _paginaTag + " " + _pagina.ToString();
             }
             catch (Exception ex)
             {
@@ -126,7 +126,7 @@ namespace UI
 
                 btnLeft.Enabled = true;
 
-                labelPagina.Text = _paginaTag + _pagina.ToString();
+                labelPagina.Text = _paginaTag + " " + _pagina.ToString();
             }
             catch (Exception ex)
             {
@@ -163,7 +163,7 @@ namespace UI
                 gridBitacora.DataSource = null;
                 gridBitacora.DataSource = results;
 
-                labelPagina.Text = _paginaTag + _pagina.ToString();
+                labelPagina.Text = _paginaTag + " " + _pagina.ToString();
             }
             catch (Exception ex)
             {
