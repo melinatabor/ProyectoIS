@@ -262,5 +262,19 @@ namespace UI
             }
         }
 
+        private void usuariosToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                UsuarioHistorico usuarioHistorico = new UsuarioHistorico();
+                usuarioHistorico.MdiParent = this;
+                usuarioHistorico.Show();
+            }
+            catch (Exception ex)
+            {
+                MetroMessageBox.Show(this, ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+        }
     }
 }

@@ -22,7 +22,29 @@ namespace MPP
                 parametros.Add("@Password", usuario.Password);
                 parametros.Add("@Activo",   usuario.Activo);
 
-                return Acceso.ExecuteNonQuery(UsuarioStoredProcedures.SP_AgregarUsuario, parametros, true);
+                bool guardado = Acceso.ExecuteNonQuery(UsuarioStoredProcedures.SP_AgregarUsuario, parametros, true);
+
+
+                if (guardado)
+                {
+                    // Obtener ultimo guardado
+                    BEUsuario u = BuscarUsuarioPorUsername(usuario.Username);
+
+                    // Guardar en historico
+                    Hashtable parametrosHistorico = new Hashtable();
+
+                    parametrosHistorico.Add("@UsuarioId", u.Id);
+                    parametrosHistorico.Add("@Nombre", usuario.Nombre);
+                    parametrosHistorico.Add("@Apellido", usuario.Apellido);
+                    parametrosHistorico.Add("@Email", usuario.Email);
+                    parametrosHistorico.Add("@Username", usuario.Username);
+                    parametrosHistorico.Add("@Activo", usuario.Activo);
+
+                    string query = $"insert into UsuarioHistorico (UsuarioId, Nombre, Apellido, Email, Username, Activo) Values (@UsuarioId, @Nombre, @Apellido, @Email, @Username, @Activo);";
+                    guardado = Acceso.ExecuteNonQuery(query, parametrosHistorico, false);
+                }
+
+                return guardado;
             }
             catch (Exception ex)
             {
@@ -42,7 +64,25 @@ namespace MPP
                 parametros.Add("@Username", usuario.Username);
                 parametros.Add("@Id",       usuario.Id);
 
-                return Acceso.ExecuteNonQuery(UsuarioStoredProcedures.SP_EditarUsuario, parametros, true);
+                bool guardado = Acceso.ExecuteNonQuery(UsuarioStoredProcedures.SP_EditarUsuario, parametros, true);
+
+                if (guardado)
+                {
+                    // Guardar en historico
+                    Hashtable parametrosHistorico = new Hashtable();
+
+                    parametrosHistorico.Add("@UsuarioId", usuario.Id);
+                    parametrosHistorico.Add("@Nombre", usuario.Nombre);
+                    parametrosHistorico.Add("@Apellido", usuario.Apellido);
+                    parametrosHistorico.Add("@Email", usuario.Email);
+                    parametrosHistorico.Add("@Username", usuario.Username);
+                    parametrosHistorico.Add("@Activo", usuario.Activo);
+
+                    string query = $"insert into UsuarioHistorico (UsuarioId, Nombre, Apellido, Email, Username, Activo) Values (@UsuarioId, @Nombre, @Apellido, @Email, @Username, @Activo)";
+                    guardado = Acceso.ExecuteNonQuery(query, parametrosHistorico, false);
+                }
+
+                return guardado;
             }
             catch (Exception ex)
             {
@@ -59,7 +99,25 @@ namespace MPP
                 parametros.Add("@Activo", false);
                 parametros.Add("@Id", usuario.Id);
                 
-                return Acceso.ExecuteNonQuery(UsuarioStoredProcedures.SP_EliminarUsuario, parametros, true);
+                bool eliminado = Acceso.ExecuteNonQuery(UsuarioStoredProcedures.SP_EliminarUsuario, parametros, true);
+
+                if (eliminado)
+                {
+                    // Guardar en historico
+                    Hashtable parametrosHistorico = new Hashtable();
+
+                    parametrosHistorico.Add("@UsuarioId", usuario.Id);
+                    parametrosHistorico.Add("@Nombre", usuario.Nombre);
+                    parametrosHistorico.Add("@Apellido", usuario.Apellido);
+                    parametrosHistorico.Add("@Email", usuario.Email);
+                    parametrosHistorico.Add("@Username", usuario.Username);
+                    parametrosHistorico.Add("@Activo", false);
+
+                    string query = $"insert into UsuarioHistorico (UsuarioId, Nombre, Apellido, Email, Username, Activo) Values (@UsuarioId, @Nombre, @Apellido, @Email, @Username, @Activo)";
+                    eliminado = Acceso.ExecuteNonQuery(query, parametrosHistorico, false);
+                }
+
+                return eliminado;
             }
             catch (Exception ex)
             {
@@ -257,6 +315,44 @@ namespace MPP
             catch (Exception ex)
             {
                 throw ex;
+            }
+        }
+
+        public static List<BEUsuario> FiltrarHistoricosPorUsername(string username)
+        {
+            try
+            {
+                List<BEUsuario> lista = new List<BEUsuario>();
+
+                Hashtable parametros = new Hashtable();
+
+                parametros.Add("@Username", username + "%");
+
+                string query = "SELECT * FROM UsuarioHistorico WHERE Username LIKE @Username";
+
+                DataTable table = Acceso.ExecuteDataTable(query, parametros, false);
+
+                if (table.Rows.Count > 0)
+                {
+                    foreach (DataRow row in table.Rows)
+                    {
+                        BEUsuario usuario = new BEUsuario();
+                        usuario.Id = Convert.ToInt32(row["Id"].ToString());
+                        usuario.Nombre = row["Nombre"].ToString();
+                        usuario.Apellido = row["Apellido"].ToString();
+                        usuario.Email = row["Email"].ToString();
+                        usuario.Username = row["Username"].ToString();
+                        usuario.Activo = Convert.ToBoolean(row["Activo"]);
+                        lista.Add(usuario);
+                    }
+                }
+
+                return lista;
+            }
+            catch (Exception)
+            {
+
+                throw;
             }
         }
     }

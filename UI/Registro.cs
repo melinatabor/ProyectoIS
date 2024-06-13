@@ -6,6 +6,7 @@ using Servicios.Validador;
 using MetroFramework;
 using Abstraccion;
 using System.Collections.Generic;
+using Servicios.SesionManager;
 
 namespace UI
 {
@@ -216,8 +217,12 @@ namespace UI
         {
             try
             {
-                Subscribirse();
-                Actualizar();
+                // Necesario para el registro que esta en la seccion del Login
+                if (SesionManager.GetSession() != null)
+                {
+                    Subscribirse();
+                    Actualizar();
+                }
             }
             catch (Exception ex)
             {

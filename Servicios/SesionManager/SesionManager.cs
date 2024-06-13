@@ -59,7 +59,7 @@ namespace Servicios.SesionManager
 
         public static SesionManager GetSession()
         {
-            SesionManager s = _session;
+            SesionManager s = _session ?? null;
             return s;
         }
 

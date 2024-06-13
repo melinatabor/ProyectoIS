@@ -77,6 +77,15 @@ namespace BLL
             catch (Exception ex) { throw ex; }
         }
 
+        public static List<BEUsuario> FiltrarHistoricosPorUsername(string username)
+        {
+            try
+            {
+                return MPPUsuario.FiltrarHistoricosPorUsername(username);
+            }
+            catch (Exception ex) { throw ex; }
+        }
+
         public static void Login(BEUsuario usuario)
         {
             try
