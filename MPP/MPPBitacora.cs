@@ -13,11 +13,12 @@ namespace MPP
         {
             try
             {
-                Hashtable parametros = new Hashtable();
-
-                parametros.Add("@Usuario", bitacora.Usuario);
-                parametros.Add("@Tipo", bitacora.Tipo);
-                parametros.Add("@Mensaje", bitacora.Mensaje);
+                Hashtable parametros = new Hashtable
+                {
+                    { "@Usuario", bitacora.Usuario },
+                    { "@Tipo", bitacora.Tipo },
+                    { "@Mensaje", bitacora.Mensaje }
+                };
 
                 return Acceso.ExecuteNonQuery(BitacoraStoredProcedures.SP_AgregarBitacora, parametros, true);
             }
@@ -76,12 +77,13 @@ namespace MPP
         {
             try
             {
-                Hashtable parametros = new Hashtable();
-
-                parametros.Add("@Tipo", criteria.Tipo ?? (object)DBNull.Value);
-                parametros.Add("@Usuario", criteria.Usuario ?? (object)DBNull.Value);
-                parametros.Add("@Desde", criteria.Desde);
-                parametros.Add("@Hasta", criteria.Hasta);
+                Hashtable parametros = new Hashtable
+                {
+                    { "@Tipo", criteria.Tipo ?? (object)DBNull.Value },
+                    { "@Usuario", criteria.Usuario ?? (object)DBNull.Value },
+                    { "@Desde", criteria.Desde },
+                    { "@Hasta", criteria.Hasta }
+                };
 
                 parametros["@Page"] = (criteria.Page - 1) * criteria.RowPerPage;
                 parametros["@Filas"] = criteria.RowPerPage;
