@@ -53,6 +53,7 @@
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(104, 45);
             this.label2.TabIndex = 4;
+            this.label2.Tag = "labelHasta";
             this.label2.Text = "Hasta:";
             // 
             // label1
@@ -62,6 +63,7 @@
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(112, 45);
             this.label1.TabIndex = 3;
+            this.label1.Tag = "labelDesde";
             this.label1.Text = "Desde:";
             // 
             // gridBitacora
@@ -119,6 +121,8 @@
             // 
             // dtFrom
             // 
+            this.dtFrom.CustomFormat = "\"dd/MM/yyyy\"";
+            this.dtFrom.ImeMode = System.Windows.Forms.ImeMode.Katakana;
             this.dtFrom.Location = new System.Drawing.Point(26, 161);
             this.dtFrom.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.dtFrom.MinimumSize = new System.Drawing.Size(0, 29);
@@ -157,6 +161,7 @@
             this.comboBoxTipo.Size = new System.Drawing.Size(223, 35);
             this.comboBoxTipo.StartIndex = 0;
             this.comboBoxTipo.TabIndex = 18;
+            this.comboBoxTipo.Tag = "bitacoraTipo";
             this.comboBoxTipo.UseAccent = false;
             this.comboBoxTipo.UseTallSize = false;
             // 
@@ -182,6 +187,7 @@
             this.comboBoxUsuario.Size = new System.Drawing.Size(406, 35);
             this.comboBoxUsuario.StartIndex = 0;
             this.comboBoxUsuario.TabIndex = 19;
+            this.comboBoxUsuario.Tag = "bitacoraUsuario";
             this.comboBoxUsuario.UseAccent = false;
             this.comboBoxUsuario.UseTallSize = false;
             // 
@@ -194,6 +200,7 @@
             this.labelPagina.Name = "labelPagina";
             this.labelPagina.Size = new System.Drawing.Size(172, 59);
             this.labelPagina.TabIndex = 10;
+            this.labelPagina.Tag = "labelPagina";
             this.labelPagina.Text = "Página: ";
             // 
             // btnLeft
@@ -256,6 +263,7 @@
             this.btnFiltrar.NoAccentTextColor = System.Drawing.Color.Empty;
             this.btnFiltrar.Size = new System.Drawing.Size(443, 148);
             this.btnFiltrar.TabIndex = 23;
+            this.btnFiltrar.Tag = "btnFiltrarMovimientos";
             this.btnFiltrar.Text = "Filtrar Movimientos";
             this.btnFiltrar.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
             this.btnFiltrar.UseAccentColor = false;
@@ -282,6 +290,7 @@
             this.Name = "Bitacora";
             this.Padding = new System.Windows.Forms.Padding(30, 97, 30, 32);
             this.Style = MetroFramework.MetroColorStyle.Purple;
+            this.Tag = "formBitacora";
             this.Text = "Bitácora";
             this.Load += new System.EventHandler(this.Bitacora_Load);
             ((System.ComponentModel.ISupportInitialize)(this.gridBitacora)).EndInit();
