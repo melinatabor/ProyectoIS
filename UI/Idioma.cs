@@ -49,8 +49,13 @@ namespace UI
         {
             try
             {
+                List<BETraduccion> lista = BLLTraduccion.Listar(idIdioma);
+
                 dgvTraduccion.DataSource = null;
-                dgvTraduccion.DataSource = BLLTraduccion.Listar(idIdioma);
+                dgvTraduccion.DataSource = lista;
+
+                bool deshabilitarBtn = lista.Any(t => string.IsNullOrEmpty(t.Traduccion));
+                btnCambiarIdioma.Enabled = !deshabilitarBtn;
             }
             catch (Exception ex)
             {

@@ -90,16 +90,17 @@
             // 
             // btnBuscarVersiones
             // 
+            this.btnBuscarVersiones.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btnBuscarVersiones.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
             this.btnBuscarVersiones.Depth = 0;
             this.btnBuscarVersiones.HighEmphasis = true;
             this.btnBuscarVersiones.Icon = null;
-            this.btnBuscarVersiones.Location = new System.Drawing.Point(299, 88);
+            this.btnBuscarVersiones.Location = new System.Drawing.Point(279, 88);
             this.btnBuscarVersiones.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.btnBuscarVersiones.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnBuscarVersiones.Name = "btnBuscarVersiones";
             this.btnBuscarVersiones.NoAccentTextColor = System.Drawing.Color.Empty;
-            this.btnBuscarVersiones.Size = new System.Drawing.Size(216, 36);
+            this.btnBuscarVersiones.Size = new System.Drawing.Size(77, 36);
             this.btnBuscarVersiones.TabIndex = 2;
             this.btnBuscarVersiones.Tag = "btnBuscar";
             this.btnBuscarVersiones.Text = "Buscar";
@@ -110,16 +111,17 @@
             // 
             // btnRestaurarVersion
             // 
+            this.btnRestaurarVersion.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btnRestaurarVersion.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
             this.btnRestaurarVersion.Depth = 0;
             this.btnRestaurarVersion.HighEmphasis = true;
             this.btnRestaurarVersion.Icon = null;
-            this.btnRestaurarVersion.Location = new System.Drawing.Point(542, 88);
+            this.btnRestaurarVersion.Location = new System.Drawing.Point(558, 88);
             this.btnRestaurarVersion.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.btnRestaurarVersion.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnRestaurarVersion.Name = "btnRestaurarVersion";
             this.btnRestaurarVersion.NoAccentTextColor = System.Drawing.Color.Empty;
-            this.btnRestaurarVersion.Size = new System.Drawing.Size(209, 36);
+            this.btnRestaurarVersion.Size = new System.Drawing.Size(168, 36);
             this.btnRestaurarVersion.TabIndex = 3;
             this.btnRestaurarVersion.Tag = "btnRestaurarVersion";
             this.btnRestaurarVersion.Text = "Restaurar Version";
@@ -142,7 +144,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(768, 450);
+            this.ClientSize = new System.Drawing.Size(840, 450);
             this.Controls.Add(this.ddUsuarios);
             this.Controls.Add(this.btnRestaurarVersion);
             this.Controls.Add(this.btnBuscarVersiones);

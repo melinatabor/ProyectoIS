@@ -16,10 +16,11 @@ namespace UI
         {
             _permisosMDI = new Dictionary<int, ToolStripMenuItem>
             {
-                { 7,  usuariosToolStripMenuItem },
-                { 11, idiomaToolStripMenuItem   },
-                { 16, permisosToolStripMenuItem },
-                { 17, informesToolStripMenuItem },
+                { 7,  usuariosToolStripMenuItem     },
+                { 11, idiomaToolStripMenuItem       },
+                { 16, permisosToolStripMenuItem     },
+                { 17, informesToolStripMenuItem     },
+                { 24, historicosToolStripMenuItem   },
             };
 
             VerificarPermisos();

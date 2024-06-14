@@ -1,6 +1,7 @@
 ﻿using Abstraccion;
 using BE;
 using BLL;
+using MaterialSkin.Controls;
 using MetroFramework;
 using Servicios.SesionManager;
 using System;
@@ -17,6 +18,17 @@ namespace UI
 {
     public partial class UsuarioHistorico : MetroFramework.Forms.MetroForm, ISubscriptor
     {
+        private Dictionary<int, MaterialButton> _permisos;
+        private void InicializarPermisosMenuItems()
+        {
+            _permisos = new Dictionary<int, MaterialButton>
+            {
+                {25, btnRestaurarVersion }
+            };
+
+            VerificarPermisos();
+        }
+
         public UsuarioHistorico()
         {
             InitializeComponent();
@@ -47,7 +59,16 @@ namespace UI
                     {
                         BEPalabra palabra = palabras.Find(pal => pal.Tag.Equals(control.Tag.ToString()));
                         if (palabra != null)
-                            control.Text = palabra.Traduccion;
+                        {
+                            if (control is MaterialButton materialBtn)
+                            {
+                                materialBtn.Text = palabra.Traduccion;
+                            }
+                            else
+                            {
+                                control.Text = palabra.Traduccion;
+                            }
+                        }
                     }
                 }
             }
@@ -75,6 +96,12 @@ namespace UI
         {
             try
             {
+                btnBuscarVersiones.AutoSizeMode = AutoSizeMode.GrowOnly;
+                btnRestaurarVersion.AutoSizeMode = AutoSizeMode.GrowOnly;
+                btnBuscarVersiones.Size = new Size(200, 36);
+                btnRestaurarVersion.Size = new Size(200, 36);
+
+
                 Subscribirse();
                 Actualizar();
                 //ActualizarDGV();
@@ -109,6 +136,12 @@ namespace UI
         {
             try
             {
+                if (ddUsuarios.SelectedIndex == -1)
+                {
+                    MetroMessageBox.Show(this, "Debe seleccionar un usuario", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
                 string username = ddUsuarios.Items[ddUsuarios.SelectedIndex].ToString();
 
                 BEUsuario usuario = BLLUsuario.BuscarUsuarioPorUsername(username);
@@ -131,6 +164,11 @@ namespace UI
             {
                 if (dgvUsuariosHistoricos.SelectedRows.Count == 1)
                 {
+                    DialogResult opcion = MetroMessageBox.Show(this, "Desea restaurar esta version?", "Aviso", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                    if (opcion == DialogResult.No)
+                        return;
+
                     string username = ddUsuarios.Items[ddUsuarios.SelectedIndex].ToString();
                     BEUsuario usuario = BLLUsuario.BuscarUsuarioPorUsername(username);
 
@@ -157,6 +195,20 @@ namespace UI
             {
                 MetroMessageBox.Show(this, ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
+            }
+        }
+
+        private void VerificarPermisos()
+        {
+            foreach (var p in _permisos)
+            {
+                int permisoId = p.Key;
+                MaterialButton button = p.Value;
+
+                bool permiso = BLLUsuario.VerificarPermiso(permisoId);
+
+                // Ocultar o mostrar los menu items
+                button.Visible = permiso;
             }
         }
     }

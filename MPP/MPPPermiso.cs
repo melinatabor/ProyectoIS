@@ -234,15 +234,19 @@ namespace MPP
 
         private static BEPermiso ObtenerPadre(int id, List<BEPermiso> lista)
         {
-
+            /*
+             * Buscar el permiso en la lista, y se obtiene el primer elemento que coincida
+             */
             BEPermiso padre = lista.Count() != 0 ? lista.Where(i => i.Id.Equals(id)).FirstOrDefault() : null;
 
             if (padre == null && lista != null)
             {
+                // Buscar en los hijos
                 foreach (BEPermiso permiso in lista)
                 {
                     BEPermiso p = ObtenerPadre(id, permiso.Hijos);
 
+                    // Retornar padre o seguir buscando
                     if (p != null && p.Id == id) 
                         return p;
                     else if (p != null)

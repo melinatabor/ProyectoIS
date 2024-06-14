@@ -21,6 +21,13 @@ namespace UI
             {
                 BEPermiso permiso = new BEPermisoSimple() { Nombre = txtNombre.Text };
 
+                if (string.IsNullOrEmpty(permiso.Nombre)) throw new Exception("El nombre del permiso no puede estar vacio.");
+
+                DialogResult opcion = MetroMessageBox.Show(this, "Desea agregar un nuevo permiso?", "Aviso", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                if (opcion == DialogResult.No)
+                    return;
+
                 bool alta = BLLPermiso.AgregarPermisoSimple(permiso);
 
                 if (alta)
@@ -28,8 +35,6 @@ namespace UI
                     MetroMessageBox.Show(this, "Permiso agregado correctamente.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     ActualizarDGV();
                 }
-                
-                Close();
             }
             catch (Exception ex)
             {
@@ -94,6 +99,13 @@ namespace UI
             {
                 BEPermiso permiso = new BEFamilia() { Nombre = txtFamilia.Text };
 
+                if (string.IsNullOrEmpty(permiso.Nombre)) throw new Exception("El nombre de la familia no puede estar vacio.");
+
+                DialogResult opcion = MetroMessageBox.Show(this, "Desea agregar una nueva familia?", "Aviso", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                if (opcion == DialogResult.No)
+                    return;
+
                 bool alta = BLLPermiso.AgregarFamilia(permiso);
 
                 if (alta)
@@ -101,8 +113,6 @@ namespace UI
                     MetroMessageBox.Show(this, "Familia agregada correctamente.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     ActualizarDGV();
                 }
-
-                Close();
             }
             catch (Exception ex)
             {
@@ -118,6 +128,11 @@ namespace UI
                 if (dgvPermisos.SelectedRows.Count <= 0)    throw new Exception("Seleccione un permiso para agregar.");
                 
                 if (dgvFamilia.SelectedRows.Count <= 0)     throw new Exception("Seleccione una familia.");
+
+                DialogResult opcion = MetroMessageBox.Show(this, "Desea agregar el permiso seleccionado a la familia seleccionada?", "Aviso", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                if (opcion == DialogResult.No)
+                    return;
 
                 DataGridViewRow filaSeleccionada = dgvPermisos.SelectedRows[0];
 
@@ -138,7 +153,11 @@ namespace UI
                 bool alta = BLLPermiso.AgregarPermisoAFamilia(permiso, familia);
 
                 if (alta)
+                {
                     MetroMessageBox.Show(this, "Permiso agregado a familia correctamente.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    BEPermiso familiaSeleccionada = (BEPermiso)dgvFamilia.CurrentRow.DataBoundItem;
+                    ListarArbolRecursivo(familiaSeleccionada);
+                }
             }
             catch (Exception ex)
             {
@@ -178,6 +197,11 @@ namespace UI
                 if (dgvPermisos.SelectedRows.Count <= 0) throw new Exception("Seleccione un permiso para agregar.");
                 
                 if (dgvUsuarios.SelectedRows.Count <= 0) throw new Exception("Seleccione un usuario.");
+
+                DialogResult opcion = MetroMessageBox.Show(this, "Desea asingar el permiso al usuario?", "Aviso", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                if (opcion == DialogResult.No)
+                    return;
 
                 DataGridViewRow filaSeleccionada = dgvPermisos.SelectedRows[0];
 
