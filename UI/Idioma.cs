@@ -31,7 +31,20 @@ namespace UI
                 ActualizarDgv();
                 Subscribirse();
                 Actualizar();
+                ActualizarDropDown();
+            }
+            catch (Exception ex)
+            {
+                MetroMessageBox.Show(this, ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
 
+        }
+
+        private void ActualizarDropDown()
+        {
+            try
+            {
                 ddIdiomas.DataSource = null;
                 ddIdiomas.DataSource = BLLIdioma.Listar();
                 ddIdiomas.DisplayMember = "Idioma";
@@ -42,7 +55,6 @@ namespace UI
                 MetroMessageBox.Show(this, ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-
         }
 
         private void ActualizarDgv(int idIdioma = 1)
@@ -111,6 +123,10 @@ namespace UI
                             else if (control is MaterialSkin.Controls.MaterialComboBox materialComboBox)
                             {
                                 materialComboBox.Hint = palabra.Traduccion;
+                            }
+                            else if (control is MaterialSkin.Controls.MaterialTextBox materialTextBox)
+                            {
+                                materialTextBox.Hint = palabra.Traduccion;
                             }
                             else
                             {
@@ -183,6 +199,41 @@ namespace UI
                     else BLLTraduccion.Agregar(idioma, tag, txtTraduccion.Text);
                     ActualizarDgv(idioma);
                     txtTraduccion.Text = "";
+                }
+            }
+            catch (Exception ex)
+            {
+                MetroMessageBox.Show(this, ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+        }
+
+        private void materialButton1_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(inputNuevoIdioma.Text))
+                {
+                    MetroMessageBox.Show(this, "Debe ingresar un idioma", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                DialogResult result = MetroMessageBox.Show(this, "¿Está seguro que desea agregar el idioma?", "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                if (result == DialogResult.No) 
+                    return;
+
+                BEIdioma idioma = new BEIdioma {
+                    Idioma = inputNuevoIdioma.Text
+                };
+
+                bool agregado = BLLIdioma.Agregar(idioma);
+
+                if (agregado)
+                {
+                    MetroMessageBox.Show(this, "Idioma agregado correctamente", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    ActualizarDropDown();
+                    inputNuevoIdioma.Text = "";
                 }
             }
             catch (Exception ex)

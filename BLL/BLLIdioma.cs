@@ -11,6 +11,15 @@ namespace BLL
 {
     public class BLLIdioma
     {
+        public static bool Agregar(BEIdioma idioma)
+        {
+            try
+            {
+                return MPPIdioma.Agregar(idioma);
+            }
+            catch (Exception ex) { throw ex; }
+        }
+
         public static void CambiarIdioma(int id)
         {
             try

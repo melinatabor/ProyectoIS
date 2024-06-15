@@ -15,6 +15,9 @@ namespace UI
             InitializeComponent();
         }
 
+        /*
+         * No vamos a permitir el alta de permisos desde UI
+         * 
         private void btnAgregar_Click(object sender, EventArgs e)
         {
             try
@@ -41,7 +44,7 @@ namespace UI
                 MetroMessageBox.Show(this, ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-        }
+        }*/
 
         private void Permiso_Load(object sender, EventArgs e)
         {
