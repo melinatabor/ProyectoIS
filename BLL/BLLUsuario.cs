@@ -177,5 +177,23 @@ namespace BLL
             }
             catch (Exception ex) { throw ex; }
         }
+
+        public static List<BEPermiso> ObtenerPermisos(BEUsuario usuario)
+        {
+            try
+            {
+                return MPPUsuario.ObtenerPermisos(usuario);
+            }
+            catch (Exception ex) { throw ex; }
+        }
+
+        public static bool EliminarPermisos(BEUsuario usuario)
+        {
+            try
+            {
+                return MPPUsuario.EliminarPermisos(usuario);
+            }
+            catch (Exception ex) { throw ex; }
+        }
     }
 }

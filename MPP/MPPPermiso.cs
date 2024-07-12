@@ -116,6 +116,41 @@ namespace MPP
             }
         }
 
+        public static bool EliminarFamilia(BEPermiso familia)
+        {
+            try
+            {
+                bool eliminado = false;
+
+                Hashtable parametros = new Hashtable();
+
+                parametros.Add("@Id", familia.Id);
+
+                string query = "DELETE FROM PermisoPermiso WHERE PermisoHijo = @Id";
+
+                eliminado = Acceso.ExecuteNonQuery(query, parametros, false);
+
+                if (eliminado)
+                {
+                    query = "DELETE FROM PermisoPermiso WHERE PermisoPadre = @Id";
+
+                    eliminado = Acceso.ExecuteNonQuery(query, parametros, false);
+
+                    if (eliminado) 
+                    {
+                        query = "DELETE FROM Permiso WHERE Id = @Id";
+                        eliminado = Acceso.ExecuteNonQuery(query, parametros, false);
+                    }
+                }
+
+                return eliminado;
+            }
+            catch (Exception ex) 
+            {
+                throw ex;
+            }
+        }
+
         public static List<BEPermiso> ListarFamilias()
         {
             try
@@ -225,6 +260,43 @@ namespace MPP
                 }
 
                 return lista;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public static List<BEPermiso> ObtenerPadres(int id)
+        {
+            try
+            {
+                Hashtable parametros = new Hashtable();
+
+                List<BEPermiso> lista = new List<BEPermiso>();
+
+                parametros.Add("@Id", id);
+
+                string query = "select pp.PermisoPadre, p.Nombre from permisoPermiso pp inner join permiso p on p.id = pp.PermisoPadre where pp.PermisoHijo = @Id";
+                DataTable table = Acceso.ExecuteDataTable(query, parametros, false);
+
+                if (table.Rows.Count > 0)
+                {
+                    foreach (DataRow fila in table.Rows)
+                    {
+                        BEPermiso permiso = new BEPermisoSimple()
+                        {
+                            Id = Convert.ToInt32(fila["PermisoPadre"].ToString()),
+                            Nombre = fila["Nombre"].ToString(),
+                            EsPadre = true
+                        };
+
+                        lista.Add( permiso);
+                    }
+                }
+
+                return lista;
+
             }
             catch (Exception ex)
             {

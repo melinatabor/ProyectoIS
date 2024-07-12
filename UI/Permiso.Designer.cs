@@ -43,11 +43,14 @@
             this.btnAgregarFamilia = new MaterialSkin.Controls.MaterialButton();
             this.txtFamilia = new MaterialSkin.Controls.MaterialTextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.btnEliminarFamilia = new MaterialSkin.Controls.MaterialButton();
             this.btnAgregarPermiso = new MaterialSkin.Controls.MaterialButton();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.btnEliminarPermisos = new MaterialSkin.Controls.MaterialButton();
             this.btnAsignarPermisoUsuario = new MaterialSkin.Controls.MaterialButton();
             this.dgvUsuarios = new MetroFramework.Controls.MetroGrid();
+            this.treeViewPermUsuario = new System.Windows.Forms.TreeView();
             ((System.ComponentModel.ISupportInitialize)(this.dgvPermisos)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvFamilia)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -111,7 +114,7 @@
             // 
             this.treeView1.Location = new System.Drawing.Point(1562, 77);
             this.treeView1.Name = "treeView1";
-            this.treeView1.Size = new System.Drawing.Size(435, 815);
+            this.treeView1.Size = new System.Drawing.Size(435, 401);
             this.treeView1.TabIndex = 10;
             // 
             // dgvFamilia
@@ -178,7 +181,7 @@
             this.btnAgregarFamilia.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnAgregarFamilia.Name = "btnAgregarFamilia";
             this.btnAgregarFamilia.NoAccentTextColor = System.Drawing.Color.Empty;
-            this.btnAgregarFamilia.Size = new System.Drawing.Size(193, 50);
+            this.btnAgregarFamilia.Size = new System.Drawing.Size(111, 50);
             this.btnAgregarFamilia.TabIndex = 13;
             this.btnAgregarFamilia.Tag = "btnAgregarFamilia";
             this.btnAgregarFamilia.Text = "Agregar Familia";
@@ -208,6 +211,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.btnEliminarFamilia);
             this.groupBox1.Controls.Add(this.btnAgregarPermiso);
             this.groupBox1.Controls.Add(this.dgvFamilia);
             this.groupBox1.Controls.Add(this.txtFamilia);
@@ -220,6 +224,29 @@
             this.groupBox1.Tag = "groupBoxFamilias";
             this.groupBox1.Text = "Familias";
             // 
+            // btnEliminarFamilia
+            // 
+            this.btnEliminarFamilia.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.btnEliminarFamilia.AutoSize = false;
+            this.btnEliminarFamilia.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btnEliminarFamilia.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
+            this.btnEliminarFamilia.Depth = 0;
+            this.btnEliminarFamilia.HighEmphasis = true;
+            this.btnEliminarFamilia.Icon = null;
+            this.btnEliminarFamilia.Location = new System.Drawing.Point(591, 327);
+            this.btnEliminarFamilia.Margin = new System.Windows.Forms.Padding(8, 12, 8, 12);
+            this.btnEliminarFamilia.MouseState = MaterialSkin.MouseState.HOVER;
+            this.btnEliminarFamilia.Name = "btnEliminarFamilia";
+            this.btnEliminarFamilia.NoAccentTextColor = System.Drawing.Color.Empty;
+            this.btnEliminarFamilia.Size = new System.Drawing.Size(132, 50);
+            this.btnEliminarFamilia.TabIndex = 16;
+            this.btnEliminarFamilia.Tag = "btnEliminarFamilia";
+            this.btnEliminarFamilia.Text = "Eliminar Familia";
+            this.btnEliminarFamilia.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
+            this.btnEliminarFamilia.UseAccentColor = true;
+            this.btnEliminarFamilia.UseVisualStyleBackColor = true;
+            this.btnEliminarFamilia.Click += new System.EventHandler(this.btnEliminarFamilia_Click);
+            // 
             // btnAgregarPermiso
             // 
             this.btnAgregarPermiso.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
@@ -229,12 +256,12 @@
             this.btnAgregarPermiso.Depth = 0;
             this.btnAgregarPermiso.HighEmphasis = true;
             this.btnAgregarPermiso.Icon = null;
-            this.btnAgregarPermiso.Location = new System.Drawing.Point(530, 327);
+            this.btnAgregarPermiso.Location = new System.Drawing.Point(453, 327);
             this.btnAgregarPermiso.Margin = new System.Windows.Forms.Padding(8, 12, 8, 12);
             this.btnAgregarPermiso.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnAgregarPermiso.Name = "btnAgregarPermiso";
             this.btnAgregarPermiso.NoAccentTextColor = System.Drawing.Color.Empty;
-            this.btnAgregarPermiso.Size = new System.Drawing.Size(193, 50);
+            this.btnAgregarPermiso.Size = new System.Drawing.Size(122, 50);
             this.btnAgregarPermiso.TabIndex = 15;
             this.btnAgregarPermiso.Tag = "btnAgregarPermiso";
             this.btnAgregarPermiso.Text = "Agregar Permiso";
@@ -256,6 +283,7 @@
             // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.btnEliminarPermisos);
             this.groupBox3.Controls.Add(this.btnAsignarPermisoUsuario);
             this.groupBox3.Controls.Add(this.dgvUsuarios);
             this.groupBox3.Location = new System.Drawing.Point(56, 500);
@@ -265,6 +293,29 @@
             this.groupBox3.TabStop = false;
             this.groupBox3.Tag = "groupBoxAsignarPermisos";
             this.groupBox3.Text = "Usuarios - Asignar Permisos";
+            // 
+            // btnEliminarPermisos
+            // 
+            this.btnEliminarPermisos.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.btnEliminarPermisos.AutoSize = false;
+            this.btnEliminarPermisos.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btnEliminarPermisos.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
+            this.btnEliminarPermisos.Depth = 0;
+            this.btnEliminarPermisos.HighEmphasis = true;
+            this.btnEliminarPermisos.Icon = null;
+            this.btnEliminarPermisos.Location = new System.Drawing.Point(1075, 322);
+            this.btnEliminarPermisos.Margin = new System.Windows.Forms.Padding(8, 12, 8, 12);
+            this.btnEliminarPermisos.MouseState = MaterialSkin.MouseState.HOVER;
+            this.btnEliminarPermisos.Name = "btnEliminarPermisos";
+            this.btnEliminarPermisos.NoAccentTextColor = System.Drawing.Color.Empty;
+            this.btnEliminarPermisos.Size = new System.Drawing.Size(376, 55);
+            this.btnEliminarPermisos.TabIndex = 17;
+            this.btnEliminarPermisos.Tag = "btnEliminarPermisosAsginados";
+            this.btnEliminarPermisos.Text = "Eliminar Permisos Asginados";
+            this.btnEliminarPermisos.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
+            this.btnEliminarPermisos.UseAccentColor = true;
+            this.btnEliminarPermisos.UseVisualStyleBackColor = true;
+            this.btnEliminarPermisos.Click += new System.EventHandler(this.btnEliminarPermisos_Click);
             // 
             // btnAsignarPermisoUsuario
             // 
@@ -339,12 +390,21 @@
             this.dgvUsuarios.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvUsuarios.Size = new System.Drawing.Size(1434, 268);
             this.dgvUsuarios.TabIndex = 9;
+            this.dgvUsuarios.SelectionChanged += new System.EventHandler(this.dgvUsuarios_SelectionChanged);
+            // 
+            // treeViewPermUsuario
+            // 
+            this.treeViewPermUsuario.Location = new System.Drawing.Point(1562, 517);
+            this.treeViewPermUsuario.Name = "treeViewPermUsuario";
+            this.treeViewPermUsuario.Size = new System.Drawing.Size(435, 281);
+            this.treeViewPermUsuario.TabIndex = 19;
             // 
             // Permiso
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(2055, 937);
+            this.Controls.Add(this.treeViewPermUsuario);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
@@ -375,5 +435,8 @@
         private System.Windows.Forms.GroupBox groupBox3;
         private MaterialSkin.Controls.MaterialButton btnAsignarPermisoUsuario;
         private MetroFramework.Controls.MetroGrid dgvUsuarios;
+        private System.Windows.Forms.TreeView treeViewPermUsuario;
+        private MaterialSkin.Controls.MaterialButton btnEliminarFamilia;
+        private MaterialSkin.Controls.MaterialButton btnEliminarPermisos;
     }
 }

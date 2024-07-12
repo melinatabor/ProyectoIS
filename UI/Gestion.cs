@@ -79,9 +79,15 @@ namespace UI
                 {
                     BEUsuario usuario = (BEUsuario)gridUsuarios.CurrentRow.DataBoundItem;
                     if (usuario.Activo == false)
+                    {
                         btnEliminar.Enabled = false;
+                        btnModificar.Enabled = false;
+                    }
                     else
+                    {
                         btnEliminar.Enabled = true;
+                        btnModificar.Enabled = true;
+                    }
                 }
             }
             catch (Exception ex)

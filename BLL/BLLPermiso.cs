@@ -58,6 +58,15 @@ namespace BLL
             catch (Exception ex) { throw ex; }
         }
 
+        public static bool EliminarFamilia(BEPermiso familia)
+        {
+            try
+            {
+                return MPPPermiso.EliminarFamilia(familia);
+            }
+            catch (Exception ex) { throw ex; }
+        }
+
         public static object ListarFamilias()
         {
             try
@@ -83,6 +92,26 @@ namespace BLL
                 return MPPPermiso.ListarPermisos();
             }
             catch (Exception ex) { throw ex; }
+        }
+
+        public static List<BEPermiso> ObtenerPadres(BEPermiso familia)
+        {
+            List<BEPermiso> padres = new List<BEPermiso>();
+
+            ObtenerPadresRecursivo(familia, padres);
+
+            return padres;
+        }
+
+        private static void ObtenerPadresRecursivo(BEPermiso permiso, List<BEPermiso> listaPadres)
+        {
+            var padres = MPPPermiso.ObtenerPadres(permiso.Id);
+
+            foreach (var padre in padres)
+            {
+                listaPadres.Add(padre);
+                ObtenerPadresRecursivo(padre, listaPadres);
+            }
         }
     }
 }

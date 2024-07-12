@@ -5,6 +5,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 
 namespace MPP
 {
@@ -78,7 +79,7 @@ namespace MPP
                     parametrosHistorico.Add("@Apellido", usuario.Apellido);
                     parametrosHistorico.Add("@Email", usuario.Email);
                     parametrosHistorico.Add("@Username", usuario.Username);
-                    parametrosHistorico.Add("@Activo", usuario.Activo);
+                    parametrosHistorico.Add("@Activo", true);
 
                     guardado = Acceso.ExecuteNonQuery(UsuarioStoredProcedures.SP_AgregarUsuarioHistorico, parametrosHistorico, true);
                 }
@@ -413,6 +414,64 @@ namespace MPP
             {
 
                 throw;
+            }
+        }
+
+        public static List<BEPermiso> ObtenerPermisos(BEUsuario usuario)
+        {
+            try
+            {
+                Hashtable parametros = new Hashtable();
+
+                parametros.Add("@Usuario", usuario.Id);
+
+                string query = "SELECT p.Id, p.Nombre, p.EsPadre FROM UsuarioPermiso up inner join Permiso p on p.id = up.Permiso WHERE Usuario = @Usuario";
+
+                List<BEPermiso> lista = new List<BEPermiso>();
+
+                DataTable table = Acceso.ExecuteDataTable(query, parametros, false);
+
+                if (table.Rows.Count > 0)
+                {
+                    foreach (DataRow row in table.Rows)
+                    {
+                        BEPermiso permiso = new BEPermisoSimple()
+                        {
+                            Id = Convert.ToInt32(row["Id"].ToString()),
+                            Nombre = row["Nombre"].ToString(),
+                            EsPadre = Convert.ToBoolean(row["EsPadre"].ToString())
+                        };
+                        lista.Add(permiso);
+                    }
+                }
+
+                return lista;
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public static bool EliminarPermisos(BEUsuario usuario)
+        {
+            try
+            {
+                Hashtable parametros = new Hashtable();
+
+                parametros.Add("@Id", usuario.Id);
+
+                string query = "DELETE FROM UsuarioPermiso WHERE Usuario = @Id";
+
+                bool eliminado = Acceso.ExecuteNonQuery(query, parametros, false);
+
+                return eliminado;
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
             }
         }
     }

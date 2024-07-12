@@ -4,7 +4,9 @@ using BLL;
 using MetroFramework;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace UI
 {
@@ -115,6 +117,7 @@ namespace UI
                 {
                     MetroMessageBox.Show(this, "Familia agregada correctamente.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     ActualizarDGV();
+                    txtFamilia.Text = "";
                 }
             }
             catch (Exception ex)
@@ -153,6 +156,12 @@ namespace UI
 
                 if (familia == null) throw new Exception("La familia no existe.");
 
+                // Verificar recursividad antes de agregar el permiso a la familia
+                if (VerificarRecursividad(permiso, familia))
+                {
+                    throw new Exception("No se puede agregar el permiso a la familia ya que generaría una recursividad.");
+                }
+
                 bool alta = BLLPermiso.AgregarPermisoAFamilia(permiso, familia);
 
                 if (alta)
@@ -167,6 +176,13 @@ namespace UI
                 MetroMessageBox.Show(this, ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
+        }
+
+        private bool VerificarRecursividad(BEPermiso permiso, BEPermiso familia)
+        {
+            List<BEPermiso> padres = BLLPermiso.ObtenerPadres(familia);
+
+            return padres.Any(a => a.Id == permiso.Id);
         }
 
         private void ListarArbolRecursivo(BEPermiso familia)
@@ -309,6 +325,140 @@ namespace UI
 
                 if (control.Controls.Count > 0)
                     ActualizarControles(control.Controls, palabras);
+            }
+        }
+
+        private void dgvUsuarios_SelectionChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                BEUsuario usuario = (BEUsuario)dgvUsuarios.CurrentRow.DataBoundItem;
+
+                List<BEPermiso> permisos = BLLUsuario.ObtenerPermisos(usuario);
+
+                ListarPermisosUsuario(permisos);
+            }
+            catch (Exception ex)
+            {
+                MetroMessageBox.Show(this, ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+        }
+
+        private void ListarPermisosUsuario(List<BEPermiso> permisosUsuario)
+        {
+            try
+            {
+                treeViewPermUsuario.Nodes.Clear();
+
+                TreeNode root = new TreeNode("Permisos de Usuario");
+                treeViewPermUsuario.Nodes.Add(root);
+
+                foreach (var permiso in permisosUsuario)
+                {
+                    TreeNode permisoNode = new TreeNode(permiso.Nombre);
+                    permisoNode.Tag = permiso;
+                    root.Nodes.Add(permisoNode);
+
+                    if (permiso.EsPadre)
+                    {
+                        List<BEPermiso> hijos = BLLPermiso.ListarHijosRecursivo(permiso);
+                        foreach (var hijo in hijos)
+                        {
+                            LlenarTreeNode(permisoNode, hijo);
+                        }
+                    }
+                }
+
+                treeViewPermUsuario.ExpandAll();
+
+                /* Antes no mostrabamos los permisos padres:
+                    treeViewPermUsuario.Nodes.Clear();
+
+                     TreeNode root = new TreeNode("Permisos de Usuario");
+                     treeViewPermUsuario.Nodes.Add(root);
+
+                     List<BEPermiso> hijos = new List<BEPermiso>();
+                     foreach (var item in permisosUsuario)
+                     {
+                         if (item.EsPadre)
+                             hijos.AddRange(BLLPermiso.ListarHijosRecursivo(item));
+                         else
+                             hijos.Add(item);
+                     }
+
+                     foreach (var item in hijos)
+                         LlenarTreeNode(root, item);
+
+                     treeViewPermUsuario.ExpandAll();
+                 */
+            }
+            catch (Exception ex)
+            {
+                MetroMessageBox.Show(this, ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+        }
+
+        private void btnEliminarFamilia_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (dgvFamilia.SelectedRows.Count <= 0) throw new Exception("Seleccione una familia.");
+
+                DialogResult opcion = MetroMessageBox.Show(this, "Desea eliminar la familia?", "Aviso", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                if (opcion == DialogResult.No)
+                    return;
+
+                DataGridViewRow filaSeleccionadaFamilia = dgvFamilia.SelectedRows[0];
+
+                int idFamilia = Convert.ToInt32(filaSeleccionadaFamilia.Cells[0].Value);
+
+                BEPermiso familia = BLLPermiso.BuscarFamilia(idFamilia);
+
+                if (familia == null) throw new Exception("La familia no existe.");
+
+                bool eliminado = BLLPermiso.EliminarFamilia(familia);
+
+                if (eliminado)
+                {
+                    MetroMessageBox.Show(this, "Familia eliminada correctamente.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    ActualizarDGV();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                MetroMessageBox.Show(this, ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+        }
+
+        private void btnEliminarPermisos_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (dgvUsuarios.SelectedRows.Count <= 0) throw new Exception("Seleccione un usuario.");
+
+                DialogResult opcion = MetroMessageBox.Show(this, "Desea eliminar los permisos asignados al usuario?", "Aviso", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                if (opcion == DialogResult.No)
+                    return;
+
+                BEUsuario usuario = (BEUsuario)dgvUsuarios.CurrentRow.DataBoundItem;
+
+                bool eliminado = BLLUsuario.EliminarPermisos(usuario);
+
+                if (eliminado)
+                {
+                    MetroMessageBox.Show(this, "Permisos eliminados correctamente.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
             }
         }
     }
