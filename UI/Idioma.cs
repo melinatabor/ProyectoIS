@@ -162,23 +162,39 @@ namespace UI
 
         private void ddIdiomas_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (ddIdiomas.SelectedValue != null && ddIdiomas.SelectedValue is int selectedId)
+            try
             {
-                ActualizarDgv(selectedId);
+                if (ddIdiomas.SelectedValue != null && ddIdiomas.SelectedValue is int selectedId)
+                    ActualizarDgv(selectedId);
             }
+            catch (Exception ex)
+            {
+                MetroMessageBox.Show(this, ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            
         }
 
         private void dgvTraduccion_SelectionChanged(object sender, EventArgs e)
         {
-            if (dgvTraduccion.SelectedRows.Count > 0)
+            try
             {
-                DataGridViewRow selectedRow = dgvTraduccion.SelectedRows[0];
+                if (dgvTraduccion.SelectedRows.Count > 0)
+                {
+                    BETraduccion traduccion = (BETraduccion)dgvTraduccion.SelectedRows[0].DataBoundItem;
 
-                string tag = selectedRow.Cells[1].Value.ToString();
-                string traduccion = selectedRow.Cells[3].Value.ToString();
+                    string tag = traduccion.Tag;
+                    string trad = traduccion.Traduccion;
 
-                labelTag.Text = _tag + tag + ":";
-                txtTraduccion.Hint = traduccion;
+                    labelTag.Text = _tag + tag + ":";
+                    txtTraduccion.Hint = trad;
+                    txtTraduccion.Text = trad;
+                }
+            }
+            catch (Exception ex)
+            {
+                MetroMessageBox.Show(this, ex.Message, "Error Actualizar Idioma", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
             }
         }
 
@@ -186,20 +202,29 @@ namespace UI
         {
             try
             {
-                DataGridViewRow selectedRow = dgvTraduccion.SelectedRows[0];
-                int tag = Convert.ToInt32(selectedRow.Cells[0].Value.ToString());
-                int idioma = Convert.ToInt32(ddIdiomas.SelectedValue);
-                bool isTraduccionActual = selectedRow.Cells[3].Value.ToString() != "";
+                if (dgvTraduccion.SelectedRows.Count != 1)
+                    throw new Exception("Debe seleccionar una traducción");
+                    
+                BETraduccion traduccion = (BETraduccion)dgvTraduccion.SelectedRows[0].DataBoundItem;
 
-                DialogResult result = MetroMessageBox.Show(this, "¿Está seguro que desea modificar la traducción?", "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                BEIdioma idioma = (BEIdioma)ddIdiomas.SelectedItem;
 
-                if (result == DialogResult.Yes)
-                {
-                    if (isTraduccionActual) BLLTraduccion.Modificar(idioma, tag, txtTraduccion.Text);
-                    else BLLTraduccion.Agregar(idioma, tag, txtTraduccion.Text);
-                    ActualizarDgv(idioma);
-                    txtTraduccion.Text = "";
-                }
+                DialogResult result = MetroMessageBox.Show(
+                    this, 
+                    "¿Está seguro que desea modificar la traducción?",
+                    "Confirmación", 
+                    MessageBoxButtons.YesNo, 
+                    MessageBoxIcon.Question
+                );
+
+                if (result == DialogResult.No)
+                    return;
+
+                BLLTraduccion.Modificar(idioma, traduccion, txtTraduccion.Text.Trim());
+
+                ActualizarDgv(idioma.Id);
+
+                txtTraduccion.Text = "";
             }
             catch (Exception ex)
             {

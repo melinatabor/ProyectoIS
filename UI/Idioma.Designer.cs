@@ -185,7 +185,7 @@
             this.inputNuevoIdioma.AnimateReadOnly = false;
             this.inputNuevoIdioma.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.inputNuevoIdioma.Depth = 0;
-            this.inputNuevoIdioma.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.inputNuevoIdioma.Font = new System.Drawing.Font("Roboto", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.inputNuevoIdioma.Hint = "Nuevo Idioma";
             this.inputNuevoIdioma.LeadingIcon = null;
             this.inputNuevoIdioma.Location = new System.Drawing.Point(746, 398);

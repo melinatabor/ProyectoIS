@@ -10,11 +10,11 @@ namespace BLL
 {
     public class BLLTraduccion
     {
-        public static bool Agregar(int idioma, int tag, string traduccion)
+        public static bool Agregar(BEIdioma idioma, BETraduccion traduccion, string trad)
         {
             try
             {
-                return MPPTraduccion.Agregar(idioma, tag, traduccion);
+                return MPPTraduccion.Agregar(idioma, traduccion, trad);
             }
             catch (Exception ex) { throw ex; }
         }
@@ -28,11 +28,11 @@ namespace BLL
             catch (Exception ex) { throw ex; }
         }
 
-        public static bool Modificar(int idioma, int tag, string traduccion)
+        public static bool Modificar(BEIdioma idioma, BETraduccion traduccion, string trad)
         {
             try
             {
-                return MPPTraduccion.Modificar(idioma, tag, traduccion);
+                return MPPTraduccion.Modificar(idioma, traduccion, trad);
             }
             catch (Exception ex) { throw ex; }
         }

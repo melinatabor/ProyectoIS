@@ -13,16 +13,23 @@ namespace MPP
 {
     public class MPPTraduccion
     {
-        public static bool Agregar(int idioma, int tag, string traduccion)
+        public static bool Agregar(BEIdioma idioma, BETraduccion traduccion, string trad)
         {
-            Hashtable parametros = new Hashtable
+            try
+            {
+                Hashtable parametros = new Hashtable
                 {
-                    { "@Idioma", idioma },
-                    { "@Tag", tag },
-                    { "@Traduccion", traduccion }
+                    { "@Idioma", idioma.Id },
+                    { "@Tag", traduccion.Id },
+                    { "@Traduccion", trad }
                 };
 
-            return Acceso.ExecuteNonQuery(IdiomaStoredProcedures.SP_AgregarTraduccion, parametros, true);
+                return Acceso.ExecuteNonQuery(IdiomaStoredProcedures.SP_AgregarTraduccion, parametros, true);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         public static List<BETraduccion> Listar(int idIdioma)
@@ -61,16 +68,23 @@ namespace MPP
             }
         }
 
-        public static bool Modificar(int idioma, int tag, string traduccion)
+        public static bool Modificar(BEIdioma idioma, BETraduccion traduccion, string trad)
         {
-            Hashtable parametros = new Hashtable
+            try
+            {
+                Hashtable parametros = new Hashtable
                 {
-                    { "@Idioma", idioma },
-                    { "@Tag", tag },
-                    { "@NuevaTraduccion", traduccion }
+                    { "@Idioma", idioma.Id },
+                    { "@Tag", traduccion.Id },
+                    { "@NuevaTraduccion", trad }
                 };
 
-            return Acceso.ExecuteNonQuery(IdiomaStoredProcedures.SP_ModificarTraduccion, parametros, true);
+                return Acceso.ExecuteNonQuery(IdiomaStoredProcedures.SP_ModificarTraduccion, parametros, true);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
     }
 }
