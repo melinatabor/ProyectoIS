@@ -13,7 +13,7 @@ namespace MPP
 {
     public class MPPTraduccion
     {
-        public static bool Agregar(BEIdioma idioma, BETraduccion traduccion, string trad)
+        private static bool Agregar(BEIdioma idioma, BETraduccion traduccion, string trad)
         {
             try
             {
@@ -79,7 +79,17 @@ namespace MPP
                     { "@NuevaTraduccion", trad }
                 };
 
-                return Acceso.ExecuteNonQuery(IdiomaStoredProcedures.SP_ModificarTraduccion, parametros, true);
+                //Buscar si existe la traduccion, al ser unico el tag e idioma no deberia haber mas de una
+                string query = "SELECT Idioma, Tag FROM Traduccion WHERE Idioma = @Idioma AND Tag = @Tag";
+
+                bool existe = Convert.ToBoolean(Acceso.ExecuteScalar(query, parametros, false));
+                
+                // Si existe, se modifica
+                if (existe)
+                    return Acceso.ExecuteNonQuery(IdiomaStoredProcedures.SP_ModificarTraduccion, parametros, true);
+
+                // De lo contrario, se agrega
+                return Agregar(idioma, traduccion, trad);
             }
             catch (Exception ex)
             {

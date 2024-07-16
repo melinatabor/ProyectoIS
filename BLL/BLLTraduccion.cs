@@ -10,15 +10,6 @@ namespace BLL
 {
     public class BLLTraduccion
     {
-        public static bool Agregar(BEIdioma idioma, BETraduccion traduccion, string trad)
-        {
-            try
-            {
-                return MPPTraduccion.Agregar(idioma, traduccion, trad);
-            }
-            catch (Exception ex) { throw ex; }
-        }
-
         public static List<BETraduccion> Listar(int idIdioma)
         {
             try
