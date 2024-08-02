@@ -69,7 +69,8 @@
             this.dgvUsuariosHistoricos.EnableHeadersVisualStyles = false;
             this.dgvUsuariosHistoricos.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.dgvUsuariosHistoricos.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.dgvUsuariosHistoricos.Location = new System.Drawing.Point(23, 160);
+            this.dgvUsuariosHistoricos.Location = new System.Drawing.Point(12, 87);
+            this.dgvUsuariosHistoricos.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.dgvUsuariosHistoricos.Name = "dgvUsuariosHistoricos";
             this.dgvUsuariosHistoricos.ReadOnly = true;
             this.dgvUsuariosHistoricos.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
@@ -85,7 +86,7 @@
             this.dgvUsuariosHistoricos.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             this.dgvUsuariosHistoricos.RowTemplate.Height = 33;
             this.dgvUsuariosHistoricos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvUsuariosHistoricos.Size = new System.Drawing.Size(728, 267);
+            this.dgvUsuariosHistoricos.Size = new System.Drawing.Size(621, 263);
             this.dgvUsuariosHistoricos.TabIndex = 0;
             // 
             // btnBuscarVersiones
@@ -95,8 +96,8 @@
             this.btnBuscarVersiones.Depth = 0;
             this.btnBuscarVersiones.HighEmphasis = true;
             this.btnBuscarVersiones.Icon = null;
-            this.btnBuscarVersiones.Location = new System.Drawing.Point(279, 88);
-            this.btnBuscarVersiones.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.btnBuscarVersiones.Location = new System.Drawing.Point(140, 46);
+            this.btnBuscarVersiones.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.btnBuscarVersiones.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnBuscarVersiones.Name = "btnBuscarVersiones";
             this.btnBuscarVersiones.NoAccentTextColor = System.Drawing.Color.Empty;
@@ -116,8 +117,8 @@
             this.btnRestaurarVersion.Depth = 0;
             this.btnRestaurarVersion.HighEmphasis = true;
             this.btnRestaurarVersion.Icon = null;
-            this.btnRestaurarVersion.Location = new System.Drawing.Point(558, 88);
-            this.btnRestaurarVersion.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.btnRestaurarVersion.Location = new System.Drawing.Point(279, 46);
+            this.btnRestaurarVersion.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.btnRestaurarVersion.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnRestaurarVersion.Name = "btnRestaurarVersion";
             this.btnRestaurarVersion.NoAccentTextColor = System.Drawing.Color.Empty;
@@ -134,22 +135,25 @@
             // 
             this.ddUsuarios.FormattingEnabled = true;
             this.ddUsuarios.ItemHeight = 23;
-            this.ddUsuarios.Location = new System.Drawing.Point(24, 95);
+            this.ddUsuarios.Location = new System.Drawing.Point(12, 49);
+            this.ddUsuarios.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.ddUsuarios.Name = "ddUsuarios";
-            this.ddUsuarios.Size = new System.Drawing.Size(239, 29);
+            this.ddUsuarios.Size = new System.Drawing.Size(122, 29);
             this.ddUsuarios.TabIndex = 4;
             this.ddUsuarios.UseSelectable = true;
             // 
             // UsuarioHistorico
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(840, 450);
+            this.ClientSize = new System.Drawing.Size(672, 404);
             this.Controls.Add(this.ddUsuarios);
             this.Controls.Add(this.btnRestaurarVersion);
             this.Controls.Add(this.btnBuscarVersiones);
             this.Controls.Add(this.dgvUsuariosHistoricos);
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "UsuarioHistorico";
+            this.Padding = new System.Windows.Forms.Padding(10, 60, 10, 10);
             this.Tag = "formUsuarioHistorico";
             this.Text = "Usuarios Históricos";
             this.Load += new System.EventHandler(this.UsuarioHistorico_Load);

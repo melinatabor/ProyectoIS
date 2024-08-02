@@ -51,7 +51,7 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(362, 110);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(104, 45);
+            this.label2.Size = new System.Drawing.Size(53, 21);
             this.label2.TabIndex = 4;
             this.label2.Tag = "labelHasta";
             this.label2.Text = "Hasta:";
@@ -61,7 +61,7 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(18, 110);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(112, 45);
+            this.label1.Size = new System.Drawing.Size(57, 21);
             this.label1.TabIndex = 3;
             this.label1.Tag = "labelDesde";
             this.label1.Text = "Desde:";
@@ -127,7 +127,7 @@
             this.dtFrom.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.dtFrom.MinimumSize = new System.Drawing.Size(0, 29);
             this.dtFrom.Name = "dtFrom";
-            this.dtFrom.Size = new System.Drawing.Size(309, 50);
+            this.dtFrom.Size = new System.Drawing.Size(309, 29);
             this.dtFrom.TabIndex = 11;
             // 
             // dtTo
@@ -136,7 +136,7 @@
             this.dtTo.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.dtTo.MinimumSize = new System.Drawing.Size(0, 29);
             this.dtTo.Name = "dtTo";
-            this.dtTo.Size = new System.Drawing.Size(318, 50);
+            this.dtTo.Size = new System.Drawing.Size(318, 29);
             this.dtTo.TabIndex = 12;
             // 
             // comboBoxTipo
@@ -198,7 +198,7 @@
             this.labelPagina.Font = new System.Drawing.Font("Segoe UI Semilight", 16.125F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelPagina.Location = new System.Drawing.Point(516, 430);
             this.labelPagina.Name = "labelPagina";
-            this.labelPagina.Size = new System.Drawing.Size(172, 59);
+            this.labelPagina.Size = new System.Drawing.Size(87, 30);
             this.labelPagina.TabIndex = 10;
             this.labelPagina.Tag = "labelPagina";
             this.labelPagina.Text = "Página: ";
@@ -248,8 +248,7 @@
             // 
             // btnFiltrar
             // 
-            this.btnFiltrar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnFiltrar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnFiltrar.AutoSize = false;
             this.btnFiltrar.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btnFiltrar.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
@@ -272,7 +271,7 @@
             // 
             // Bitacora
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(17F, 45F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 21F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1154, 505);
             this.Controls.Add(this.btnFiltrar);
